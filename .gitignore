@@ -1,0 +1,48 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+
+# Node dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+coverage/
+frontend/.next/
+frontend/out/
+frontend/build/
+backend/build/
+backend/dist/
+
+# Test and type artifacts
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+frontend/.env*
+backend/.env*
+
+# Deployment and tool state
+.vercel/
+.remember/
+.claude/
+.git-frontend-backup/
+tmp/
+
+# Python cache
+__pycache__/
+*.pyc

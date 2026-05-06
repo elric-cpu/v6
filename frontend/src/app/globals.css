@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #faf8f3;
+  --foreground: #2d2d2d;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans), sans-serif;
+  line-height: 1.5;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

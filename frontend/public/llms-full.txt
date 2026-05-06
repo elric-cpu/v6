@@ -1,0 +1,356 @@
+# Benson Home Solutions - Complete LLMs Context
+
+## Business Overview
+
+Benson Home Solutions is a practical Oregon contractor providing repair, restoration, and maintenance work for residential and commercial properties.
+
+### Legal Entity
+- **Company**: Benson Enterprises, LLC
+- **Oregon CCB**: #258533
+- **Phone**: 541-321-5115
+- **Emergency Phone**: 541-413-0480
+- **Email**: office@bensonhomesolutions.com
+- **Website**: https://bensonhomesolutions.com
+
+### Service Areas
+
+#### Sweet Home 25-Mile Silo
+Primary service area within roughly 25 miles of Sweet Home, Oregon:
+- Sweet Home
+- Lebanon
+- Albany
+- Brownsville
+- Cascadia
+- Foster
+- Holley
+- Crawfordsville
+- Scio (where practical)
+- Tangent (where practical)
+
+#### Harney County Silo
+Remote service area in Eastern Oregon:
+- Fields (97710)
+- Burns / Lawen area (97720)
+- Princeton (97721)
+- Diamond (97722)
+- Crane (97732)
+- Frenchglen (97736)
+- Hines (97738)
+- Riley (97758)
+- Drewsey (97904)
+
+## Core Services
+
+### 1. Inspection Repairs
+- Property inspection findings
+- Code compliance repairs
+- Pre-sale preparation
+- Insurance claim documentation
+
+### 2. Water, Mold & Moisture
+- Water damage assessment and repair
+- Mold investigation and remediation
+- Moisture control solutions
+- Crawlspace and attic moisture issues
+
+### 3. Window & Door Replacements
+- Drafty window replacement
+- Damaged door repair
+- Weather protection upgrades
+- Energy efficiency improvements
+
+### 4. Maintenance Plans
+- Residential maintenance subscriptions
+- Commercial maintenance contracts
+- Church/non-profit facility maintenance
+- Preventive maintenance programs
+
+### 5. Emergency Response
+- Water intrusion emergencies
+- Storm damage response
+- Structural emergencies
+- Weather-related repairs
+
+### 6. Energy & Weatherization
+- Weatherization services
+- Energy efficiency upgrades
+- Insulation improvements
+- Draft reduction
+
+### 7. Property Preservation
+- Vacant property maintenance
+- Foreclosure property services
+- Seasonal property care
+- Remote property monitoring
+
+### 8. Residential Remodeling
+- Kitchen and bathroom updates
+- Interior renovations
+- Exterior improvements
+- Accessibility modifications
+
+### 9. Commercial Maintenance
+- Business facility maintenance
+- Retail space upkeep
+- Office building services
+- Industrial property care
+
+### 10. Church / Non-Profit Facility Maintenance
+- Religious facility maintenance
+- Non-profit building care
+- Community center services
+- Specialized facility needs
+
+## Brand Voice
+
+### Tone
+- Direct and clear
+- Practical and contractor-led
+- Documentation-focused
+- Calm and competent
+- Specific and detailed
+
+### Preferred Phrases
+- "Repairs that clear the list."
+- "Maintenance that keeps it that way."
+- "Send the list, send the photos, text the address."
+- "Clear scopes, clean documentation, completed work."
+- "Practical repair, restoration, and maintenance work for Oregon properties."
+
+### Avoid
+- "Transform your space"
+- "Dream home"
+- "Premier provider"
+- "Top-rated" (unless verified)
+- "Unmatched quality"
+- "One-stop solution"
+- "Trusted partner"
+- Fake urgency
+- Unsupported guarantees
+- Generic remodel fluff
+
+## Brand Colors
+
+```css
+benson-maroon:      #722F37
+benson-maroon-dark: #5C252C
+benson-burgundy:    #8B454D
+benson-wine:        #4A1F24
+benson-cream:       #F5F1E8
+benson-offwhite:    #FAF8F3
+benson-charcoal:    #2D2D2D
+benson-slate:       #4A4A4A
+benson-pale:        #E5E5E5
+```
+
+## Technical Stack
+
+### Frontend
+- Framework: Next.js 14.2.35
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Deployment: Google Cloud Run
+
+### Backend
+- Python-based services
+- Google Cloud Platform
+- Cloud Run for serverless deployment
+
+### Infrastructure
+- Google Cloud DNS
+- Google Cloud Load Balancer
+- Google Cloud Storage
+
+## Content Guidelines
+
+### SEO Requirements
+- Unique titles and meta descriptions
+- Clear H1, H2, H3 hierarchy
+- Local language where natural
+- CCB #258533 where appropriate
+- Internal linking
+- Descriptive image alt text
+- FAQ sections where useful
+
+### Schema Markup
+- LocalBusiness
+- Contractor
+- Service
+- FAQPage
+- Speakable
+- BreadcrumbList
+
+### Performance Targets
+- LCP under 2.5s
+- FID under 100ms
+- CLS under 0.1
+- WCAG 2.1 AA compliance
+
+## Image Guidelines
+
+### Image Sources
+- Real project photos only
+- No fake stock photos
+- No AI-generated images as real project photos
+- Load optimized images in production
+
+### Image Categories
+- Water damage / dry-out
+- Mold or moisture investigation
+- Crawlspace or attic
+- Window replacements
+- Door replacements
+- Exterior repair
+- Property preservation
+- Maintenance work
+- Equipment
+- Before/after repair
+- Oregon homes / high-desert / valley conditions
+
+## Contact Information
+
+### Primary Contact
+- **Phone**: 541-321-5115
+- **Email**: office@bensonhomesolutions.com
+- **Website**: https://bensonhomesolutions.com
+
+### Emergency Contact
+- **Phone**: 541-413-0480
+
+### Service Area Contact
+- Sweet Home area: 541-321-5115
+- Harney County: 541-321-5115 (route-dependent)
+
+## Legal Information
+
+### Licensing
+- **Oregon CCB**: #258533
+- **Bonded**: Yes
+- **Insured**: Yes
+
+### Service Area Limitations
+- Sweet Home 25-mile silo: Primary service area
+- Harney County silo: Route-dependent service
+- Remote work availability: Confirm before promising same-day response
+
+## Analytics & Tracking
+
+### Google Analytics 4
+- Measurement ID: G-XXXXXXXXXX (to be configured)
+- Event tracking: Contact forms, service requests, page views
+
+### Google Search Console
+- Property: https://bensonhomesolutions.com/
+- Verification: DNS or meta tag (to be configured)
+
+### Bing Webmaster Tools
+- Property: https://bensonhomesolutions.com/
+- Verification: Meta tag (to be configured)
+
+## Deployment Information
+
+### Production URL
+- **Primary**: https://bensonhomesolutions.com
+- **Cloud Run**: https://benson-website-v6-1048944000089.us-west1.run.app
+
+### Environment
+- **Project**: civic-wall-494004-b3
+- **Region**: us-west1
+- **Platform**: Google Cloud Run
+
+## Maintenance & Updates
+
+### Content Updates
+- Service descriptions
+- Project photos
+- Testimonials (verified only)
+- FAQ sections
+- Service area information
+
+### Technical Updates
+- Security patches
+- Performance optimizations
+- SEO improvements
+- Accessibility enhancements
+
+## Compliance & Privacy
+
+### Data Collection
+- Contact form submissions
+- Service requests
+- Estimate requests
+- Newsletter subscriptions (if implemented)
+
+### Privacy Policy
+- Information collection practices
+- Data usage policies
+- User rights and choices
+- Contact information for privacy inquiries
+
+### Cookie Policy
+- Analytics cookies
+- Session cookies
+- Performance cookies
+- User consent requirements
+
+## Emergency Protocols
+
+### Water Intrusion
+- Immediate response protocol
+- Documentation requirements
+- Insurance claim support
+- Mitigation procedures
+
+### Storm Damage
+- Assessment procedures
+- Temporary protection
+- Repair prioritization
+- Documentation for claims
+
+### Structural Issues
+- Safety assessment
+- Stabilization procedures
+- Professional coordination
+- Documentation requirements
+
+## Quality Standards
+
+### Workmanship
+- Oregon building code compliance
+- Industry best practices
+- Material quality standards
+- Warranty information
+
+### Documentation
+- Before/after photos
+- Detailed scopes of work
+- Material specifications
+- Timeline adherence
+
+### Communication
+- Clear project updates
+- Change order procedures
+- Completion documentation
+- Follow-up procedures
+
+## Future Roadmap
+
+### Planned Features
+- Subscription Recommendation Engine
+- 3D Estimate Builder
+- AI Space Visualizer
+- Predictive Maintenance ML
+- Church Facility Assessment Report
+- Commercial Property Health Score
+
+### Service Expansions
+- Additional service areas
+- New service categories
+- Enhanced maintenance plans
+- Commercial service expansion
+
+---
+
+**Last Updated**: 2026-05-05
+**Version**: 1.0
+**Maintained By**: Benson Home Solutions Team

@@ -1,0 +1,53 @@
+# Benson Home Solutions - Quick Reference
+
+## Business Info
+- **Company**: Benson Enterprises, LLC
+- **Oregon CCB**: #258533
+- **Phone**: 541-321-5115
+- **Emergency**: 541-413-0480
+- **Email**: office@bensonhomesolutions.com
+- **Website**: https://bensonhomesolutions.com
+
+## Service Areas
+- Sweet Home 25-mile: Sweet Home, Lebanon, Albany, Brownsville, Cascadia, Foster, Holley, Crawfordsville
+- Harney County: Fields, Burns, Hines, Diamond, Riley, Drewsey, Princeton, Frenchglen, Crane
+
+## Core Services
+1. Inspection Repairs
+2. Water, Mold & Moisture
+3. Window & Door Replacements
+4. Maintenance Plans
+5. Emergency Response
+6. Energy & Weatherization
+7. Property Preservation
+8. Residential Remodeling
+9. Commercial Maintenance
+10. Church / Non-Profit Facility Maintenance
+
+## Brand Voice
+- Direct, clear, practical
+- Contractor-led documentation
+- "Repairs that clear the list"
+- "Clear scopes, clean documentation, completed work"
+
+## Brand Colors
+- Maroon: #722F37
+- Cream: #F5F1E8
+- Charcoal: #2D2D2D
+- Slate: #4A4A4A
+
+## Tech Stack
+- Next.js 14.2.35
+- TypeScript
+- Tailwind CSS
+- Google Cloud Run
+
+## Deployment
+- Project: civic-wall-494004-b3
+- Region: us-west1
+- Cloud Run: benson-website-v6
+
+## Contact
+- Primary: 541-321-5115
+- Email: office@bensonhomesolutions.com
+- Website: https://bensonhomesolutions.com

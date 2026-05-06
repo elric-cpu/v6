@@ -1,0 +1,93 @@
+export const publicImages = [
+  {
+    id: "window-replacement-exterior",
+    src: "/site-images/window-replacement-exterior.jpg",
+    alt: "Exterior view of a home with newly installed windows and clean trim work.",
+    caption: "Window replacement work with weather-ready exterior detailing.",
+    serviceCategory: "window-door-replacements",
+    imageStage: "after",
+    sourceFileName: "IMG_0074 (2).jpg",
+  },
+  {
+    id: "maintenance-porch",
+    src: "/site-images/maintenance-porch.jpg",
+    alt: "Covered residential porch and deck area maintained and ready for seasonal use.",
+    caption: "Routine maintenance work that keeps exterior living spaces in good condition.",
+    serviceCategory: "maintenance-plans",
+    imageStage: "after",
+    sourceFileName: "IMG_0211.jpg",
+  },
+  {
+    id: "commercial-utility-space",
+    src: "/site-images/commercial-utility-space.jpg",
+    alt: "Interior utility and service space kept clean, functional, and ready for maintenance work.",
+    caption: "Practical facility maintenance for working interior spaces.",
+    serviceCategory: "commercial-maintenance",
+    imageStage: "general",
+    sourceFileName: "IMG_0323.jpg",
+  },
+  {
+    id: "emergency-flood-response",
+    src: "/site-images/emergency-flood-response.jpg",
+    alt: "Crew responding to active water intrusion and flood cleanup conditions.",
+    caption: "Emergency-response work for water intrusion and moisture events.",
+    serviceCategory: "emergency-response",
+    imageStage: "during",
+    sourceFileName: "IMG_0586.jpg",
+  },
+  {
+    id: "inspection-home-exterior",
+    src: "/site-images/inspection-home-exterior.jpg",
+    alt: "Residential exterior used for repair review and inspection follow-up work.",
+    caption: "Inspection repair projects start with clear site review and documentation.",
+    serviceCategory: "inspection-repairs",
+    imageStage: "general",
+    sourceFileName: "IMG_0747.jpg",
+  },
+  {
+    id: "energy-window-upgrade",
+    src: "/site-images/energy-window-upgrade.jpg",
+    alt: "Exterior window and door upgrade that improves weather protection and efficiency.",
+    caption: "Window and door upgrades can tighten the building envelope against Oregon weather.",
+    serviceCategory: "energy-weatherization",
+    imageStage: "after",
+    sourceFileName: "IMG_0069.jpg",
+  },
+  {
+    id: "property-exterior-finish",
+    src: "/site-images/property-exterior-finish.jpg",
+    alt: "Finished residential exterior showing a property secured and restored to serviceable condition.",
+    caption: "Property preservation work focused on exterior condition and readiness.",
+    serviceCategory: "property-preservation",
+    imageStage: "after",
+    sourceFileName: "IMG_1600.jpg",
+  },
+  {
+    id: "porch-rebuild-detail",
+    src: "/site-images/porch-rebuild-detail.jpg",
+    alt: "Deck or porch rebuild in progress with visible structural and finish work.",
+    caption: "Residential remodeling work with clear progress on exterior rebuild details.",
+    serviceCategory: "residential-remodeling",
+    imageStage: "during",
+    sourceFileName: "IMG_7428.jpg",
+  },
+];
+
+const imageById = new Map(publicImages.map((image) => [image.id, image]));
+
+export const serviceImageAssignments = {
+  "inspection-repairs": "inspection-home-exterior",
+  "water-mold-moisture": "emergency-flood-response",
+  "window-door-replacements": "window-replacement-exterior",
+  "maintenance-plans": "maintenance-porch",
+  "emergency-response": "emergency-flood-response",
+  "energy-weatherization": "energy-window-upgrade",
+  "property-preservation": "property-exterior-finish",
+  "residential-remodeling": "porch-rebuild-detail",
+  "commercial-maintenance": "commercial-utility-space",
+  "church-nonprofit-maintenance": "commercial-utility-space",
+};
+
+export function getPublicImageById(imageId) {
+  return imageById.get(imageId) ?? null;
+}

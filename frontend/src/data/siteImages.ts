@@ -1,0 +1,112 @@
+import { SiteImage, ServiceType } from "@/types";
+
+export const siteImages: Record<string, SiteImage> = {
+  // Service images
+  inspectionRepairs: {
+    id: "inspection-home-exterior",
+    src: "/site-images/inspection-home-exterior.jpg",
+    alt: "Residential exterior used for repair review and inspection follow-up work.",
+    caption: "Inspection repair work starts with clear site review and documented follow-through.",
+    serviceCategory: "inspection-repairs",
+    imageStage: "general",
+  },
+  waterDamageRepair: {
+    id: "IMG_0031",
+    src: "/site-images/IMG_0031.jpg",
+    alt: "Water damage repair work showing affected interior and restoration progress.",
+    caption: "Water intrusion response with proper drying, assessment, and structural repair.",
+    serviceCategory: "water-mold-moisture",
+    imageStage: "during",
+  },
+  windowDoorReplacements: {
+    id: "window-replacement-exterior",
+    src: "/site-images/window-replacement-exterior.jpg",
+    alt: "Exterior view of a home with newly installed windows and clean trim work.",
+    caption: "Window and screen-related exterior work with clean, weather-ready detailing.",
+    serviceCategory: "window-door-replacements",
+    imageStage: "after",
+  },
+  maintenancePlans: {
+    id: "maintenance-porch",
+    src: "/site-images/maintenance-porch.jpg",
+    alt: "Routine maintenance work on residential porch and exterior elements.",
+    caption: "Preventative maintenance that protects your investment year after year.",
+    serviceCategory: "maintenance-plans",
+    imageStage: "general",
+  },
+  emergencyResponse: {
+    id: "emergency-flood-response",
+    src: "/site-images/emergency-flood-response.jpg",
+    alt: "Crew responding to active water intrusion and flood cleanup conditions.",
+    caption: "Harney-area work often starts with practical response planning and site conditions.",
+    serviceCategory: "emergency-response",
+    imageStage: "during",
+  },
+  propertyPreservation: {
+    id: "property-exterior-finish",
+    src: "/site-images/property-exterior-finish.jpg",
+    alt: "Finished residential exterior showing a property secured and restored to serviceable condition.",
+    caption: "Exterior condition and readiness remain central across regional service calls.",
+    serviceCategory: "property-preservation",
+    imageStage: "after",
+  },
+  residentialRemodeling: {
+    id: "porch-rebuild-detail",
+    src: "/site-images/porch-rebuild-detail.jpg",
+    alt: "Residential remodel and porch rebuild showing quality craftsmanship and structural details.",
+    caption: "Thoughtful remodeling that respects your home's character while improving function.",
+    serviceCategory: "residential-remodeling",
+    imageStage: "after",
+  },
+  commercialMaintenance: {
+    id: "commercial-utility-space",
+    src: "/site-images/commercial-utility-space.jpg",
+    alt: "Commercial property maintenance in utility area with clean, organized equipment storage.",
+    caption: "Commercial properties kept operational with scheduled maintenance and clear documentation.",
+    serviceCategory: "commercial-maintenance",
+    imageStage: "general",
+  },
+  churchFacility: {
+    id: "IMG_0039",
+    src: "/site-images/IMG_0039.jpg",
+    alt: "Church facility maintenance showing steeple work and exterior building care.",
+    caption: "Church and non-profit facilities maintained with respect for mission and community.",
+    serviceCategory: "church-nonprofit-maintenance",
+    imageStage: "general",
+  },
+  // Area hero images
+  sweetHomeAreaHero: {
+    id: "IMG_0026",
+    src: "/site-images/IMG_0026.jpg",
+    alt: "Sweet Home Oregon residential work - typical project in the 25-mile service radius.",
+    caption: "Serving Sweet Home, Lebanon, Albany, and nearby communities within 25 miles.",
+    serviceCategory: "inspection-repairs",
+    imageStage: "general",
+  },
+  harneyCountyAreaHero: {
+    id: "IMG_0032",
+    src: "/site-images/IMG_0032.jpg",
+    alt: "Harney County Oregon remote property work - high-desert conditions and weatherization.",
+    caption: "Harney County service area covering Burns, Hines, Fields, Diamond, and surrounding communities.",
+    serviceCategory: "property-preservation",
+    imageStage: "general",
+  },
+};
+
+export const serviceImageByType: Partial<Record<ServiceType, SiteImage>> = {
+  "inspection-repairs": siteImages.inspectionRepairs,
+  "water-mold-moisture": siteImages.waterDamageRepair,
+  "window-door-replacements": siteImages.windowDoorReplacements,
+  "maintenance-plans": siteImages.maintenancePlans,
+  "emergency-response": siteImages.emergencyResponse,
+  "energy-weatherization": siteImages.windowDoorReplacements,
+  "property-preservation": siteImages.propertyPreservation,
+  "residential-remodeling": siteImages.residentialRemodeling,
+  "commercial-maintenance": siteImages.commercialMaintenance,
+  "church-nonprofit-maintenance": siteImages.churchFacility,
+};
+
+export const areaImageBySilo = {
+  "sweet-home-25-mile": siteImages.sweetHomeAreaHero,
+  "harney-county": siteImages.harneyCountyAreaHero,
+} as const;
