@@ -20,7 +20,7 @@ Do not rename fields, change response shapes, or invent backend requirements unl
 Before editing, inspect the existing repo.
 
 ```bash
-cd ~/Projects/v6
+cd ~/Projects/benson-home-solutions
 pwd
 find . -maxdepth 3 -type f | sed 's#^\./##' | sort | head -200
 find ~/Projects/benson-website-v5/images -maxdepth 2 -type f | sort
@@ -66,28 +66,7 @@ Use `VERIFY BEFORE PUBLISHING` for anything useful but unverified.
 
 ## 4. Service Areas
 
-Use two service-area silos.
-
-### Sweet Home 25-Mile Silo
-
-Primary service area is a practical 25-mile radius around Sweet Home, Oregon.
-
-Primary targets:
-
-- Sweet Home
-- Lebanon
-- Albany
-- Brownsville
-- Cascadia
-- Foster
-- Holley
-- Crawfordsville
-- Scio where practical
-- Tangent where practical
-
-Do not use the old 75-mile Willamette Valley radius. Do not treat Salem, Keizer, Wilsonville, Eugene, or Corvallis as primary targets unless explicitly approved.
-
-### Harney County Silo
+Use Harney County as the public service geography.
 
 Harney County ZIP-code targets:
 
@@ -104,6 +83,8 @@ Harney County ZIP-code targets:
 Remote Harney County work is planned, routed, and logistics-dependent unless emergency-response availability is explicitly confirmed.
 
 Do not imply same-day response across remote communities unless approved.
+
+Do not reintroduce Sweet Home, Lebanon, Albany, or a Willamette Valley-wide public service-area model unless the user explicitly requests a migration plan.
 
 ---
 
@@ -291,7 +272,7 @@ export type ServiceType =
   | "commercial-maintenance"
   | "church-nonprofit-maintenance";
 
-export type ServiceSilo = "sweet-home-25-mile" | "harney-county";
+export type ServiceSilo = "harney-county";
 
 export interface SiteImage {
   id: string;
@@ -446,6 +427,7 @@ Before final handoff, provide:
 - Known issues
 - Verification gaps
 - Next recommended step
+- If you deploy or push production changes, ping the live production URL and report the HTTP status before calling the release complete.
 
 Do not claim tests passed unless they were actually run.
 

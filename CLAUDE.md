@@ -78,7 +78,7 @@ Do not start by rewriting the website.
 Start here:
 
 ```bash
-cd ~/Projects/v6
+cd ~/Projects/benson-home-solutions
 pwd
 find . -maxdepth 3 -type f | sed 's#^\./##' | sort | head -200
 find ~/Projects/benson-website-v5/images -maxdepth 2 -type f | sort
@@ -231,35 +231,7 @@ Recommended image categories:
 
 ## 8. Service-Area Rules
 
-Use two service-area silos.
-
-### Sweet Home 25-Mile Silo
-
-Primary area:
-
-- Sweet Home
-- Lebanon
-- Albany
-- Brownsville
-- Cascadia
-- Foster
-- Holley
-- Crawfordsville
-- Scio where practical
-- Tangent where practical
-
-Rules:
-
-- Limit this silo to roughly 25 miles around Sweet Home, Oregon.
-- Do not use the prior 75-mile Willamette Valley radius.
-- Do not treat Salem, Keizer, Wilsonville, Eugene, or Corvallis as primary targets unless specifically approved.
-- Use rain, moss, moisture, drainage, crawlspace, roof/gutter, and water-intrusion messaging.
-
-Suggested copy:
-
-```txt
-Serving Sweet Home, Lebanon, Albany, and nearby communities within roughly 25 miles of Sweet Home.
-```
+Use Harney County as the public service geography.
 
 ### Harney County Silo
 
@@ -281,6 +253,7 @@ Rules:
 - Remote work is route-dependent unless emergency availability is confirmed.
 - Do not imply same-day remote response unless approved.
 - Use freeze risk, burst pipes, high-desert wind, winterization, remote-property maintenance, water intrusion, and weather-damaged exterior opening language.
+- Do not reintroduce Sweet Home, Lebanon, Albany, or a Willamette Valley-wide public service-area model unless the user explicitly requests a migration plan.
 
 ---
 
@@ -353,23 +326,16 @@ Use or recommend these routes where compatible with the existing repo:
  /services
  /services/inspection-repairs
  /services/water-damage
- /services/mold-remediation
  /services/window-door-replacement
- /services/window-replacement
- /services/door-replacement
  /services/property-preservation
  /services/energy-weatherization
  /services/emergency-response
+ /services/residential-remodeling
+ /services/commercial-maintenance
+ /services/church-nonprofit-maintenance
  /plans
- /tools/subscription-recommender
- /commercial
- /commercial/property-health-score
- /churches
- /churches/facility-assessment
+ /tools/subscription-recommendation
  /areas
- /areas/sweet-home
- /areas/lebanon
- /areas/albany
  /areas/burns
  /areas/hines
  /areas/fields
@@ -378,9 +344,11 @@ Use or recommend these routes where compatible with the existing repo:
  /areas/drewsey
  /areas/princeton
  /areas/frenchglen
+ /areas/lawen
  /contact
  /how-we-work
  /resources
+ /resources/[slug]
 ```
 
 Avoid thin city pages. Build fewer stronger pages if content is limited.
@@ -404,7 +372,7 @@ export type ServiceType =
   | "commercial-maintenance"
   | "church-nonprofit-maintenance";
 
-export type ServiceSilo = "sweet-home-25-mile" | "harney-county";
+export type ServiceSilo = "harney-county";
 
 export interface SiteImage {
   id: string;
