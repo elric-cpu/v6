@@ -10,7 +10,7 @@ This file summarizes:
 - Claude owns frontend work for this repo.
 - Codex owns backend work for this repo.
 
-This handoff is based on the current backend state in `/home/elric/Projects/v6/backend` and the roadmap in [TODO.md](/home/elric/Projects/v6/backend/TODO.md).
+This handoff is based on the current backend state in `/home/elric/Projects/benson-home-solutions/backend` and the roadmap in [TODO.md](/home/elric/Projects/benson-home-solutions/backend/TODO.md).
 
 ## Current Backend Status
 
@@ -34,7 +34,7 @@ Implemented:
 Completed:
 - service catalog aligned to the AGENTS-defined service groups
 - added `commercial-maintenance` and `church-nonprofit-maintenance`
-- Sweet Home 25-mile and Harney County service-area coverage expanded
+- Harney County service-area coverage expanded
 - Harney remote communities marked `route-dependent`
 - public/internal separation guardrails added through explicit response projection
 - public endpoints now avoid leaking accidental internal-only source fields
@@ -89,7 +89,7 @@ Current backend test result:
 Remaining:
 - add `/api/images` if the frontend needs image metadata from backend instead of static imports
 - add `/api/resources` if the frontend needs backend-driven FAQ/resource data
-- reconcile incomplete Sweet Home-area ZIP coverage where values are still unknown
+- reconcile any remaining Harney County ZIP coverage gaps where values are still unknown
 - confirm all public `href` values match actual frontend routes
 
 ### Lead Intake Surface

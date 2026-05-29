@@ -32,13 +32,16 @@ test("backend service-area links only reference known public routes", () => {
   }
 });
 
-test("service areas group cleanly into the two supported silos", () => {
+test("service areas group cleanly into the Harney County public silo", () => {
   const grouped = groupAreasBySilo(backendAreas);
 
-  assert.equal(grouped.sweetHome.length > 0, true);
   assert.equal(grouped.harneyCounty.length > 0, true);
   assert.equal(
     grouped.harneyCounty.every((area) => area.silo === "harney-county"),
+    true,
+  );
+  assert.equal(
+    backendAreas.every((area) => area.silo === "harney-county"),
     true,
   );
 });

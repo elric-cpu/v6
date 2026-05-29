@@ -24,9 +24,14 @@ export const metadata: Metadata = {
     default: `${company.brandName} | Practical Repair, Restoration & Maintenance`,
     template: `%s | ${company.brandName}`,
   },
-  description: `${brandTagline} Serving Sweet Home, Lebanon, Albany, and Harney County. Oregon CCB #${company.ccbNumber}.`,
+  description: `${brandTagline} Serving Harney County and planned monthly South County routes. Oregon CCB #${company.ccbNumber}.`,
   keywords:
-    "home repair, maintenance, Sweet Home Oregon, Lebanon Oregon, Albany Oregon, Burns Oregon, CCB 258533",
+    "Harney County repair, Burns Oregon contractor, Hines Oregon maintenance, South County routes, window screen repair, CCB 258533",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   ...buildVerificationMetadata(),
 };
 

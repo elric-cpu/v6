@@ -76,12 +76,12 @@ async function renderServicePage(content: NonNullable<ReturnType<typeof getServi
     {
       title: "Send photos and context",
       description:
-        "Start with photos, the address, and any notes that explain the condition, timing, or access limits.",
+        "Start with photos, dimensions where relevant, the address or location, priority level, timing constraints, and access notes.",
     },
     {
       title: "Review and scope",
       description:
-        "The first pass separates urgent conditions from scheduled work and defines the practical next step.",
+        "The first pass separates priority conditions from scheduled work and defines the practical next step.",
     },
     {
       title: "Schedule and complete",
@@ -229,7 +229,7 @@ async function renderServicePage(content: NonNullable<ReturnType<typeof getServi
           <CTAButton
             href="/contact"
             size="lg"
-            className="bg-white text-benson-charcoal hover:bg-benson-cream"
+            className="bg-white !text-benson-charcoal hover:bg-benson-cream"
           >
             Contact Us
           </CTAButton>

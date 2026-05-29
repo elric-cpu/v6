@@ -35,8 +35,9 @@ export default async function ServicesPage() {
                 Our Services
               </h1>
               <p className="text-xl text-benson-slate max-w-3xl">
-                Practical solutions for Oregon properties. Clear scopes, clean
-                documentation, completed work.
+                Practical solutions for Harney County properties. Clear scopes,
+                route-aware scheduling, monthly South County planning, and clean
+                documentation.
               </p>
             </div>
             {featuredImages.length > 0 && (
@@ -79,10 +80,11 @@ export default async function ServicesPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Need Help Choosing?</h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Send the photos, the address, and what needs attention. We&apos;ll review the practical next step.
+            Send photos, dimensions, address or location, access notes, priority
+            level, and timing constraints. We&apos;ll review the practical next step.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

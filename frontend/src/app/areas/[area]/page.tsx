@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: AreaPageProps) {
 
   return buildPageMetadata(
     area ? `${area.city} Service Area` : "Service Area",
-    "Local service-area details for Benson Home Solutions coverage and route-dependent scheduling.",
+    "Harney County route details for Benson Home Solutions planning, remote intake, and monthly South County scheduling.",
   );
 }
 
@@ -31,7 +31,7 @@ export default async function AreaPage({ params }: AreaPageProps) {
   ]);
   const area = getAreaById(areaData.areas, params.area);
 
-  if (!area) {
+  if (!area || area.silo !== "harney-county") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-benson-cream px-4">
         <div className="max-w-xl text-center">
@@ -62,7 +62,9 @@ export default async function AreaPage({ params }: AreaPageProps) {
             {area.city}, Oregon
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl">
-            Practical repair, restoration, and maintenance work for {area.city} properties, routed according to the current service-area model.
+            Practical repair, restoration, and maintenance work for {area.city}
+            properties, reviewed from photos, dimensions, address or location,
+            access notes, priority level, and timing constraints.
           </p>
         </div>
       </section>
@@ -93,7 +95,7 @@ export default async function AreaPage({ params }: AreaPageProps) {
                   <div>
                     <h3 className="font-semibold text-benson-charcoal mb-2">Harney County note</h3>
                     <p className="text-benson-slate">
-                      Remote Harney County work is planned and logistics-dependent unless emergency-response availability is explicitly confirmed.
+                      Remote Harney County work is planned and logistics-dependent. South County work is grouped into monthly routes when scope, access, weather, materials, and timing fit.
                     </p>
                   </div>
                 ) : null}
@@ -155,10 +157,12 @@ export default async function AreaPage({ params }: AreaPageProps) {
             Need service in {area.city}?
           </h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Send the photos, the address, and what needs attention. We’ll review the scope and next step.
+            Send photos, dimensions, the address or location, access notes,
+            priority level, and timing constraints. We’ll review the scope and
+            route fit before scheduling.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

@@ -5,7 +5,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata(
   "Subscription Recommendation Tool",
-  "Use the educational Benson Home Solutions subscription recommendation tool to compare public maintenance plan fit by property size, age, and region.",
+  "Use the educational Benson Home Solutions recommendation tool to compare public maintenance plan fit by property size, age, and Harney County route context.",
 );
 
 export default function SubscriptionRecommendationPage() {
@@ -17,7 +17,9 @@ export default function SubscriptionRecommendationPage() {
             Subscription Recommendation Tool
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl">
-            This estimator uses the current public API to return a recommended plan and the assumptions used to calculate it. It is educational and not a guarantee of savings or final fit.
+            This tool uses the current public API to return a plan suggestion and
+            the assumptions used to calculate it. It is educational and is not a
+            route, timing, price, or final-fit promise.
           </p>
         </div>
       </section>
@@ -35,7 +37,7 @@ export default function SubscriptionRecommendationPage() {
             Use the tool for planning, then contact us if you want to review the real property scope, route considerations, and support level.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

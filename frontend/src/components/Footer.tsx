@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { company, harneyCountySiloSummary, sweetHomeSiloSummary } from "@/data/company";
+import { company, harneyCountySiloSummary } from "@/data/company";
 
 export default function Footer() {
   return (
@@ -24,9 +24,9 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">
               {company.brandName}
             </h3>
-            <p className="text-benson-slate text-sm mb-4">
-              Practical repair, restoration, and maintenance work for Oregon
-              properties.
+            <p className="text-benson-pale text-sm mb-4">
+              Practical repair, restoration, and maintenance work for Harney
+              County properties.
             </p>
             <div className="space-y-2 text-sm">
               <p>
@@ -55,7 +55,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/inspection-repairs"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Inspection Repairs
                 </Link>
@@ -63,7 +63,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/water-damage"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Water, Mold & Moisture
                 </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/window-door-replacement"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Window & Door Replacements
                 </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/emergency-response"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Emergency Response
                 </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/energy-weatherization"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Energy & Weatherization
                 </Link>
@@ -95,7 +95,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services/commercial-maintenance"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Commercial Maintenance
                 </Link>
@@ -108,18 +108,14 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Service Areas</h3>
             <div className="space-y-4 text-sm">
               <div>
-                <p className="font-medium text-benson-offwhite">Sweet Home 25-Mile Silo</p>
-                <p className="mt-1 text-benson-slate">{sweetHomeSiloSummary}</p>
-              </div>
-              <div>
-                <p className="font-medium text-benson-offwhite">Harney County</p>
-                <p className="mt-1 text-benson-slate">{harneyCountySiloSummary}</p>
+                <p className="font-medium text-benson-offwhite">Harney County Routes</p>
+                <p className="mt-1 text-benson-pale">{harneyCountySiloSummary}</p>
               </div>
               <Link
                 href="/areas"
-                className="inline-block text-benson-slate transition-colors hover:text-benson-cream"
+                className="inline-block text-benson-pale transition-colors hover:text-benson-cream"
               >
-                Review all service areas
+                Review Harney County routing
               </Link>
             </div>
           </div>
@@ -131,7 +127,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/plans"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Maintenance Plans
                 </Link>
@@ -139,7 +135,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/how-we-work"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   How We Work
                 </Link>
@@ -147,7 +143,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Contact
                 </Link>
@@ -155,7 +151,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/resources"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Resources
                 </Link>
@@ -163,7 +159,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tools/subscription-recommendation"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Subscription Tool
                 </Link>
@@ -173,7 +169,7 @@ export default function Footer() {
                   href="https://www.oregon.gov/ccb/Pages/index.aspx"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-benson-slate hover:text-benson-cream transition-colors"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Verify CCB License
                 </a>
@@ -183,7 +179,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-benson-slate mt-8 pt-8 text-center text-sm text-benson-slate">
+        <div className="border-t border-benson-slate mt-8 pt-8 text-center text-sm text-benson-pale">
           <p>
             &copy; {new Date().getFullYear()} {company.legalName}. All rights reserved.
           </p>

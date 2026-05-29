@@ -11,7 +11,7 @@ export type ServiceType =
   | "commercial-maintenance"
   | "church-nonprofit-maintenance";
 
-export type ServiceSilo = "sweet-home-25-mile" | "harney-county";
+export type ServiceSilo = "harney-county";
 
 // Image Types
 export interface SiteImage {

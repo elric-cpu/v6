@@ -1,21 +1,57 @@
-# v6
+# Benson Home Solutions
 
-Monorepo for the Benson Home Solutions v6 project.
+Monorepo for the Benson Home Solutions website and supporting API.
 
-## Structure
+## What’s In Here
 
-- `frontend/`: Next.js marketing site and landing pages
-- `backend/`: Node-based API surface for site content, lead intake, and tools
-- `scripts/`: project utility scripts
-- `tmp/`: local scratch output
+- `frontend/`: Next.js App Router site, docs-style pages, and public UI
+- `backend/`: Node.js API for public content, intake, and the educational tool endpoints
+- `docs/`: project notes and hook audits added during prior agent passes
+- `llms.txt` / `llms-full.txt`: repo-level reference files for current public positioning
 
-## Git Notes
+## Current Operating Model
 
-This repository was scaffolded at the project root so the frontend and backend can be versioned together.
+- Public geography is Harney County only
+- South County work is route-planned and logistics-dependent
+- Public copy should stay documentation-first and avoid unsupported claims
+- Real contact and license facts belong in code and docs, not in marketing guesses
 
-The original nested frontend git metadata is preserved separately as a backup during migration.
+## Key Facts
 
-## Quick Start
+- Brand: Benson Home Solutions
+- Legal entity: Benson Enterprises, LLC
+- Oregon CCB: #258533
+- Phone: 541-321-5115
+- Emergency phone: 541-413-0480
+- Email: office@bensonhomesolutions.com
+
+## Main Routes
+
+- `/`
+- `/services`
+- `/services/[slug]`
+- `/areas`
+- `/areas/[area]`
+- `/plans`
+- `/contact`
+- `/how-we-work`
+- `/resources`
+- `/resources/[slug]`
+- `/tools/subscription-recommendation`
+- `/window-screen-repair-harney-county-or`
+
+## Public API Surface
+
+- `GET /health`
+- `GET /api/services`
+- `GET /api/images`
+- `GET /api/plans`
+- `GET /api/service-areas`
+- `GET /api/tools/subscription-recommendation`
+- `POST /api/leads`
+- `POST /api/emergency-requests`
+
+## Local Development
 
 Frontend:
 
@@ -29,6 +65,13 @@ Backend:
 
 ```bash
 cd backend
+npm install
 npm test
 npm start
 ```
+
+## Verification
+
+- Run frontend checks from `frontend/`
+- Run backend tests from `backend/`
+- Smoke the public routes and API endpoints after docs changes

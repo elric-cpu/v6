@@ -2,7 +2,7 @@ import { recommendationPlans } from "../data/public-data.js";
 import { ApiError } from "../lib/errors.js";
 
 const propertyTypes = new Set(["residential", "commercial", "churches-nonprofits"]);
-const regions = new Set(["sweet-home-25-mile", "harney-county"]);
+const regions = new Set(["harney-county"]);
 
 function getAgeBasedRate(propertyAge) {
   if (propertyAge < 5) {
@@ -75,7 +75,7 @@ export function getSubscriptionRecommendation(searchParams) {
   }
 
   if (!regions.has(region)) {
-    throw new ApiError(400, "VALIDATION_ERROR", "region must be sweet-home-25-mile or harney-county.");
+    throw new ApiError(400, "VALIDATION_ERROR", "region must be harney-county.");
   }
 
   const recommendedPlan = selectPlan(propertyType, squareFootage);

@@ -19,7 +19,6 @@ export function getAreaById(areas: ServiceArea[], areaId: string): ServiceArea |
 
 export function groupAreasBySilo(areas: ServiceArea[]) {
   return {
-    sweetHome: areas.filter((area) => area.silo === "sweet-home-25-mile"),
     harneyCounty: areas.filter((area) => area.silo === "harney-county"),
   };
 }

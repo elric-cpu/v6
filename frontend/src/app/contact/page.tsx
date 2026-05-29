@@ -1,5 +1,5 @@
 import ContactForm from "@/components/ContactForm";
-import { company, harneyCountySiloSummary, sweetHomeSiloSummary } from "@/data/company";
+import { company, harneyCountySiloSummary } from "@/data/company";
 import { api } from "@/lib/api";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata = buildPageMetadata(
   "Contact",
-  "Contact Benson Home Solutions for practical repair, restoration, maintenance, and route-aware service review in Oregon.",
+  "Contact Benson Home Solutions for practical repair, restoration, maintenance, and route-aware service review in Harney County.",
 );
 
 export default async function ContactPage() {
@@ -22,8 +22,9 @@ export default async function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl">
-            Send the list, send the photos, text the address. We&apos;ll review and
-            provide a clear scope.
+            Send photos, dimensions, the address or location, access notes,
+            priority level, and timing constraints so the work can be reviewed
+            for the right Harney County route.
           </p>
         </div>
       </section>
@@ -77,8 +78,11 @@ export default async function ContactPage() {
                     Service Areas
                   </h3>
                   <div className="space-y-3 text-benson-slate">
-                    <p>{sweetHomeSiloSummary}</p>
                     <p>{harneyCountySiloSummary}</p>
+                    <p>
+                      Remote South County requests are grouped into planned
+                      monthly routes when timing, access, weather, and scope fit.
+                    </p>
                   </div>
                 </div>
                 <div>

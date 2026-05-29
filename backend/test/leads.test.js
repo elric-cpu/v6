@@ -40,8 +40,8 @@ test("POST /api/leads accepts a valid lead and returns a stable lead id", async 
     name: "Test User",
     phone: "541-321-5115",
     email: "office@bensonhomesolutions.com",
-    city: "Sweet Home",
-    zipCode: "97386",
+    city: "Burns",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
     urgency: "soon",
@@ -81,8 +81,8 @@ test("POST /api/leads rejects invalid email addresses with the standard ApiError
     name: "Test User",
     phone: "541-321-5115",
     email: "not-an-email",
-    city: "Sweet Home",
-    zipCode: "97386",
+    city: "Burns",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
     urgency: "soon",
@@ -100,8 +100,8 @@ test("POST /api/leads rejects clearly invalid phone numbers with the standard Ap
     name: "Test User",
     phone: "abc",
     email: "office@bensonhomesolutions.com",
-    city: "Sweet Home",
-    zipCode: "97386",
+    city: "Burns",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
     urgency: "soon",
@@ -119,8 +119,8 @@ test("POST /api/leads rejects overlong messages with the standard ApiError contr
     name: "Test User",
     phone: "541-321-5115",
     email: "office@bensonhomesolutions.com",
-    city: "Sweet Home",
-    zipCode: "97386",
+    city: "Burns",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "x".repeat(2001),
     urgency: "soon",
@@ -139,7 +139,7 @@ test("POST /api/leads rejects clearly invalid zip codes with the standard ApiErr
     phone: "541-321-5115",
     email: "office@bensonhomesolutions.com",
     address: "123 Main St",
-    city: "Sweet Home",
+    city: "Burns",
     zipCode: "97",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
@@ -159,7 +159,7 @@ test("POST /api/leads rejects overlong city values with the standard ApiError co
     phone: "541-321-5115",
     email: "office@bensonhomesolutions.com",
     city: "S".repeat(121),
-    zipCode: "97386",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
     urgency: "soon",
@@ -178,8 +178,8 @@ test("POST /api/leads rejects overlong address values with the standard ApiError
     phone: "541-321-5115",
     email: "office@bensonhomesolutions.com",
     address: "1".repeat(241),
-    city: "Sweet Home",
-    zipCode: "97386",
+    city: "Burns",
+    zipCode: "97720",
     serviceType: "inspection-repairs",
     message: "Need help closing out two inspection items before sale.",
     urgency: "soon",
@@ -198,8 +198,8 @@ test("submitLeadRequest stores normalized string fields after sanitization", asy
     name: "  Test   User  ",
     phone: " 541-321-5115 ",
     email: " office@bensonhomesolutions.com ",
-    city: " Sweet   Home ",
-    zipCode: " 97386 ",
+    city: " Burns ",
+    zipCode: " 97720 ",
     serviceType: "inspection-repairs",
     message: "  Need <urgent> help   before closing. ",
     urgency: "soon",
@@ -213,8 +213,8 @@ test("submitLeadRequest stores normalized string fields after sanitization", asy
   assert.equal(storedLead.name, "Test User");
   assert.equal(storedLead.phone, "541-321-5115");
   assert.equal(storedLead.email, "office@bensonhomesolutions.com");
-  assert.equal(storedLead.city, "Sweet Home");
-  assert.equal(storedLead.zipCode, "97386");
+  assert.equal(storedLead.city, "Burns");
+  assert.equal(storedLead.zipCode, "97720");
   assert.equal(storedLead.message, "Need urgent help before closing.");
   assert.equal(storedLead.sourcePage, "/services/inspection-repairs");
 });

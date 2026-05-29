@@ -103,7 +103,7 @@ export async function submitEmergencyRequest(rawPayload) {
   return {
     success: true,
     leadId: emergency.id,
-    message: "Emergency request received. Benson Home Solutions will respond immediately.",
+    message: "Emergency request received. Benson Home Solutions will review the active condition, access notes, location, and route timing.",
     createdAt: emergency.createdAt,
     delivery: {
       delivered: delivery.delivered,

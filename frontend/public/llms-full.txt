@@ -2,7 +2,7 @@
 
 ## Business Overview
 
-Benson Home Solutions is a practical Oregon contractor providing repair, restoration, and maintenance work for residential and commercial properties.
+Benson Home Solutions is a Harney County-focused contractor providing practical repair, restoration, maintenance, screen/window/door work, property documentation, and route-aware service planning.
 
 ### Legal Entity
 - **Company**: Benson Enterprises, LLC
@@ -12,94 +12,122 @@ Benson Home Solutions is a practical Oregon contractor providing repair, restora
 - **Email**: office@bensonhomesolutions.com
 - **Website**: https://bensonhomesolutions.com
 
-### Service Areas
+## Site Architecture
 
-#### Sweet Home 25-Mile Silo
-Primary service area within roughly 25 miles of Sweet Home, Oregon:
-- Sweet Home
-- Lebanon
-- Albany
-- Brownsville
-- Cascadia
-- Foster
-- Holley
-- Crawfordsville
-- Scio (where practical)
-- Tangent (where practical)
+Public site routes:
+- `/`
+- `/services`
+- `/services/[slug]`
+- `/areas`
+- `/areas/[area]`
+- `/plans`
+- `/contact`
+- `/how-we-work`
+- `/resources`
+- `/resources/[slug]`
+- `/tools/subscription-recommendation`
+- `/window-screen-repair-harney-county-or`
 
-#### Harney County Silo
-Remote service area in Eastern Oregon:
-- Fields (97710)
-- Burns / Lawen area (97720)
-- Princeton (97721)
-- Diamond (97722)
-- Crane (97732)
-- Frenchglen (97736)
-- Hines (97738)
-- Riley (97758)
-- Drewsey (97904)
+Backend API routes:
+- `GET /health`
+- `GET /api/services`
+- `GET /api/images`
+- `GET /api/plans`
+- `GET /api/service-areas`
+- `GET /api/tools/subscription-recommendation`
+- `POST /api/leads`
+- `POST /api/emergency-requests`
+
+## Public Service Geography
+
+Harney County is the only public geography. Public copy should center on:
+- Burns
+- Hines
+- Crane
+- Drewsey
+- Frenchglen
+- Fields
+- Diamond
+- Princeton
+- Riley
+- Lawen
+- Remote South County communities
+
+South County work is planned through monthly routes when scope, access, weather, materials, and timing constraints fit. Do not promise response timing or unrestricted availability.
+
+## Remote Intake Requirements
+
+Every public page, component, and service explanation should reinforce the remote intake model. Ask for:
+- Photos of the condition
+- Dimensions, counts, or rough measurements where relevant
+- Address or precise location
+- Access notes, gates, road conditions, tenant limits, or animal notes
+- Priority level and whether the condition is active now
+- Timing constraints tied to weather, occupancy, events, inspections, or travel
+
+This intake lets work be reviewed, grouped, and planned into the correct Harney County route or monthly South County route.
 
 ## Core Services
 
 ### 1. Inspection Repairs
 - Property inspection findings
-- Code compliance repairs
-- Pre-sale preparation
-- Insurance claim documentation
+- Practical correction work
+- Pre-sale or occupancy-related repair lists
+- Completion photos and documented follow-through
 
 ### 2. Water, Mold & Moisture
-- Water damage assessment and repair
-- Mold investigation and remediation
-- Moisture control solutions
-- Crawlspace and attic moisture issues
+- Water intrusion review
+- Moisture source and damage follow-through
+- Practical dry-out and repair scoping
+- Crawlspace, attic, window, door, roof, and drainage context
 
 ### 3. Window & Door Replacements
-- Drafty window replacement
-- Damaged door repair
-- Weather protection upgrades
-- Energy efficiency improvements
+- Drafty, damaged, leaking, or inspection-flagged openings
+- Window, screen, and door scope review
+- Dimensions and opening counts before route planning
+- Weather-ready detailing and completion documentation
 
 ### 4. Maintenance Plans
-- Residential maintenance subscriptions
-- Commercial maintenance contracts
-- Church/non-profit facility maintenance
-- Preventive maintenance programs
+- Scheduled residential or facility maintenance
+- Documented upkeep
+- Monthly South County route fit where practical
+- Final fit based on actual property, access, priority, and timing
 
-### 5. Emergency Response
-- Water intrusion emergencies
-- Storm damage response
-- Structural emergencies
-- Weather-related repairs
+### 5. Emergency Response / Priority Condition Review
+- Active water intrusion
+- Storm damage
+- Failed openings or exposed conditions
+- Stabilization planning without unsupported response-time promises
 
 ### 6. Energy & Weatherization
-- Weatherization services
-- Energy efficiency upgrades
-- Insulation improvements
-- Draft reduction
+- Building-envelope review
+- Draft and weather-exposure issues
+- Window and door related weatherization
+- No utility-cost or financial-benefit claims
 
 ### 7. Property Preservation
-- Vacant property maintenance
-- Foreclosure property services
-- Seasonal property care
-- Remote property monitoring
+- Vacant or seasonal property review
+- Exterior condition, access, and serviceability checks
+- Remote-property planning
+- Photo documentation and next-step repair notes
 
 ### 8. Residential Remodeling
-- Kitchen and bathroom updates
-- Interior renovations
-- Exterior improvements
-- Accessibility modifications
+- Practical repair-led remodeling
+- Defined scopes and documented progress
+- Access and route-aware scheduling
+- No generic showroom or dream-home positioning
 
 ### 9. Commercial Maintenance
-- Business facility maintenance
-- Retail space upkeep
-- Office building services
-- Industrial property care
+- Facility maintenance
+- Occupied-space coordination
+- Business-hour and access constraints
+- Documented repair-path clarity
 
 ### 10. Church / Non-Profit Facility Maintenance
-- Religious facility maintenance
-- Non-profit building care
-- Community center services
-- Specialized facility needs
+- Facility maintenance for shared-use buildings
+- Scheduling around events and use of space
+- Leadership-friendly documentation
+- No unverified discount or promotional pricing claims
 
 ## Brand Voice
 
@@ -107,27 +135,27 @@ Remote service area in Eastern Oregon:
 - Direct and clear
 - Practical and contractor-led
 - Documentation-focused
-- Calm and competent
-- Specific and detailed
+- Route-aware
+- Specific to Harney County and South County logistics
 
 ### Preferred Phrases
-- "Repairs that clear the list."
-- "Maintenance that keeps it that way."
-- "Send the list, send the photos, text the address."
+- "Send photos, dimensions, location, access notes, priority, and timing."
+- "Monthly South County routes."
 - "Clear scopes, clean documentation, completed work."
-- "Practical repair, restoration, and maintenance work for Oregon properties."
+- "Route-aware Harney County repair and maintenance."
+- "Reviewed against access, weather, materials, priority, and timing."
 
 ### Avoid
+- Retired non-Harney service-area positioning
 - "Transform your space"
 - "Dream home"
 - "Premier provider"
-- "Top-rated" (unless verified)
+- "Top-rated" unless verified
 - "Unmatched quality"
 - "One-stop solution"
 - "Trusted partner"
 - Fake urgency
-- Unsupported guarantees
-- Generic remodel fluff
+- Unsupported trust, ranking, credential, demand, outcome, or financial-benefit claims
 
 ## Brand Colors
 
@@ -151,206 +179,22 @@ benson-pale:        #E5E5E5
 - Styling: Tailwind CSS
 - Deployment: Google Cloud Run
 
-### Backend
-- Python-based services
-- Google Cloud Platform
-- Cloud Run for serverless deployment
-
-### Infrastructure
-- Google Cloud DNS
-- Google Cloud Load Balancer
-- Google Cloud Storage
-
 ## Content Guidelines
 
-### SEO Requirements
-- Unique titles and meta descriptions
-- Clear H1, H2, H3 hierarchy
-- Local language where natural
-- CCB #258533 where appropriate
-- Internal linking
-- Descriptive image alt text
-- FAQ sections where useful
-
-### Schema Markup
-- LocalBusiness
-- Contractor
-- Service
-- FAQPage
-- Speakable
-- BreadcrumbList
-
-### Performance Targets
-- LCP under 2.5s
-- FID under 100ms
-- CLS under 0.1
-- WCAG 2.1 AA compliance
-
-## Image Guidelines
-
-### Image Sources
-- Real project photos only
-- No fake stock photos
-- No AI-generated images as real project photos
-- Load optimized images in production
-
-### Image Categories
-- Water damage / dry-out
-- Mold or moisture investigation
-- Crawlspace or attic
-- Window replacements
-- Door replacements
-- Exterior repair
-- Property preservation
-- Maintenance work
-- Equipment
-- Before/after repair
-- Oregon homes / high-desert / valley conditions
+- Harney County must be the only public geography.
+- Monthly South County routes should be a core theme.
+- Useful but unverified claims should be softened or marked `VERIFY BEFORE PUBLISHING`.
+- Use real project photos only and do not mislabel photos as completed Benson projects unless verified.
+- Keep page titles, headings, FAQs, and CTAs practical and documentation-focused.
 
 ## Contact Information
 
-### Primary Contact
-- **Phone**: 541-321-5115
+- **Primary Phone**: 541-321-5115
+- **Emergency Phone**: 541-413-0480
 - **Email**: office@bensonhomesolutions.com
 - **Website**: https://bensonhomesolutions.com
 
-### Emergency Contact
-- **Phone**: 541-413-0480
-
-### Service Area Contact
-- Sweet Home area: 541-321-5115
-- Harney County: 541-321-5115 (route-dependent)
-
 ## Legal Information
 
-### Licensing
 - **Oregon CCB**: #258533
-- **Bonded**: Yes
-- **Insured**: Yes
-
-### Service Area Limitations
-- Sweet Home 25-mile silo: Primary service area
-- Harney County silo: Route-dependent service
-- Remote work availability: Confirm before promising same-day response
-
-## Analytics & Tracking
-
-### Google Analytics 4
-- Measurement ID: G-XXXXXXXXXX (to be configured)
-- Event tracking: Contact forms, service requests, page views
-
-### Google Search Console
-- Property: https://bensonhomesolutions.com/
-- Verification: DNS or meta tag (to be configured)
-
-### Bing Webmaster Tools
-- Property: https://bensonhomesolutions.com/
-- Verification: Meta tag (to be configured)
-
-## Deployment Information
-
-### Production URL
-- **Primary**: https://bensonhomesolutions.com
-- **Cloud Run**: https://benson-website-v6-1048944000089.us-west1.run.app
-
-### Environment
-- **Project**: civic-wall-494004-b3
-- **Region**: us-west1
-- **Platform**: Google Cloud Run
-
-## Maintenance & Updates
-
-### Content Updates
-- Service descriptions
-- Project photos
-- Testimonials (verified only)
-- FAQ sections
-- Service area information
-
-### Technical Updates
-- Security patches
-- Performance optimizations
-- SEO improvements
-- Accessibility enhancements
-
-## Compliance & Privacy
-
-### Data Collection
-- Contact form submissions
-- Service requests
-- Estimate requests
-- Newsletter subscriptions (if implemented)
-
-### Privacy Policy
-- Information collection practices
-- Data usage policies
-- User rights and choices
-- Contact information for privacy inquiries
-
-### Cookie Policy
-- Analytics cookies
-- Session cookies
-- Performance cookies
-- User consent requirements
-
-## Emergency Protocols
-
-### Water Intrusion
-- Immediate response protocol
-- Documentation requirements
-- Insurance claim support
-- Mitigation procedures
-
-### Storm Damage
-- Assessment procedures
-- Temporary protection
-- Repair prioritization
-- Documentation for claims
-
-### Structural Issues
-- Safety assessment
-- Stabilization procedures
-- Professional coordination
-- Documentation requirements
-
-## Quality Standards
-
-### Workmanship
-- Oregon building code compliance
-- Industry best practices
-- Material quality standards
-- Warranty information
-
-### Documentation
-- Before/after photos
-- Detailed scopes of work
-- Material specifications
-- Timeline adherence
-
-### Communication
-- Clear project updates
-- Change order procedures
-- Completion documentation
-- Follow-up procedures
-
-## Future Roadmap
-
-### Planned Features
-- Subscription Recommendation Engine
-- 3D Estimate Builder
-- AI Space Visualizer
-- Predictive Maintenance ML
-- Church Facility Assessment Report
-- Commercial Property Health Score
-
-### Service Expansions
-- Additional service areas
-- New service categories
-- Enhanced maintenance plans
-- Commercial service expansion
-
----
-
-**Last Updated**: 2026-05-05
-**Version**: 1.0
-**Maintained By**: Benson Home Solutions Team
+- Do not publish trust, credential, ranking, outcome, or financial-benefit claims unless verified before publishing.

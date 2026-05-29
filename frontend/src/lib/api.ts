@@ -132,7 +132,7 @@ export const api = {
     propertyType: "residential" | "commercial" | "churches-nonprofits";
     squareFootage: number;
     propertyAge: number;
-    region: "sweet-home-25-mile" | "harney-county";
+    region: "harney-county";
     homeValue?: number;
   }): Promise<SubscriptionRecommendationResult> {
     const searchParams = new URLSearchParams({

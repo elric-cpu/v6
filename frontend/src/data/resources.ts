@@ -17,15 +17,15 @@ export const resources: ResourceEntry[] = [
     slug: "send-photos-address-and-scope",
     title: "What To Send Before Requesting Repair Work",
     description:
-      "A practical checklist for sending photos, the address, and the scope details Benson Home Solutions needs for a faster first review.",
+      "A practical checklist for sending photos, dimensions, location, access, priority, and timing details Benson Home Solutions needs for Harney County route review.",
     intro:
-      "Most repair and maintenance requests go faster when the first message includes usable photos, the property address, and a short note about the condition or deadline.",
+      "Most Harney County repair and maintenance requests are easier to review when the first message includes usable photos, dimensions, the address or location, access notes, priority level, and timing constraints.",
     sections: [
       {
         title: "Start with the condition, not the backstory",
         body: [
           "Lead with what is happening now: active water entry, an inspection list, a damaged window or door, a facility maintenance issue, or another practical condition that needs review.",
-          "A concise description makes it easier to separate urgent items from work that can be scheduled normally.",
+          "A concise description makes it easier to separate priority conditions from work that can be grouped into a monthly South County route or another planned Harney County schedule.",
         ],
       },
       {
@@ -35,55 +35,58 @@ export const resources: ResourceEntry[] = [
         ],
         bullets: [
           "Photos showing the issue clearly",
-          "Property address",
+          "Property address or precise location",
+          "Dimensions, counts, or measurements when the work involves openings, screens, doors, materials, or repeat items",
           "Best callback number",
-          "Any timing or access limits",
+          "Priority level and whether the condition is active now",
+          "Any timing, gate, road, animal, tenant, or access limits",
           "Inspection, mitigation, or facility notes if they already exist",
         ],
       },
       {
         title: "Match the message to the service type",
         body: [
-          "Window and door replacement requests benefit from opening counts or dimensions when available. Inspection-repair requests benefit from the report or addendum. Emergency requests should describe what is active right now.",
-          "That extra context usually produces a clearer first response and a more practical next-step recommendation.",
+          "Window and door replacement requests benefit from opening counts or dimensions when available. Inspection-repair requests benefit from the report or addendum. Priority-condition requests should describe what is active right now.",
+          "That extra context usually produces a clearer route review and a more practical next-step recommendation.",
         ],
       },
     ],
     ctaTitle: "Need a scope reviewed?",
     ctaText:
-      "Send the photos, the address, and a short note about what needs attention. We’ll review the practical next step.",
+      "Send photos, dimensions, the address or location, access notes, priority level, and timing constraints. We’ll review the practical next step.",
   },
   {
-    slug: "service-areas-sweet-home-and-harney-county",
-    title: "How Benson Home Solutions Handles Service Areas",
+    slug: "harney-county-routes-and-south-county-planning",
+    title: "Harney County Routes and South County Planning",
     description:
-      "Understand the two active service-area silos: the Sweet Home 25-mile coverage area and the route-dependent Harney County footprint.",
+      "Understand Benson Home Solutions Harney County routing, including Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and monthly South County routes.",
     intro:
-      "Benson Home Solutions is organized around two different kinds of service geography: a practical Sweet Home-centered coverage area and a planned Harney County route structure.",
+      "Benson Home Solutions is publicly positioned around Harney County route planning. Burns and Hines are central anchors, and remote South County work is reviewed for monthly route grouping.",
     sections: [
       {
-        title: "Sweet Home 25-mile coverage",
+        title: "Harney County is the public geography",
         body: [
-          "Sweet Home, Lebanon, Albany, Brownsville, Cascadia, Foster, Holley, Crawfordsville, Scio, and Tangent are treated as the primary local operating footprint when scheduling makes sense.",
-          "This local silo is where repair, inspection, maintenance, and weatherization requests are most straightforward to review and route.",
+          "Public service-area copy should center on Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.",
+          "Remote requests are reviewed around route fit, property access, weather, materials, and the timing constraints that matter on long drives.",
         ],
       },
       {
-        title: "Harney County routing",
+        title: "Monthly South County routes",
         body: [
-          "Burns and Hines remain the primary Harney County anchors. Other communities such as Fields, Diamond, Crane, Frenchglen, Princeton, Riley, and Drewsey are treated as route-dependent.",
-          "That means remote requests should not imply same-day or unrestricted availability unless it is explicitly confirmed for that scope.",
+          "South County requests are planned in monthly route batches when the scope, access, materials, weather, and timing fit together.",
+          "That means remote requests should not imply unrestricted availability. The first step is a documented intake review.",
         ],
       },
       {
         title: "What helps route a request",
         body: [
-          "Location details matter most when the request is remote, urgent, or access-sensitive.",
+          "Location details matter most when the request is remote, priority-sensitive, or access-sensitive.",
         ],
         bullets: [
-          "Exact property address",
+          "Exact property address or location",
           "Photos of the condition",
-          "Whether the issue is active now",
+          "Dimensions, counts, or measurements where relevant",
+          "Priority level and whether the issue is active now",
           "Any site-access or gate constraints",
           "Any time-sensitive deadline tied to weather, occupancy, or inspections",
         ],
@@ -91,7 +94,7 @@ export const resources: ResourceEntry[] = [
     ],
     ctaTitle: "Not sure if your location fits?",
     ctaText:
-      "Send the address and photos first. We’ll review whether the request fits the current route and scheduling reality.",
+      "Send the address or location, photos, dimensions, access notes, priority level, and timing constraints first. We’ll review whether the request fits the current route and scheduling reality.",
   },
   {
     slug: "maintenance-plans-vs-one-off-repairs",
@@ -104,28 +107,28 @@ export const resources: ResourceEntry[] = [
       {
         title: "When one-off work makes sense",
         body: [
-          "One-off requests fit inspection lists, isolated moisture issues, a damaged opening, an urgent response event, or a clearly defined repair scope.",
+          "One-off requests fit inspection lists, isolated moisture issues, a damaged opening, a priority condition, or a clearly defined repair scope.",
           "The goal is to review the condition, define the scope clearly, complete the work, and document the result.",
         ],
       },
       {
         title: "When scheduled maintenance helps more",
         body: [
-          "Maintenance plans fit properties where the bigger issue is consistency: recurring exterior exposure, multiple systems to keep an eye on, or owners and managers who want documented upkeep over time.",
+          "Maintenance plans fit Harney County properties where the bigger issue is consistency: recurring exterior exposure, multiple systems to keep an eye on, or owners and managers who want documented upkeep over time.",
           "The plan structure is educational and public-facing. Final fit still depends on the actual property and support needs.",
         ],
       },
       {
         title: "Use the recommendation tool carefully",
         body: [
-          "The subscription recommendation tool is an educational estimator, not a guaranteed savings claim or a final pricing promise.",
-          "Its value is in clarifying assumptions and helping a property owner think through support level, property size, age, and region.",
+          "The recommendation tool is educational, not a financial-benefit claim, route promise, or final pricing promise.",
+          "Its value is in clarifying assumptions and helping a property owner think through support level, property size, age, priority, and Harney County route fit.",
         ],
       },
     ],
     ctaTitle: "Want to compare support options?",
     ctaText:
-      "Review the maintenance plans, then use the recommendation tool or contact form to talk through the practical fit.",
+      "Review the maintenance plans, then use the recommendation tool or contact form to talk through route fit, access, priority, and timing.",
   },
 ];
 

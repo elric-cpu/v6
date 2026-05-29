@@ -8,7 +8,7 @@ interface FormState {
   squareFootage: string;
   propertyAge: string;
   homeValue: string;
-  region: "sweet-home-25-mile" | "harney-county";
+  region: "harney-county";
 }
 
 const propertyTypeOptions = [
@@ -18,7 +18,6 @@ const propertyTypeOptions = [
 ] as const;
 
 const regionOptions = [
-  { value: "sweet-home-25-mile", label: "Sweet Home 25-Mile Silo" },
   { value: "harney-county", label: "Harney County" },
 ] as const;
 
@@ -28,7 +27,7 @@ export default function SubscriptionCalculatorForm() {
     squareFootage: "",
     propertyAge: "",
     homeValue: "",
-    region: "sweet-home-25-mile",
+    region: "harney-county",
   });
   const [result, setResult] = useState<SubscriptionRecommendationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -78,22 +77,23 @@ export default function SubscriptionCalculatorForm() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
       <form
-        className="rounded-3xl border border-benson-pale bg-white p-6 shadow-sm"
+        className="min-w-0 rounded-lg border border-benson-pale bg-benson-offwhite p-4 shadow-sm sm:p-6"
         onSubmit={handleSubmit}
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
-            <label className="mb-1 block text-sm font-medium text-benson-charcoal">
+            <label htmlFor="propertyType" className="mb-1 block text-sm font-medium text-benson-charcoal">
               Property Type
             </label>
             <select
+              id="propertyType"
               value={formState.propertyType}
               onChange={(event) =>
                 updateField("propertyType", event.target.value as FormState["propertyType"])
               }
-              className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+              className="w-full min-w-0 rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
             >
               {propertyTypeOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -103,51 +103,55 @@ export default function SubscriptionCalculatorForm() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-benson-charcoal">
+            <label htmlFor="squareFootage" className="mb-1 block text-sm font-medium text-benson-charcoal">
               Square Footage *
             </label>
             <input
+              id="squareFootage"
               type="number"
               min="1"
               value={formState.squareFootage}
               onChange={(event) => updateField("squareFootage", event.target.value)}
-              className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+              className="w-full min-w-0 rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-benson-charcoal">
+            <label htmlFor="propertyAge" className="mb-1 block text-sm font-medium text-benson-charcoal">
               Property Age *
             </label>
             <input
+              id="propertyAge"
               type="number"
               min="1"
               value={formState.propertyAge}
               onChange={(event) => updateField("propertyAge", event.target.value)}
-              className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+              className="w-full min-w-0 rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-benson-charcoal">
+            <label htmlFor="homeValue" className="mb-1 block text-sm font-medium text-benson-charcoal">
               Estimated Property Value
             </label>
             <input
+              id="homeValue"
               type="number"
               min="1"
               value={formState.homeValue}
               onChange={(event) => updateField("homeValue", event.target.value)}
-              className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+              className="w-full min-w-0 rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-benson-charcoal">
+            <label htmlFor="region" className="mb-1 block text-sm font-medium text-benson-charcoal">
               Region
             </label>
             <select
+              id="region"
               value={formState.region}
               onChange={(event) =>
                 updateField("region", event.target.value as FormState["region"])
               }
-              className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+              className="w-full min-w-0 rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
             >
               {regionOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -159,7 +163,7 @@ export default function SubscriptionCalculatorForm() {
         </div>
 
         {error ? (
-          <div className="mt-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          <div className="mt-4 rounded-lg border border-benson-maroon bg-benson-offwhite px-4 py-3 text-sm font-medium text-benson-wine">
             {error}
           </div>
         ) : null}
@@ -167,19 +171,19 @@ export default function SubscriptionCalculatorForm() {
         <button
           type="submit"
           disabled={!canSubmit || submitting}
-          className="mt-6 w-full rounded bg-benson-maroon px-4 py-3 font-medium text-white transition-colors hover:bg-benson-maroon-dark disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-benson-maroon px-4 py-3 font-medium text-benson-offwhite shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-benson-maroon-dark hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-maroon focus-visible:ring-offset-2 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-benson-maroon disabled:hover:shadow-sm disabled:active:translate-y-0"
         >
           {submitting ? "Calculating..." : "Get Recommendation"}
         </button>
       </form>
 
-      <aside className="rounded-3xl border border-benson-pale bg-benson-cream p-6">
+      <aside className="min-w-0 rounded-lg border border-benson-pale bg-benson-cream p-4 sm:p-6">
         <h2 className="text-2xl font-semibold text-benson-charcoal">
           Educational Estimate
         </h2>
         <p className="mt-3 text-sm text-benson-slate">
-          This tool is for planning only. It does not guarantee savings, scope,
-          response timing, or final plan fit.
+          This tool is for planning only. It does not promise scope, response
+          timing, route placement, price, or final plan fit.
         </p>
 
         {result ? (
@@ -195,20 +199,12 @@ export default function SubscriptionCalculatorForm() {
                 {result.recommendedPlan.description}
               </p>
             </div>
-            <div className="rounded-2xl border border-benson-pale bg-white p-4">
+            <div className="border-t border-benson-pale pt-4">
               <p className="text-sm text-benson-slate">Monthly plan cost</p>
               <p className="text-3xl font-semibold text-benson-charcoal">
                 ${result.recommendedPlan.priceMonthly}
               </p>
             </div>
-            {typeof result.annualSavings === "number" ? (
-              <div className="rounded-2xl border border-benson-pale bg-white p-4">
-                <p className="text-sm text-benson-slate">Estimated annual savings</p>
-                <p className="text-3xl font-semibold text-benson-charcoal">
-                  ${result.annualSavings.toLocaleString()}
-                </p>
-              </div>
-            ) : null}
             <div>
               <h4 className="font-semibold text-benson-charcoal">Assumptions returned</h4>
               <ul className="mt-3 space-y-2 text-sm text-benson-slate">
@@ -218,7 +214,7 @@ export default function SubscriptionCalculatorForm() {
                   {result.assumptions.annualSubscriptionCost.toLocaleString()}
                 </li>
                 <li>
-                  Annual maintenance estimate: $
+                  Planning maintenance estimate: $
                   {result.assumptions.annualMaintenanceCost.toLocaleString()}
                 </li>
               </ul>
@@ -226,7 +222,7 @@ export default function SubscriptionCalculatorForm() {
             <p className="text-sm text-benson-slate">{result.disclaimer}</p>
           </div>
         ) : (
-          <div className="mt-6 rounded-2xl border border-dashed border-benson-pale bg-white p-6 text-sm text-benson-slate">
+          <div className="mt-6 border-t border-dashed border-benson-pale pt-6 text-sm text-benson-slate">
             Enter the property details to see the recommended plan and the assumptions the API returns.
           </div>
         )}

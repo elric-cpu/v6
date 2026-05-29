@@ -4,7 +4,7 @@ Next.js 14 frontend for Benson Home Solutions website.
 
 ## Overview
 
-Benson Home Solutions provides practical repair, restoration, and maintenance work for Oregon properties. This frontend is built with Next.js 14, TypeScript, and Tailwind CSS, featuring a contractor-focused design with clear documentation and practical messaging.
+Benson Home Solutions provides practical repair, restoration, maintenance, screen/window/door work, and documentation-first service for Harney County properties. This frontend is built with Next.js 14, TypeScript, and Tailwind CSS, featuring route-aware messaging for Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.
 
 ## Tech Stack
 
@@ -103,30 +103,21 @@ benson-pale:        #E5E5E5
 
 ## Service Areas
 
-### Sweet Home 25-Mile Silo
-
-Primary service area within roughly 25 miles of Sweet Home, Oregon:
-
-- Sweet Home (97386)
-- Lebanon (97355)
-- Albany (97321, 97322)
-- Brownsville (97327)
-- Cascadia (97311)
-
-**Localized risks**: Rain and moisture intrusion, moss growth, drainage issues, crawlspace moisture, gutter overflow.
-
-### Harney County Silo
-
-Remote service area in Eastern Oregon:
+### Harney County
 
 - Burns (97720)
 - Hines (97738)
+- Crane (97732)
+- Drewsey (97904)
+- Frenchglen (97736)
 - Fields (97710)
 - Diamond (97722)
 - Riley (97758)
-- Drewsey (97904)
 - Princeton (97721)
-- Frenchglen (97736)
+- Lawen area (97720)
+- Remote South County communities
+
+Monthly South County routes are a core service model. Route fit depends on photos, dimensions, address or location, access notes, priority level, weather, materials, and timing constraints.
 
 **Localized risks**: Freeze risk and burst pipes, high-desert wind damage, winterization needs, remote property maintenance, weather-damaged exterior openings.
 
@@ -136,30 +127,23 @@ Remote service area in Eastern Oregon:
 2. **Water, Mold & Moisture** - Water intrusion investigation and moisture control
 3. **Window & Door Replacements** - Replacement work for drafty or damaged windows and doors
 4. **Maintenance Plans** - Scheduled maintenance for ongoing property care
-5. **Emergency Response** - Urgent repairs for water intrusion, storm damage, or systems failures
-6. **Energy & Weatherization** - Weatherization work to reduce energy costs
+5. **Emergency Response / Priority Condition Review** - Active water intrusion, storm damage, or exposed conditions reviewed without unsupported response-time promises
+6. **Energy & Weatherization** - Weatherization work for practical comfort and building-envelope concerns
 7. **Property Preservation** - Vacant property maintenance and preservation
 8. **Residential Remodeling** - Practical remodeling for kitchens, bathrooms, and living spaces
 
-## Maintenance Plans
+## Remote Intake
 
-### Residential
+Public copy should ask customers to send:
 
-| Tier | Square Footage | Monthly Price |
-|------|---------------|---------------|
-| Essential | 0–1,500 SF | $119/mo |
-| Standard | 1,501–2,500 SF | $149/mo |
-| Premium | 2,501–3,500 SF | $179/mo |
-| Estate | 3,501+ SF | $219/mo |
+- Photos of the condition
+- Dimensions, counts, or rough measurements where relevant
+- Address or precise location
+- Access notes, gates, road conditions, tenant limits, or animal notes
+- Priority level and whether the condition is active now
+- Timing constraints tied to weather, occupancy, events, inspections, or travel
 
-### Commercial
-
-| Tier | Size | Monthly Price |
-|------|------|---------------|
-| Small Business | 0–2,500 SF | $349/mo |
-| Office | 2,501–5,000 SF | $449/mo |
-| Retail | 5,001–10,000 SF | $599/mo |
-| Industrial | 10,001–20,000 SF | $799/mo |
+Do not promise response timing or unrestricted availability. Do not publish trust, credential, ranking, outcome, demand, or financial-benefit claims unless verified before publishing.
 
 ## Business Information
 
@@ -182,7 +166,7 @@ The website copy should be:
 **Use phrases like:**
 - Repairs that clear the list
 - Maintenance that keeps it that way
-- Send the list, send the photos, text the address
+- Send photos, dimensions, location, access notes, priority, and timing
 - Clear scopes, clean documentation, completed work
 
 **Avoid:**

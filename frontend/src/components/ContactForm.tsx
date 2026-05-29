@@ -73,12 +73,12 @@ export default function ContactForm({ services }: ContactFormProps) {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       {successMessage ? (
-        <div className="rounded border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+        <div className="rounded-lg border border-benson-burgundy bg-benson-cream px-4 py-3 text-sm text-benson-charcoal">
           {successMessage}
         </div>
       ) : null}
       {error ? (
-        <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <div className="rounded-lg border border-benson-maroon bg-benson-offwhite px-4 py-3 text-sm font-medium text-benson-wine">
           {error}
         </div>
       ) : null}
@@ -93,7 +93,7 @@ export default function ContactForm({ services }: ContactFormProps) {
           required
           value={formData.name}
           onChange={(event) => handleChange("name", event.target.value)}
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
       <div>
@@ -107,7 +107,7 @@ export default function ContactForm({ services }: ContactFormProps) {
           required
           value={formData.phone}
           onChange={(event) => handleChange("phone", event.target.value)}
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
       <div>
@@ -120,12 +120,12 @@ export default function ContactForm({ services }: ContactFormProps) {
           name="email"
           value={formData.email ?? ""}
           onChange={(event) => handleChange("email", event.target.value)}
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
       <div>
         <label htmlFor="address" className="mb-1 block text-sm font-medium text-benson-charcoal">
-          Address
+          Address or location
         </label>
         <input
           type="text"
@@ -133,7 +133,7 @@ export default function ContactForm({ services }: ContactFormProps) {
           name="address"
           value={formData.address ?? ""}
           onChange={(event) => handleChange("address", event.target.value)}
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -147,7 +147,7 @@ export default function ContactForm({ services }: ContactFormProps) {
             name="city"
             value={formData.city ?? ""}
             onChange={(event) => handleChange("city", event.target.value)}
-            className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+            className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
           />
         </div>
         <div>
@@ -160,7 +160,7 @@ export default function ContactForm({ services }: ContactFormProps) {
             name="zipCode"
             value={formData.zipCode ?? ""}
             onChange={(event) => handleChange("zipCode", event.target.value)}
-            className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+            className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
           />
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function ContactForm({ services }: ContactFormProps) {
           onChange={(event) =>
             handleChange("serviceType", event.target.value as LeadRequest["serviceType"])
           }
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         >
           {services.map((service) => (
             <option key={service.id} value={service.serviceType}>
@@ -196,11 +196,11 @@ export default function ContactForm({ services }: ContactFormProps) {
           onChange={(event) =>
             handleChange("urgency", event.target.value as LeadRequest["urgency"])
           }
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         >
           <option value="standard">Standard</option>
           <option value="soon">Soon</option>
-          <option value="emergency">Emergency</option>
+          <option value="emergency">Priority condition</option>
         </select>
       </div>
       <div>
@@ -213,15 +213,15 @@ export default function ContactForm({ services }: ContactFormProps) {
           rows={5}
           required
           value={formData.message}
-          placeholder="Describe what needs attention, include timing, and note whether the condition is active now."
+          placeholder="Describe what needs attention. Include photos/dimensions if available, address or location, access notes, priority level, and timing constraints."
           onChange={(event) => handleChange("message", event.target.value)}
-          className="w-full rounded border border-benson-pale px-4 py-2 focus:border-benson-maroon focus:outline-none"
+          className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded bg-benson-maroon px-4 py-3 font-medium text-white transition-colors hover:bg-benson-maroon-dark disabled:cursor-not-allowed disabled:opacity-70"
+        className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-benson-maroon px-4 py-3 font-medium text-benson-offwhite shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-benson-maroon-dark hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-maroon focus-visible:ring-offset-2 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-benson-maroon disabled:hover:shadow-sm disabled:active:translate-y-0"
       >
         {submitting ? "Sending..." : "Send Message"}
       </button>

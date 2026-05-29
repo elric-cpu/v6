@@ -11,27 +11,12 @@ export const company = {
 } as const;
 
 export const brandTagline =
-  "Practical repair, restoration, and maintenance for Oregon properties.";
-
-export const sweetHomeSiloSummary =
-  "Primary service coverage centers on Sweet Home and nearby communities within a practical 25-mile radius.";
+  "Harney County repair, restoration, and maintenance with route-aware planning.";
 
 export const harneyCountySiloSummary =
-  "Harney County work is planned, routed, and logistics-dependent, especially for remote communities.";
+  "Harney County work is planned around Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and monthly South County routes for remote communities.";
 
 export const serviceAreaCityGroups = {
-  sweetHome: [
-    "Sweet Home",
-    "Lebanon",
-    "Albany",
-    "Brownsville",
-    "Cascadia",
-    "Foster",
-    "Holley",
-    "Crawfordsville",
-    "Scio",
-    "Tangent",
-  ],
   harneyCounty: [
     "Burns",
     "Hines",
@@ -42,5 +27,7 @@ export const serviceAreaCityGroups = {
     "Frenchglen",
     "Princeton",
     "Riley",
+    "Lawen",
+    "Remote South County communities",
   ],
 } as const;

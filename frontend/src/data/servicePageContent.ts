@@ -51,9 +51,10 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     whatToSend: [
       "Complete inspection report or repair addendum",
       "Photos of flagged items",
-      "Property address",
-      "Closing or deadline timeline",
-      "Any lender, insurer, or agent notes that affect scope",
+      "Property address or location",
+      "Dimensions, counts, or measurements for affected items when available",
+      "Closing or deadline timeline and priority level",
+      "Access notes plus any lender, insurer, or agent notes that affect scope",
     ],
     scopeSections: [
       {
@@ -78,7 +79,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "Can you work from a report and photos first?",
         answer:
-          "Yes. Start by sending the report, photos, and the address. If the scope is still unclear after review, we can recommend the next inspection or site step.",
+          "Yes. Start by sending the report, photos, address or location, dimensions where relevant, access notes, priority level, and timing constraints. If the scope is still unclear after review, we can recommend the next inspection or site step.",
       },
       {
         question: "Will you document the completed repairs?",
@@ -88,7 +89,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     finalCtaTitle: "Need the list cleared?",
     finalCtaText:
-      "Send the report, photos, and timeline. We’ll review the scope and respond with a practical next step.",
+      "Send the report, photos, dimensions where relevant, address or location, access notes, priority level, and timeline. We’ll review the scope and practical next step.",
   },
   "water-damage": {
     slug: "water-damage",
@@ -104,8 +105,10 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     whatToSend: [
       "Photos of active staining, swelling, or visible moisture damage",
-      "Address and area of the property affected",
+      "Address or location and area of the property affected",
+      "Approximate dimensions of affected areas when available",
       "When the issue was first noticed",
+      "Access notes, priority level, and timing constraints",
       "Any inspection, mitigation, or insurance notes already on hand",
       "Whether the issue is active now or already dried",
     ],
@@ -127,7 +130,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "Do you handle active water intrusion?",
         answer:
-          "Yes, when practical. Send photos and note whether the issue is active now. Emergency conditions should be marked as emergency when you contact us.",
+          "Yes, when practical. Send photos, location, access notes, priority level, and whether the issue is active now so it can be reviewed against the current Harney County route schedule.",
       },
       {
         question: "Do you provide mold lab testing?",
@@ -137,12 +140,12 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "What helps you quote faster?",
         answer:
-          "Clear photos, the address, where the moisture is showing up, and whether the area has already been opened or dried out make the first review much faster.",
+          "Clear photos, dimensions or affected-area notes, the address or location, access notes, priority level, timing constraints, and whether the area has already been opened or dried out make the first review clearer.",
       },
     ],
     finalCtaTitle: "Need a moisture-related scope reviewed?",
     finalCtaText:
-      "Send the photos, the address, and what you’re seeing now. We’ll review the likely repair path and next step.",
+      "Send photos, dimensions or affected-area notes, the address or location, access notes, priority level, and what you’re seeing now. We’ll review the likely repair path and next step.",
   },
   "window-door-replacement": {
     slug: "window-door-replacement",
@@ -159,7 +162,8 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     whatToSend: [
       "Photos of the window or door from inside and outside",
       "Approximate dimensions or count of affected openings",
-      "Address and service area",
+      "Address or location in Harney County",
+      "Access notes, priority level, and timing constraints",
       "Notes about drafts, leaks, sticking, or visible damage",
       "Any inspection notes tied to the opening",
     ],
@@ -186,7 +190,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "Can you review photos before a site visit?",
         answer:
-          "Yes. Start with photos, approximate dimensions, and the address. That usually lets us give a clearer next-step recommendation.",
+          "Yes. Start with photos, approximate dimensions, the address or location, access notes, priority level, and timing constraints. That usually supports a clearer route review.",
       },
       {
         question: "Do you only replace, or do you repair too?",
@@ -196,61 +200,62 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     finalCtaTitle: "Need a window or door scope reviewed?",
     finalCtaText:
-      "Send the opening photos, dimensions if you have them, and the address. We’ll review the replacement path.",
+      "Send the opening photos, dimensions if you have them, the address or location, access notes, priority level, and timing constraints. We’ll review the replacement path.",
   },
   "emergency-response": {
     slug: "emergency-response",
     serviceType: "emergency-response",
     title: "Emergency Response",
     description:
-      "Urgent repairs for water intrusion, storm damage, and other conditions that need immediate practical response.",
+      "Priority-condition review for water intrusion, storm damage, and other active issues that need practical stabilization planning.",
     heroSummary:
       "When damage is active, the first priority is stabilization, documentation, and deciding what needs to happen now versus next.",
     situation: [
-      "Emergency work often starts with water entry, weather damage, failed openings, or sudden conditions that make the property unsafe or exposed.",
-      "The goal is practical response, clear communication, and documented next steps without overpromising unsupported timelines.",
+      "Priority work often starts with water entry, weather damage, failed openings, or sudden conditions that make the property unsafe or exposed.",
+      "The goal is practical review, clear communication, and documented next steps without overpromising unsupported timelines.",
     ],
     whatToSend: [
       "Photos of the active condition",
-      "Property address",
+      "Property address or location",
+      "Dimensions or affected-area notes when available",
       "Best callback number",
       "What is happening right now",
-      "Any immediate access or safety limits we should know",
+      "Priority level, timing constraints, and any access or safety limits we should know",
     ],
     scopeSections: [
       {
-        title: "Immediate response",
-        items: ["Water-intrusion response", "Storm-damage stabilization", "Temporary weather protection", "Urgent condition review"],
+        title: "Priority response review",
+        items: ["Water-intrusion review", "Storm-damage stabilization planning", "Temporary weather protection planning", "Priority condition review"],
       },
       {
         title: "Documentation",
-        items: ["Current-condition photos", "Damage notes for follow-up", "Scope separation between urgent and non-urgent work", "Practical next-step planning"],
+        items: ["Current-condition photos", "Damage notes for follow-up", "Scope separation between priority and scheduled work", "Practical next-step planning"],
       },
       {
         title: "Regional context",
-        items: ["Sweet Home moisture exposure", "Harney County weather exposure", "Route-dependent scheduling for remote communities", "Property-preservation coordination when needed"],
+        items: ["Harney County weather exposure", "Monthly South County route planning", "Route-dependent scheduling for remote communities", "Property-preservation coordination when needed"],
       },
     ],
     faqs: [
       {
-        question: "How should I request emergency help?",
+        question: "How should I request priority help?",
         answer:
-          "Use the contact form or call, and mark the urgency as emergency. Include photos and a short note about what is active right now.",
+          "Use the contact form or call, and mark the request as a priority condition. Include photos, address or location, access notes, timing constraints, and a short note about what is active right now.",
       },
       {
-        question: "Do you guarantee same-day service everywhere?",
+        question: "Is priority work available everywhere on the same timeline?",
         answer:
           "No. Response depends on location, conditions, and current logistics. Remote Harney County work is especially route-dependent.",
       },
       {
         question: "What helps most during an emergency intake?",
         answer:
-          "Clear photos, the exact address, and a short note about active conditions help us review the situation faster and give a practical next step.",
+          "Clear photos, dimensions or affected-area notes, the exact address or location, access notes, priority level, and a short note about active conditions help us review the situation and give a practical next step.",
       },
     ],
-    finalCtaTitle: "Need urgent help reviewed now?",
+    finalCtaTitle: "Need a priority condition reviewed?",
     finalCtaText:
-      "Call or send the photos and address, then mark the request as emergency so we can review the active condition.",
+      "Call or send photos, address or location, access notes, priority level, and timing constraints so we can review the active condition.",
   },
   "energy-weatherization": {
     slug: "energy-weatherization",
@@ -266,7 +271,9 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     whatToSend: [
       "Photos of the openings or areas with draft or weather exposure",
-      "Address and service area",
+      "Address or location in Harney County",
+      "Approximate dimensions, counts, or measurements where relevant",
+      "Access notes, priority level, and timing constraints",
       "Notes about comfort, moisture, or seasonal trouble spots",
       "Any inspection notes tied to efficiency or envelope condition",
     ],
@@ -277,7 +284,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       },
       {
         title: "Regional conditions",
-        items: ["Moisture exposure around Sweet Home", "High-desert wind exposure in Harney County", "Freeze-season weather prep", "Protection of vulnerable openings"],
+        items: ["High-desert wind exposure in Harney County", "Monthly South County route planning", "Freeze-season weather prep", "Protection of vulnerable openings"],
       },
       {
         title: "Planning and follow-through",
@@ -286,9 +293,9 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     faqs: [
       {
-        question: "Do you guarantee utility savings?",
+        question: "Is this presented as a utility-cost promise?",
         answer:
-          "No. This work is presented as practical weatherization and building-envelope improvement, not guaranteed savings.",
+          "No. This work is presented as practical weatherization and building-envelope improvement, not as a utility-cost promise.",
       },
       {
         question: "What kinds of issues are most relevant?",
@@ -303,7 +310,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     finalCtaTitle: "Need a weatherization scope reviewed?",
     finalCtaText:
-      "Send the photos, the address, and the trouble spots you want addressed. We’ll review the practical envelope work first.",
+      "Send photos, dimensions where relevant, the address or location, access notes, priority level, timing constraints, and the trouble spots you want addressed. We’ll review the practical envelope work first.",
   },
   "property-preservation": {
     slug: "property-preservation",
@@ -320,9 +327,10 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     whatToSend: [
       "Property address",
       "Photos of the current exterior and any problem areas",
+      "Dimensions or counts for openings, access issues, or damaged areas where relevant",
       "Occupancy or vacancy status",
       "Access notes or gate information",
-      "Any preservation or transition deadline",
+      "Priority level and any preservation or transition deadline",
     ],
     scopeSections: [
       {
@@ -342,7 +350,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "Do you handle remote or seasonal properties?",
         answer:
-          "Yes, within logistics limits. Remote Harney County work remains route-dependent and should not be assumed to have immediate turnaround.",
+          "Yes, within logistics limits. Remote Harney County work remains route-dependent and should be reviewed for route timing before any schedule is assumed.",
       },
       {
         question: "Is this only for foreclosures?",
@@ -352,12 +360,12 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "What helps first review the most?",
         answer:
-          "Address, current photos, occupancy status, and any access constraints make the first review much clearer.",
+          "Address or location, current photos, dimensions or counts where relevant, occupancy status, priority level, timing constraints, and access notes make the first review much clearer.",
       },
     ],
     finalCtaTitle: "Need a property-preservation review?",
     finalCtaText:
-      "Send the address, the current photos, and the property status. We’ll review the preservation priorities first.",
+      "Send the address or location, current photos, dimensions or counts where relevant, access notes, priority level, timing constraints, and property status. We’ll review the preservation priorities first.",
   },
   "residential-remodeling": {
     slug: "residential-remodeling",
@@ -373,10 +381,11 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     ],
     whatToSend: [
       "Photos of the space",
-      "Address and service area",
+      "Address or location in Harney County",
+      "Dimensions or rough measurements where relevant",
       "A short description of what needs to change",
       "Any known damage or existing repair context",
-      "Timeline or occupancy constraints",
+      "Access notes, priority level, timeline, or occupancy constraints",
     ],
     scopeSections: [
       {
@@ -406,12 +415,12 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "What should I send first?",
         answer:
-          "Photos, the address, what you want changed, and any related damage or repair context are the most useful first items.",
+          "Photos, dimensions, the address or location, access notes, priority level, timing constraints, what you want changed, and any related damage or repair context are the most useful first items.",
       },
     ],
     finalCtaTitle: "Need a practical remodel scope reviewed?",
     finalCtaText:
-      "Send the space photos, the address, and what needs to change. We’ll review the practical path first.",
+      "Send the space photos, dimensions, address or location, access notes, priority level, timing constraints, and what needs to change. We’ll review the practical path first.",
   },
   "commercial-maintenance": {
     slug: "commercial-maintenance",
@@ -428,9 +437,10 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     whatToSend: [
       "Facility address",
       "Photos of the issue or maintenance area",
+      "Dimensions, counts, or affected-area notes where relevant",
       "Business-hour or access limits",
       "Any recurring issue notes",
-      "Priority concerns for tenants, staff, or customers",
+      "Priority level, timing constraints, and concerns for tenants, staff, or customers",
     ],
     scopeSections: [
       {
@@ -460,12 +470,12 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "What helps with the first review?",
         answer:
-          "The address, photos, access limits, and a short note about occupant impact or urgency make the initial review more useful.",
+          "The address or location, photos, dimensions or affected-area notes, access limits, priority level, timing constraints, and a short note about occupant impact make the initial review more useful.",
       },
     ],
     finalCtaTitle: "Need a commercial maintenance review?",
     finalCtaText:
-      "Send the facility photos, address, and access notes. We’ll review the practical maintenance path first.",
+      "Send the facility photos, dimensions or affected-area notes, address or location, access notes, priority level, and timing constraints. We’ll review the practical maintenance path first.",
   },
   "church-nonprofit-maintenance": {
     slug: "church-nonprofit-maintenance",
@@ -482,8 +492,9 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
     whatToSend: [
       "Facility address",
       "Photos of the issue or priority areas",
+      "Dimensions, counts, or affected-area notes where relevant",
       "Notes about how the space is used",
-      "Scheduling limits or event windows",
+      "Access notes, priority level, scheduling limits, or event windows",
       "Any existing maintenance or inspection notes",
     ],
     scopeSections: [
@@ -493,7 +504,7 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       },
       {
         title: "Planning and prioritization",
-        items: ["Urgent versus deferrable work grouping", "Volunteer-safe versus contractor-led task notes", "Scheduling around use of space", "Clear next-step documentation"],
+        items: ["Priority versus deferrable work grouping", "Volunteer-safe versus contractor-led task notes", "Scheduling around use of space", "Clear next-step documentation"],
       },
       {
         title: "Documentation support",
@@ -514,12 +525,12 @@ export const servicePageContentBySlug: Record<string, ServicePageContent> = {
       {
         question: "What helps the first review?",
         answer:
-          "Facility photos, address, how the space is used, and any timing constraints make the first pass more useful.",
+          "Facility photos, dimensions or affected-area notes, address or location, access notes, priority level, how the space is used, and any timing constraints make the first pass more useful.",
       },
     ],
     finalCtaTitle: "Need a facility-maintenance review?",
     finalCtaText:
-      "Send the facility photos, address, and scheduling notes. We’ll review the practical maintenance priorities first.",
+      "Send the facility photos, dimensions or affected-area notes, address or location, access notes, priority level, and scheduling notes. We’ll review the practical maintenance priorities first.",
   },
 };
 

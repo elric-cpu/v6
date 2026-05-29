@@ -127,9 +127,11 @@ test("GET /api/plans returns active plans sorted by audience and monthly price",
       ["residential", "estate"],
     ],
   );
+  assert.equal(json.plans.some((plan) => "popular" in plan), false);
+  assert.equal(JSON.stringify(json.plans).includes("Priority"), false);
 });
 
-test("GET /api/service-areas returns all service areas sorted by priority then city", async () => {
+test("GET /api/service-areas returns Harney County-only service areas sorted by priority then city", async () => {
   const server = createServer();
   const { response, json } = await makeJsonRequest(server, "/api/service-areas");
 
@@ -138,30 +140,22 @@ test("GET /api/service-areas returns all service areas sorted by priority then c
   assert.deepEqual(
     json.areas.map((area) => [area.city, area.priority]),
     [
-      ["Albany", "primary"],
       ["Burns", "primary"],
       ["Hines", "primary"],
-      ["Lebanon", "primary"],
-      ["Sweet Home", "primary"],
-      ["Brownsville", "secondary"],
-      ["Cascadia", "secondary"],
-      ["Crawfordsville", "secondary"],
-      ["Foster", "secondary"],
-      ["Holley", "secondary"],
-      ["Scio", "secondary"],
-      ["Tangent", "secondary"],
       ["Crane", "route-dependent"],
       ["Diamond", "route-dependent"],
       ["Drewsey", "route-dependent"],
       ["Fields", "route-dependent"],
       ["Frenchglen", "route-dependent"],
+      ["Lawen", "route-dependent"],
       ["Princeton", "route-dependent"],
       ["Riley", "route-dependent"],
     ],
   );
+  assert.equal(json.areas.every((area) => area.silo === "harney-county"), true);
   assert.deepEqual(
-    json.areas.filter((area) => area.silo === "harney-county").map((area) => area.zipCodes[0]),
-    ["97720", "97738", "97732", "97722", "97904", "97710", "97736", "97721", "97758"],
+    json.areas.map((area) => area.zipCodes[0]),
+    ["97720", "97738", "97732", "97722", "97904", "97710", "97736", "97720", "97721", "97758"],
   );
 });
 
@@ -174,7 +168,7 @@ test("GET /api/service-areas keeps remote Harney County communities route-depend
     json.areas
       .filter((area) => area.silo === "harney-county" && area.priority === "route-dependent")
       .map((area) => area.city),
-    ["Crane", "Diamond", "Drewsey", "Fields", "Frenchglen", "Princeton", "Riley"],
+    ["Crane", "Diamond", "Drewsey", "Fields", "Frenchglen", "Lawen", "Princeton", "Riley"],
   );
   assert.equal(
     json.areas
@@ -182,13 +176,39 @@ test("GET /api/service-areas keeps remote Harney County communities route-depend
       .every((area) => area.localizedRisks.includes("Remote access")),
     true,
   );
+  assert.equal(
+    json.areas
+      .filter((area) => area.priority === "route-dependent")
+      .every((area) => area.localizedRisks.includes("Route planning") && area.localizedRisks.includes("Access notes")),
+    true,
+  );
 });
 
-test("GET /api/tools/subscription-recommendation returns residential recommendation and savings assumptions", async () => {
+test("GET /api/service-areas omits old Sweet Home-area geography from public payloads", async () => {
+  const server = createServer();
+  const { response, json } = await makeJsonRequest(server, "/api/service-areas");
+
+  assert.equal(response.status, 200);
+
+  const serialized = JSON.stringify(json);
+  for (const oldGeography of [
+    "Sweet Home",
+    "Lebanon",
+    "Albany",
+    "Linn",
+    "Willamette",
+    "25-mile",
+    "sweet-home-25-mile",
+  ]) {
+    assert.equal(serialized.includes(oldGeography), false, `${oldGeography} leaked in public service areas`);
+  }
+});
+
+test("GET /api/tools/subscription-recommendation returns Harney County residential educational assumptions", async () => {
   const server = createServer();
   const { response, json } = await makeJsonRequest(
     server,
-    "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=2200&propertyAge=12&homeValue=450000&region=sweet-home-25-mile",
+    "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=2200&propertyAge=12&homeValue=450000&region=harney-county",
   );
 
   assert.equal(response.status, 200);
@@ -197,16 +217,17 @@ test("GET /api/tools/subscription-recommendation returns residential recommendat
   assert.equal(json.assumptions.annualMaintenanceCost, 9000);
   assert.equal(json.assumptions.annualSubscriptionCost, 1788);
   assert.equal(json.assumptions.propertyType, "residential");
-  assert.equal(json.assumptions.region, "sweet-home-25-mile");
+  assert.equal(json.assumptions.region, "harney-county");
   assert.equal(json.annualSavings, 7212);
   assert.match(json.disclaimer, /educational/i);
+  assert.match(json.disclaimer, /not guaranteed/i);
 });
 
 test("GET /api/tools/subscription-recommendation rejects zero-valued required numeric inputs", async () => {
   const server = createServer();
   const { response, json } = await makeJsonRequest(
     server,
-    "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=0&propertyAge=0&region=sweet-home-25-mile",
+    "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=0&propertyAge=0&region=harney-county",
   );
 
   assert.equal(response.status, 400);
@@ -218,7 +239,7 @@ test("GET /api/tools/subscription-recommendation rejects missing required numeri
   const server = createServer();
   const { response, json } = await makeJsonRequest(
     server,
-    "/api/tools/subscription-recommendation?propertyType=residential&region=sweet-home-25-mile",
+    "/api/tools/subscription-recommendation?propertyType=residential&region=harney-county",
   );
 
   assert.equal(response.status, 400);
@@ -230,13 +251,26 @@ test("GET /api/tools/subscription-recommendation rejects invalid property type w
   const server = createServer();
   const { response, json } = await makeJsonRequest(
     server,
-    "/api/tools/subscription-recommendation?propertyType=boat&squareFootage=2200&propertyAge=12&region=sweet-home-25-mile",
+    "/api/tools/subscription-recommendation?propertyType=boat&squareFootage=2200&propertyAge=12&region=harney-county",
   );
 
   assert.equal(response.status, 400);
   assert.deepEqual(Object.keys(json), ["error"]);
   assert.equal(json.error.code, "VALIDATION_ERROR");
   assert.match(json.error.message, /propertyType/i);
+});
+
+test("GET /api/tools/subscription-recommendation rejects old Sweet Home region", async () => {
+  const server = createServer();
+  const { response, json } = await makeJsonRequest(
+    server,
+    "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=2200&propertyAge=12&region=sweet-home-25-mile",
+  );
+
+  assert.equal(response.status, 400);
+  assert.equal(json.error.code, "VALIDATION_ERROR");
+  assert.equal(JSON.stringify(json).includes("sweet-home-25-mile"), false);
+  assert.match(json.error.message, /harney-county/i);
 });
 
 test("public content endpoints do not leak internal-only fields from source data", async () => {

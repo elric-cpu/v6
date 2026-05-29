@@ -10,11 +10,11 @@ export default function MaintenancePlanCard({
 }: MaintenancePlanCardProps) {
   return (
     <div
-      className={`bg-white border rounded-lg overflow-hidden ${plan.popular ? "border-benson-maroon shadow-lg" : "border-benson-pale"}`}
+      className={`overflow-hidden rounded-lg border bg-benson-offwhite transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md ${plan.popular ? "border-benson-maroon shadow-sm" : "border-benson-pale"}`}
     >
       {plan.popular && (
-        <div className="bg-benson-maroon text-white text-center py-2 text-sm font-semibold">
-          Most Popular
+        <div className="bg-benson-maroon px-4 py-2 text-center text-sm font-semibold text-benson-offwhite">
+          Common Fit
         </div>
       )}
       <div className="p-6">
@@ -33,6 +33,10 @@ export default function MaintenancePlanCard({
           <span className="text-benson-slate">/month</span>
         </div>
         <p className="text-benson-slate mb-6">{plan.description}</p>
+        <p className="mb-6 text-sm text-benson-slate">
+          Final fit depends on Harney County route context, photos, dimensions,
+          access notes, priority level, and timing constraints.
+        </p>
         <ul className="space-y-2 mb-6">
           {plan.features.map((feature) => (
             <li
@@ -56,7 +60,7 @@ export default function MaintenancePlanCard({
         </ul>
         <Link
           href="/contact"
-          className="block w-full text-center bg-benson-maroon hover:bg-benson-maroon-dark text-white px-4 py-3 rounded transition-colors"
+          className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-benson-maroon px-4 py-3 text-center font-medium text-benson-offwhite shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-benson-maroon-dark hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-maroon focus-visible:ring-offset-2 active:translate-y-px"
         >
           {plan.ctaLabel}
         </Link>

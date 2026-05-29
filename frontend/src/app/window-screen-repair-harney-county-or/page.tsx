@@ -15,32 +15,32 @@ const screenRepairFAQs = [
   {
     question: "What types of window screens do you repair?",
     answer:
-      "We repair torn or loose mesh, bent frames, loose corners, and worn-out window screens. We can rebuild existing screens with new mesh and spline, or provide full replacement when the frame is beyond repair.",
+      "We can review torn or loose mesh, bent frames, loose corners, and worn-out window screens. Repair, rebuild, or replacement recommendations depend on the frame condition and confirmed scope.",
   },
   {
     question: "Do you offer custom-fit screens?",
     answer:
-      "Yes. We can build custom screens to fit your windows. Send screen dimensions or photos for a faster quote. We work with standard, pet-resistant, and sun-control mesh options.",
+      "Custom-fit screen work can be reviewed after dimensions, photos, and site details are confirmed. Mesh options should be verified before scheduling.",
   },
   {
     question: "What areas in Harney County do you serve?",
     answer:
-      "We serve Burns, Hines, Crane, Riley, Drewsey, Frenchglen, Fields, Diamond, Princeton, Lawen, and nearby Harney County communities. Service to remote areas is route-dependent—contact us to confirm availability.",
+      "We review screen work for Burns, Hines, Crane, Riley, Drewsey, Frenchglen, Fields, Diamond, Princeton, Lawen, and remote South County communities. Remote work is route-dependent and often belongs on a monthly South County route.",
   },
   {
     question: "How do I get a quote?",
     answer:
-      `Call ${company.phoneDisplay} or use the contact form. For faster review, send screen dimensions or photos of damaged screens and include the property address.`,
+      `Call ${company.phoneDisplay} or use the contact form. Send screen dimensions, photos of damaged screens, the property address or location, access notes, priority level, and timing constraints.`,
   },
   {
     question: "Do you repair screen doors?",
     answer:
-      "Yes, we repair sliding screen doors, patio screens, and screen door frames. Contact us with details about your screen door for a quote.",
+      "Screen door repair can be reviewed from photos, dimensions, address or location, access notes, priority level, timing constraints, and a description of the frame condition before quoting.",
   },
   {
     question: "What mesh options are available?",
     answer:
-      "We offer standard fiberglass mesh, pet-resistant mesh for homes with pets, and sun-control mesh that reduces heat and UV. We&apos;ll help you choose the right option for your needs.",
+      "Mesh availability should be confirmed during scope review. Send photos, dimensions, access notes, timing constraints, and any preference notes so the available options can be checked before route planning.",
   },
 ];
 
@@ -63,9 +63,10 @@ export default function WindowScreenRepairHarneyCountyPage() {
             Window Screen Repair & Replacement in Harney County, OR
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl mb-8">
-            Local window screen repair, rebuilding, and replacement for homes
-            across Harney County. We repair torn mesh, rebuild old screens,
-            replace damaged frames, and provide custom-fit screen options.
+            Window screen repair and replacement review for homes across
+            Harney County. Send photos, dimensions, property location, access
+            notes, priority level, and timing constraints so screen options and
+            monthly South County route fit can be reviewed.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <CTAButton href="/contact" size="lg">
@@ -100,9 +101,9 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 properly, reducing comfort and protection.
               </p>
               <p className="text-benson-slate">
-                We repair torn mesh, rebuild existing screens with new spline,
-                replace damaged frames, and build custom-fit screens for your
-                windows. Send screen sizes or photos for a faster quote.
+                Repair, rebuild, replacement, and custom-fit options should be
+                confirmed after reviewing photos, measurements, frame condition,
+                and route availability.
               </p>
             </div>
             <div className="space-y-4">
@@ -127,9 +128,9 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 <ul className="list-disc list-inside text-benson-slate space-y-2">
                   <li>Screen dimensions (width × height)</li>
                   <li>Photos of damaged screens</li>
-                  <li>Property address</li>
+                  <li>Property address or location</li>
                   <li>Number of screens needing repair</li>
-                  <li>Any notes about access, timeline, or replacement preference</li>
+                  <li>Access notes, priority level, timing constraints, and replacement preference</li>
                 </ul>
               </div>
             </div>
@@ -229,8 +230,8 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 Send Details
               </h3>
               <p className="text-benson-slate text-sm">
-                Call or send screen dimensions and photos. We&apos;ll review and provide
-                feedback.
+                Call or send screen dimensions, photos, property location,
+                access notes, priority level, and timing constraints.
               </p>
             </div>
             <div className="text-center">
@@ -241,8 +242,8 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 Get A Quote
               </h3>
               <p className="text-benson-slate text-sm">
-                We&apos;ll provide a clear estimate for repair, rebuilding, or
-                replacement.
+                We&apos;ll review repair, rebuilding, replacement, materials, and
+                whether the work fits a monthly South County route.
               </p>
             </div>
             <div className="text-center">
@@ -253,8 +254,8 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 Schedule Service
               </h3>
               <p className="text-benson-slate text-sm">
-                We&apos;ll schedule a convenient time for on-site measurement or
-                service.
+                Work is scheduled around route realities, access, weather,
+                materials, and timing constraints.
               </p>
             </div>
             <div className="text-center">
@@ -282,17 +283,17 @@ export default function WindowScreenRepairHarneyCountyPage() {
           <p className="text-benson-slate mb-8 max-w-3xl">
             Serving Burns, Hines, Crane, Riley, Drewsey, Frenchglen, Fields,
             Diamond, Princeton, Lawen, and nearby Harney County communities.
-            Service to remote areas is route-dependent—contact us to confirm
-            availability for your location.
+            Remote South County requests are planned into monthly routes when
+            scope, access, weather, materials, and timing fit.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white border border-benson-pale rounded-lg p-4 text-center">
               <h3 className="font-semibold text-benson-charcoal">Burns</h3>
-              <p className="text-sm text-benson-slate">Primary Service</p>
+              <p className="text-sm text-benson-slate">Route Anchor</p>
             </div>
             <div className="bg-white border border-benson-pale rounded-lg p-4 text-center">
               <h3 className="font-semibold text-benson-charcoal">Hines</h3>
-              <p className="text-sm text-benson-slate">Primary Service</p>
+              <p className="text-sm text-benson-slate">Route Anchor</p>
             </div>
             <div className="bg-white border border-benson-pale rounded-lg p-4 text-center">
               <h3 className="font-semibold text-benson-charcoal">Crane</h3>
@@ -339,14 +340,14 @@ export default function WindowScreenRepairHarneyCountyPage() {
             Ready to Fix Your Window Screens?
           </h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Send screen dimensions or photos. We&apos;ll provide a clear estimate for
-            repair, rebuilding, or replacement.
+            Send screen dimensions, photos, address or location, access notes,
+            priority level, and timing constraints for route-aware review.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton
               href="/contact"
               size="lg"
-              className="bg-white text-benson-charcoal hover:bg-benson-cream"
+              className="bg-white !text-benson-charcoal hover:bg-benson-cream"
             >
               Request Screen Repair Review
             </CTAButton>

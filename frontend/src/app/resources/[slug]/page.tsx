@@ -85,7 +85,7 @@ export default function ResourceDetailPage({ params }: ResourceDetailPageProps) 
           <h2 className="text-3xl font-bold mb-6">{resource.ctaTitle}</h2>
           <p className="text-xl mb-8 text-benson-cream">{resource.ctaText}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

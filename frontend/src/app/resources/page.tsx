@@ -51,10 +51,12 @@ export default function ResourcesPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Need the practical next step?</h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Use the resources to prepare the request, then send the photos, the address, and what needs attention.
+            Use the resources to prepare the request, then send photos,
+            dimensions, address or location, access notes, priority level, and
+            timing constraints.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

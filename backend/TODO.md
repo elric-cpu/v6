@@ -35,7 +35,7 @@ Status:
 
 Remaining work:
 - [ ] Add resource/content surface for FAQs or resource pages if frontend requires it
-- [ ] Reconcile Sweet Home-area ZIP coverage where values are still unknown
+- [ ] Reconcile any remaining Harney County ZIP coverage gaps where values are still unknown
 - [ ] Reconcile public `href` values with the frontend route contract
 
 ### 2. Lead Intake Surface
@@ -102,7 +102,7 @@ Remaining work:
 - `npm test` currently passes
 
 ## Risks / Verify Before Publishing
-- `VERIFY BEFORE PUBLISHING`: some Sweet Home-area entries still have incomplete `zipCodes` values
+- `VERIFY BEFORE PUBLISHING`: some Harney County entries still have incomplete `zipCodes` values
 - `VERIFY BEFORE PUBLISHING`: public route `href` values should be checked against the frontend route contract
 - `VERIFY BEFORE PUBLISHING`: lead storage is still in-memory and not durable
 

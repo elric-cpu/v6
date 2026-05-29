@@ -43,7 +43,7 @@ test("POST /api/emergency-requests accepts a valid emergency request and returns
     city: "Burns",
     zipCode: "97720",
     serviceType: "water-mold-moisture",
-    message: "Active water intrusion in basement. Need immediate help.",
+    message: "Active water intrusion in basement. Need route-aware review.",
     urgency: "emergency",
   });
 

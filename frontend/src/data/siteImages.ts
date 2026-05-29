@@ -30,7 +30,7 @@ export const siteImages: Record<string, SiteImage> = {
     id: "maintenance-porch",
     src: "/site-images/maintenance-porch.jpg",
     alt: "Routine maintenance work on residential porch and exterior elements.",
-    caption: "Preventative maintenance that protects your investment year after year.",
+    caption: "Documented maintenance planning for recurring Harney County property needs.",
     serviceCategory: "maintenance-plans",
     imageStage: "general",
   },
@@ -75,11 +75,11 @@ export const siteImages: Record<string, SiteImage> = {
     imageStage: "general",
   },
   // Area hero images
-  sweetHomeAreaHero: {
+  harneyCountyRouteHero: {
     id: "IMG_0026",
     src: "/site-images/IMG_0026.jpg",
-    alt: "Sweet Home Oregon residential work - typical project in the 25-mile service radius.",
-    caption: "Serving Sweet Home, Lebanon, Albany, and nearby communities within 25 miles.",
+    alt: "Residential exterior used as a general Harney County route-planning image.",
+    caption: "Harney County repair work starts with photos, access notes, and route-aware scheduling.",
     serviceCategory: "inspection-repairs",
     imageStage: "general",
   },
@@ -87,7 +87,7 @@ export const siteImages: Record<string, SiteImage> = {
     id: "IMG_0032",
     src: "/site-images/IMG_0032.jpg",
     alt: "Harney County Oregon remote property work - high-desert conditions and weatherization.",
-    caption: "Harney County service area covering Burns, Hines, Fields, Diamond, and surrounding communities.",
+    caption: "Harney County service area covering Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.",
     serviceCategory: "property-preservation",
     imageStage: "general",
   },
@@ -107,6 +107,5 @@ export const serviceImageByType: Partial<Record<ServiceType, SiteImage>> = {
 };
 
 export const areaImageBySilo = {
-  "sweet-home-25-mile": siteImages.sweetHomeAreaHero,
   "harney-county": siteImages.harneyCountyAreaHero,
 } as const;

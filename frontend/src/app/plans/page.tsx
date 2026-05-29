@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata = buildPageMetadata(
   "Maintenance Plans",
-  "Review the current public maintenance plan tiers and use the educational recommendation tool to compare support levels for residential and facility properties.",
+  "Review public maintenance plan tiers and use the educational recommendation tool to compare support levels for Harney County residential and facility properties.",
 );
 
 export default async function PlansPage() {
@@ -43,8 +43,9 @@ export default async function PlansPage() {
             Maintenance Plans
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl">
-            Scheduled maintenance that keeps properties in good condition. Clear
-            scopes, documented work, completed on schedule.
+            Scheduled maintenance for Harney County properties. Clear scopes,
+            documented work, and monthly South County route planning where the
+            scope, access, weather, and timing fit.
           </p>
         </div>
       </section>
@@ -82,7 +83,7 @@ export default async function PlansPage() {
                     2. Use the estimator carefully
                   </h3>
                   <p className="text-benson-slate">
-                    The recommendation tool returns an educational estimate and the assumptions used to calculate it. It does not guarantee savings.
+                    The recommendation tool returns an educational plan suggestion and the assumptions used to calculate it. It does not promise price, timing, route placement, or final fit.
                   </p>
                 </div>
                 <div className="bg-white border border-benson-pale rounded-lg p-6">
@@ -90,7 +91,7 @@ export default async function PlansPage() {
                     3. Confirm the real fit
                   </h3>
                   <p className="text-benson-slate">
-                    Final fit depends on property condition, region, support level, and whether the work is better handled as one-off scope instead.
+                    Final fit depends on property condition, Harney County route context, support level, access notes, priority, and whether the work is better handled as one-off scope instead.
                   </p>
                 </div>
               </div>
@@ -100,7 +101,7 @@ export default async function PlansPage() {
                 Related next step
               </h3>
               <p className="text-benson-slate mb-4">
-                Use the educational recommendation tool if you want to compare property age, region, and support level before reaching out.
+                Use the educational recommendation tool if you want to compare property age, Harney County route context, and support level before reaching out.
               </p>
               <Link
                 href="/tools/subscription-recommendation"
@@ -128,10 +129,12 @@ export default async function PlansPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Contact us to review whether a plan is the right fit for the property or whether a one-off repair scope makes more sense.
+            Contact us with photos, dimensions, address or location, access notes,
+            priority level, and timing constraints to review whether a plan or a
+            one-off route scope makes more sense.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a

@@ -1,114 +1,136 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { company } from "@/data/company";
 
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { href: "/services", label: "Services" },
+    { href: "/plans", label: "Plans" },
+    { href: "/areas", label: "Service Areas" },
+    { href: "/how-we-work", label: "How We Work" },
+    { href: "/resources", label: "Resources" },
+    { href: "/tools/subscription-recommendation", label: "Tools" },
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
     <header className="bg-benson-charcoal text-benson-offwhite">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-benson-maroon rounded flex items-center justify-center">
-              <span className="text-white font-bold text-lg">B</span>
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal"
+            onClick={() => setMenuOpen(false)}
+          >
+            <div className="flex h-10 w-14 shrink-0 items-center justify-center rounded-lg border border-benson-pale bg-benson-offwhite px-1.5 py-1 shadow-sm sm:w-16">
+              <Image
+                src="/benson-enterprises-logo.svg"
+                alt=""
+                width={64}
+                height={44}
+                className="h-full w-full object-contain"
+                priority
+                aria-hidden="true"
+              />
             </div>
-            <div>
-              <h1 className="text-lg font-semibold text-benson-offwhite">
+            <div className="min-w-0">
+              <p className="truncate text-lg font-semibold text-benson-offwhite">
                 {company.brandName}
-              </h1>
-              <p className="text-xs text-benson-slate">Oregon CCB #{company.ccbNumber}</p>
+              </p>
+              <p className="text-xs text-benson-pale">
+                Oregon CCB #{company.ccbNumber}
+              </p>
             </div>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link
-              href="/services"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              href="/plans"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Maintenance Plans
-            </Link>
-            <Link
-              href="/areas"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Service Areas
-            </Link>
-            <Link
-              href="/how-we-work"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              How We Work
-            </Link>
-            <Link
-              href="/contact"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/resources"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Resources
-            </Link>
-            <Link
-              href="/tools/subscription-recommendation"
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
-            >
-              Tools
-            </Link>
+          <nav className="hidden xl:flex items-center gap-6 text-sm">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded text-benson-offwhite transition-colors duration-200 ease-out hover:text-benson-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden xl:flex items-center gap-4">
             <a
               href={company.phoneHref}
-              className="text-benson-offwhite hover:text-benson-cream transition-colors"
+              className="rounded text-sm text-benson-offwhite transition-colors duration-200 ease-out hover:text-benson-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal"
             >
               {company.phoneDisplay}
             </a>
             <Link
               href="/contact"
-              className="bg-benson-maroon hover:bg-benson-maroon-dark text-white px-4 py-2 rounded transition-colors"
+              className="inline-flex min-h-10 items-center justify-center rounded-lg bg-benson-maroon px-4 py-2 text-sm font-medium text-benson-offwhite shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-benson-maroon-dark hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal active:translate-y-px"
             >
               Get Started
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button className="md:hidden text-benson-offwhite">
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-benson-offwhite transition-colors duration-200 ease-out hover:bg-benson-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal xl:hidden"
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
             <svg
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
+                d={menuOpen ? "M6 18 18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
               />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* CCB Trust Strip */}
+      <nav
+        id="mobile-navigation"
+        className={`${menuOpen ? "block" : "hidden"} border-t border-benson-wine bg-benson-charcoal xl:hidden`}
+      >
+        <div className="mx-auto grid max-w-7xl gap-1 px-4 py-4 sm:px-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-lg px-3 py-3 text-benson-offwhite transition-colors duration-200 ease-out hover:bg-benson-wine hover:text-benson-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <a
+            href={company.phoneHref}
+            className="mt-2 rounded-lg border border-benson-burgundy px-3 py-3 text-center font-medium text-benson-offwhite transition-colors duration-200 ease-out hover:bg-benson-wine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-cream focus-visible:ring-offset-2 focus-visible:ring-offset-benson-charcoal"
+          >
+            {company.phoneDisplay}
+          </a>
+        </div>
+      </nav>
+
       <div className="bg-benson-wine">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <div className="flex items-center justify-center space-x-6 text-sm text-benson-cream">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm text-benson-cream">
             <span>Oregon CCB #{company.ccbNumber}</span>
-            <span>•</span>
             <span>{company.legalName}</span>
-            <span>•</span>
-            <span>Practical Repair, Restoration & Maintenance</span>
+            <span>Harney County route planning</span>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata(
   "How We Work",
-  "Learn the practical Benson Home Solutions workflow: send photos and context, review scope, schedule the work, and document the result.",
+  "Learn the practical Benson Home Solutions workflow for Harney County route review: send photos, dimensions, location, access, priority, timing, and document the result.",
 );
 
 export default function HowWeWorkPage() {
@@ -17,8 +17,10 @@ export default function HowWeWorkPage() {
             How We Work
           </h1>
           <p className="text-xl text-benson-slate max-w-3xl">
-            Clear scopes, clean documentation, completed work. Send the list,
-            send the photos, text the address.
+            Clear scopes, clean documentation, completed work. Send photos,
+            dimensions, the address or location, access notes, priority level,
+            and timing constraints so the work can be reviewed for the right
+            Harney County route.
           </p>
         </div>
       </section>
@@ -40,12 +42,15 @@ export default function HowWeWorkPage() {
                 </h2>
                 <p className="text-benson-slate mb-4">
                   Start by sending photos and a clear description of what you
-                  need. Include:
+                  need. For remote Harney County work, include:
                 </p>
                 <ul className="list-disc list-inside text-benson-slate space-y-2">
                   <li>Photos of the area or issue</li>
-                  <li>Description of what you need done</li>
-                  <li>Property address</li>
+                  <li>Dimensions, counts, or rough measurements where relevant</li>
+                  <li>Description of what you need done and priority level</li>
+                  <li>Property address or location</li>
+                  <li>Access notes, gate details, road conditions, or tenant limits</li>
+                  <li>Timing constraints tied to weather, occupancy, events, or inspections</li>
                   <li>
                     Any relevant context (inspection report, previous work,
                     etc.)
@@ -53,7 +58,8 @@ export default function HowWeWorkPage() {
                 </ul>
                 <p className="text-benson-slate mt-4">
                   You can send this via email, text, or our contact form. We&apos;ll
-                  review and provide initial feedback.
+                  review against current Harney County scheduling and South
+                  County route planning.
                 </p>
               </div>
             </div>
@@ -70,19 +76,20 @@ export default function HowWeWorkPage() {
                   Review & Scope
                 </h2>
                 <p className="text-benson-slate mb-4">
-                  We&apos;ll review your request and provide a clear scope of work.
+                  We&apos;ll review your request and provide a clear scope of work
+                  when the intake details support it.
                   This includes:
                 </p>
                 <ul className="list-disc list-inside text-benson-slate space-y-2">
                   <li>What will be done</li>
                   <li>Materials needed</li>
-                  <li>Timeline estimate</li>
+                  <li>Route and timing considerations</li>
                   <li>Cost estimate</li>
                 </ul>
                 <p className="text-benson-slate mt-4">
                   We&#39;ll document everything so there are no surprises. If we
-                  need to see the property in person, we&#39;ll schedule a site
-                  visit.
+                  need to see the property in person, we&#39;ll review route fit
+                  before scheduling a site visit.
                 </p>
               </div>
             </div>
@@ -99,11 +106,11 @@ export default function HowWeWorkPage() {
                   Schedule & Complete
                 </h2>
                 <p className="text-benson-slate mb-4">
-                  Once you approve the scope, we&apos;ll schedule the work and
-                  complete it according to plan.
+                  Once you approve the scope, work is scheduled around route
+                  realities, access, weather, materials, and timing constraints.
                 </p>
                 <ul className="list-disc list-inside text-benson-slate space-y-2">
-                  <li>Clear communication about scheduling</li>
+                  <li>Clear communication about scheduling and route fit</li>
                   <li>Work completed according to scope</li>
                   <li>Progress updates as needed</li>
                   <li>Professional workmanship</li>
@@ -157,8 +164,8 @@ export default function HowWeWorkPage() {
                 Clear Communication
               </h3>
               <p className="text-benson-slate">
-                We&apos;ll keep you informed throughout the process. No surprises, no
-                hidden costs.
+                Scope, access, route timing, and open questions are handled
+                directly before work is scheduled.
               </p>
             </div>
             <div className="bg-white border border-benson-pale rounded-lg p-6">
@@ -175,7 +182,9 @@ export default function HowWeWorkPage() {
                 Professional Results
               </h3>
               <p className="text-benson-slate">
-                Work is framed around clear scope, practical sequencing, and documentation that helps the next decision-maker understand what was addressed.
+                Work is framed around clear scope, practical sequencing, route
+                realities, and documentation that helps the next decision-maker
+                understand what was addressed.
               </p>
             </div>
           </div>
@@ -187,11 +196,11 @@ export default function HowWeWorkPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 text-benson-cream">
-            Send the list, send the photos, text the address. We&#39;ll review and
-            provide a clear scope.
+            Send photos, dimensions, address or location, access notes, priority
+            level, and timing constraints. We&#39;ll review route fit and scope.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" size="lg" className="bg-white text-benson-charcoal hover:bg-benson-cream">
+            <CTAButton href="/contact" size="lg" className="bg-white !text-benson-charcoal hover:bg-benson-cream">
               Contact Us
             </CTAButton>
             <a
