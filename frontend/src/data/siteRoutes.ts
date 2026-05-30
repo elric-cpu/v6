@@ -1,7 +1,7 @@
 import { resources } from "@/data/resources";
 import { servicePageContentBySlug } from "@/data/servicePageContent";
 
-export const staticSiteRoutes = [
+const staticSiteRoutes = [
   "/",
   "/services",
   "/about",
@@ -11,15 +11,17 @@ export const staticSiteRoutes = [
   "/resources",
   "/contact",
   "/privacy-policy",
+  "/llms.txt",
+  "/llms-full.txt",
   "/tools/subscription-recommendation",
   "/window-screen-repair-harney-county-or",
 ] as const;
 
-export const serviceRoutes = Object.keys(servicePageContentBySlug).map((slug) => `/services/${slug}`);
+const serviceRoutes = Object.keys(servicePageContentBySlug).map((slug) => `/services/${slug}`);
 
-export const resourceRoutes = resources.map((resource) => `/resources/${resource.slug}`);
+const resourceRoutes = resources.map((resource) => `/resources/${resource.slug}`);
 
-export const areaRoutes = [
+const areaRoutes = [
   "/areas/burns",
   "/areas/hines",
   "/areas/crane",

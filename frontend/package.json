@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
+    "start": "node scripts/start-standalone.mjs",
     "lint": "eslint .",
     "test": "node --import tsx --test",
     "indexnow:submit": "tsx scripts/indexnow-submit.ts",

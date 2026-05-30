@@ -105,7 +105,7 @@ Remaining work:
 ## Risks / Verify Before Publishing
 - `VERIFY BEFORE PUBLISHING`: some Harney County entries still have incomplete `zipCodes` values
 - `VERIFY BEFORE PUBLISHING`: public route `href` values should be checked against the frontend route contract
-- `VERIFY BEFORE PUBLISHING`: if Firestore or Gmail permissions are missing in production, delivery will degrade to stored-only submissions with a failed delivery status
+- `VERIFY BEFORE PUBLISHING`: if Firestore, Resend, or Twilio permissions are missing in production, delivery will degrade to stored-only submissions with a failed delivery status
 
 ## Next Slice Prompt
 `Add a retry/admin surface for stored lead and emergency requests. Write failing tests for listing recent submissions with delivery metadata and exposing a safe storage/provider health summary. Then implement the minimum repository and service changes needed to support operational retry handling without exposing internal-only fields.`

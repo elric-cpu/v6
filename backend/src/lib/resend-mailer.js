@@ -1,9 +1,4 @@
-import { IAMCredentialsClient } from "@google-cloud/iam-credentials";
-
 const resendApiUrl = "https://api.resend.com/emails";
-const gmailTokenUrl = "https://oauth2.googleapis.com/token";
-const gmailSendUrl = "https://gmail.googleapis.com/gmail/v1/users/me/messages/send";
-const gmailScope = "https://www.googleapis.com/auth/gmail.send";
 
 function formatSubmissionLocation(submission) {
   const parts = [submission.address, submission.city, submission.zipCode].filter(Boolean);
@@ -63,23 +58,6 @@ function buildResendPayload({ submission, subject, title }) {
   };
 }
 
-function buildGmailMimeMessage({ submission, subject, title, from, to }) {
-  const headers = [
-    `From: ${from}`,
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    `MIME-Version: 1.0`,
-    `Content-Type: text/plain; charset="UTF-8"`,
-    `Reply-To: ${submission.email ?? from}`,
-  ];
-
-  return `${headers.join("\r\n")}\r\n\r\n${formatSubmissionText({ submission, title })}\r\n`;
-}
-
-function base64UrlEncode(value) {
-  return Buffer.from(value, "utf8").toString("base64url");
-}
-
 function resolveFetch(fetchImpl) {
   return fetchImpl ?? globalThis.fetch.bind(globalThis);
 }
@@ -88,103 +66,12 @@ function isConfigured(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
 
-function getGmailConfig() {
-  return {
-    serviceAccountEmail: process.env.GMAIL_SERVICE_ACCOUNT_EMAIL,
-    impersonatedUser: process.env.GMAIL_IMPERSONATED_USER,
-    from: process.env.EMAIL_FROM ?? process.env.GMAIL_IMPERSONATED_USER,
-    to: process.env.LEAD_NOTIFICATION_TO,
-  };
-}
-
 function getResendConfig() {
   return {
     apiKey: process.env.EMAIL_API_KEY,
     from: process.env.EMAIL_FROM,
     to: process.env.EMAIL_TO,
   };
-}
-
-function resolveEmailMode() {
-  const gmailConfig = getGmailConfig();
-  if (
-    isConfigured(gmailConfig.serviceAccountEmail)
-    && isConfigured(gmailConfig.impersonatedUser)
-    && isConfigured(gmailConfig.from)
-    && isConfigured(gmailConfig.to)
-  ) {
-    return "gmail";
-  }
-
-  const resendConfig = getResendConfig();
-  if (isConfigured(resendConfig.apiKey) && isConfigured(resendConfig.from) && isConfigured(resendConfig.to)) {
-    return "resend";
-  }
-
-  return "unconfigured";
-}
-
-async function signGmailJwt({ credentialsClient, serviceAccountEmail, impersonatedUser }) {
-  const issuedAt = Math.floor(Date.now() / 1000);
-  const payload = JSON.stringify({
-    iss: serviceAccountEmail,
-    sub: impersonatedUser,
-    scope: gmailScope,
-    aud: gmailTokenUrl,
-    iat: issuedAt,
-    exp: issuedAt + 3600,
-  });
-
-  const [response] = await credentialsClient.signJwt({
-    name: `projects/-/serviceAccounts/${serviceAccountEmail}`,
-    payload,
-  });
-
-  return response?.signedJwt ?? null;
-}
-
-async function exchangeGmailAccessToken({ fetchImpl, signedJwt }) {
-  const transport = resolveFetch(fetchImpl);
-  const body = new URLSearchParams({
-    grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-    assertion: signedJwt,
-  });
-
-  const response = await transport(gmailTokenUrl, {
-    method: "POST",
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-    body,
-  });
-
-  if (!response.ok) {
-    return null;
-  }
-
-  const payload = await response.json().catch(() => null);
-  return payload?.access_token ?? null;
-}
-
-async function sendGmailMessage({ fetchImpl, accessToken, raw }) {
-  const transport = resolveFetch(fetchImpl);
-  const response = await transport(gmailSendUrl, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${accessToken}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      raw,
-    }),
-  });
-
-  if (!response.ok) {
-    return null;
-  }
-
-  const payload = await response.json().catch(() => null);
-  return payload?.id ?? null;
 }
 
 export function createResendMailer({ fetchImpl = null } = {}) {
@@ -226,82 +113,8 @@ export function createResendMailer({ fetchImpl = null } = {}) {
   };
 }
 
-export function createGmailMailer({ credentialsClient = new IAMCredentialsClient(), fetchImpl = null } = {}) {
-  return async function sendSubmissionEmail({ submission, subject, title }) {
-    const { serviceAccountEmail, impersonatedUser, from, to } = getGmailConfig();
-
-    if (
-      !isConfigured(serviceAccountEmail)
-      || !isConfigured(impersonatedUser)
-      || !isConfigured(from)
-      || !isConfigured(to)
-    ) {
-      return { delivered: false, reason: "email_not_configured" };
-    }
-
-    let signedJwt;
-
-    try {
-      signedJwt = await signGmailJwt({
-        credentialsClient,
-        serviceAccountEmail,
-        impersonatedUser,
-      });
-    } catch {
-      return { delivered: false, reason: "email_delivery_failed" };
-    }
-
-    if (!signedJwt) {
-      return { delivered: false, reason: "email_delivery_failed" };
-    }
-
-    const accessToken = await exchangeGmailAccessToken({
-      fetchImpl,
-      signedJwt,
-    });
-
-    if (!accessToken) {
-      return { delivered: false, reason: "email_delivery_failed" };
-    }
-
-    const raw = base64UrlEncode(buildGmailMimeMessage({ submission, subject, title, from, to }));
-
-    try {
-      const messageId = await sendGmailMessage({
-        fetchImpl,
-        accessToken,
-        raw,
-      });
-
-      if (!messageId) {
-        return { delivered: false, reason: "email_delivery_failed" };
-      }
-
-      return {
-        delivered: true,
-        provider: "gmail",
-        messageId,
-      };
-    } catch {
-      return { delivered: false, reason: "email_delivery_failed" };
-    }
-  };
-}
-
 export function createSubmissionMailer(options = {}) {
-  const mode = resolveEmailMode();
-
-  if (mode === "gmail") {
-    return createGmailMailer(options);
-  }
-
-  if (mode === "resend") {
-    return createResendMailer(options);
-  }
-
-  return async function sendSubmissionEmail() {
-    return { delivered: false, reason: "email_not_configured" };
-  };
+  return createResendMailer(options);
 }
 
 export async function sendSubmissionEmail(args) {
@@ -309,16 +122,9 @@ export async function sendSubmissionEmail(args) {
 }
 
 export function getEmailHealthStatus() {
-  const mode = resolveEmailMode();
+  const { apiKey, from, to } = getResendConfig();
 
-  if (mode === "gmail") {
-    return {
-      status: "healthy",
-      provider: "gmail",
-    };
-  }
-
-  if (mode === "resend") {
+  if (isConfigured(apiKey) && isConfigured(from) && isConfigured(to)) {
     return {
       status: "healthy",
       provider: "resend",

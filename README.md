@@ -7,7 +7,7 @@ Monorepo for the Benson Home Solutions website and supporting API.
 - `frontend/`: Next.js App Router site, docs-style pages, and public UI
 - `backend/`: Node.js API for public content, intake, and the educational tool endpoints
 - `docs/`: project notes and hook audits added during prior agent passes
-- `llms.txt` / `llms-full.txt`: repo-level reference files for current public positioning
+- `/llms.txt` and `/llms-full.txt`: live site reference documents generated from shared frontend data
 
 ## Current Operating Model
 
@@ -45,6 +45,8 @@ Monorepo for the Benson Home Solutions website and supporting API.
 - `/how-we-work`
 - `/resources`
 - `/resources/[slug]`
+- `/llms.txt`
+- `/llms-full.txt`
 - `/tools/subscription-recommendation`
 - `/window-screen-repair-harney-county-or`
 

@@ -4,91 +4,18 @@ import assert from "node:assert/strict";
 import { createServer } from "../src/app.js";
 import { getEmergencyStoreSnapshot } from "../src/services/emergency-requests.js";
 import { resetSubmissionStoreForTests } from "../src/lib/submission-store.js";
+import { withEnv } from "../test-support/env.js";
+import {
+  mockResendFetch,
+  mockTwilioFetch,
+  postJson,
+  requestWithOptions,
+  withMockedFetch,
+} from "../test-support/submission.js";
 
 test.beforeEach(() => {
   resetSubmissionStoreForTests();
 });
-
-function withEnv(overrides, handler) {
-  const previousValues = new Map();
-
-  for (const [key, value] of Object.entries(overrides)) {
-    previousValues.set(key, process.env[key]);
-    if (value === undefined) {
-      delete process.env[key];
-    } else {
-      process.env[key] = value;
-    }
-  }
-
-  return Promise.resolve()
-    .then(handler)
-    .finally(() => {
-      for (const [key, value] of previousValues.entries()) {
-        if (value === undefined) {
-          delete process.env[key];
-        } else {
-          process.env[key] = value;
-        }
-      }
-      resetSubmissionStoreForTests();
-    });
-}
-
-async function withResendMock(response, handler) {
-  const originalFetch = global.fetch;
-
-  global.fetch = async (input, init) => {
-    const url = typeof input === "string" ? input : input.url;
-
-    if (url === "https://api.resend.com/emails") {
-      return new Response(JSON.stringify(response.body ?? { id: "email-test-id" }), {
-        status: response.status ?? 200,
-        headers: {
-          "content-type": "application/json",
-        },
-      });
-    }
-
-    return originalFetch(input, init);
-  };
-
-  try {
-    await handler();
-  } finally {
-    global.fetch = originalFetch;
-  }
-}
-
-async function postJson(server, path, payload) {
-  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-  const address = server.address();
-
-  try {
-    const response = await fetch(`http://127.0.0.1:${address.port}${path}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    const json = await response.json();
-    return { response, json };
-  } finally {
-    await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
-  }
-}
-
-async function requestWithOptions(server, path, options) {
-  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-  const address = server.address();
-
-  try {
-    return await fetch(`http://127.0.0.1:${address.port}${path}`, options);
-  } finally {
-    await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
-  }
-}
 
 test("POST /api/emergency-requests accepts a valid emergency request and returns stable id", async () => {
   const server = createServer();
@@ -122,9 +49,18 @@ test("POST /api/emergency-requests stores the submission and sends email when co
       EMAIL_API_KEY: "resend-test-key",
       EMAIL_FROM: "Benson Home Solutions <office@bensonhomesolutions.com>",
       EMAIL_TO: "office@bensonhomesolutions.com",
+      TWILIO_ACCOUNT_SID: "AC1234567890",
+      TWILIO_AUTH_TOKEN: "twilio-test-token",
+      TWILIO_FROM_NUMBER: "+15413215115",
+      SMS_TO: "+15414130480",
     },
     async () => {
-      await withResendMock({ status: 200, body: { id: "email-456" } }, async () => {
+      await withMockedFetch(
+        [
+          mockResendFetch({ status: 200, body: { id: "email-456" } }),
+          mockTwilioFetch({ status: 201, body: { sid: "sms-456" } }),
+        ],
+        async () => {
         const server = createServer();
         const { response, json } = await postJson(server, "/api/emergency-requests", {
           name: "Test User",
@@ -145,7 +81,11 @@ test("POST /api/emergency-requests stores the submission and sends email when co
         assert.equal(snapshot.length, 1);
         assert.equal(snapshot[0].deliveryDelivered, true);
         assert.equal(snapshot[0].deliveryMessageId, "email-456");
-      });
+        assert.equal(snapshot[0].emailDeliveryDelivered, true);
+        assert.equal(snapshot[0].smsDeliveryDelivered, true);
+        assert.equal(snapshot[0].smsDeliveryMessageId, "sms-456");
+        },
+      );
     },
   );
 });

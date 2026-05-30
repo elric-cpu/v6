@@ -120,7 +120,8 @@ export default async function ContactPage() {
                     level are usually enough to start the review. If there is a
                     report, invoice, or note from another contractor, feel free
                     to mention that as well so the scope can be understood in
-                    one pass.
+                    one pass. We may also follow up by phone or text if that is
+                    the fastest way to review the request.
                   </p>
                 </div>
               </div>

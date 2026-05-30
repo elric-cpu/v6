@@ -1,54 +1,20 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { createGmailMailer, getEmailHealthStatus } from "../src/lib/resend-mailer.js";
+import { createResendMailer, getEmailHealthStatus } from "../src/lib/resend-mailer.js";
+import { getSmsHealthStatus } from "../src/lib/twilio-sms.js";
+import { withEnv } from "../test-support/env.js";
 
-function withEnv(overrides, handler) {
-  const previousValues = new Map();
-
-  for (const [key, value] of Object.entries(overrides)) {
-    previousValues.set(key, process.env[key]);
-    if (value === undefined) {
-      delete process.env[key];
-    } else {
-      process.env[key] = value;
-    }
-  }
-
-  return Promise.resolve()
-    .then(handler)
-    .finally(() => {
-      for (const [key, value] of previousValues.entries()) {
-        if (value === undefined) {
-          delete process.env[key];
-        } else {
-          process.env[key] = value;
-        }
-      }
-    });
-}
-
-test("createGmailMailer signs a delegated JWT and sends a Gmail message", async () => {
+test("createResendMailer sends a Resend message", async () => {
   await withEnv(
     {
       EMAIL_FROM: "office@bensonhomesolutions.com",
-      GMAIL_SERVICE_ACCOUNT_EMAIL: "backend-core-sa@civic-wall-494004-b3.iam.gserviceaccount.com",
-      GMAIL_IMPERSONATED_USER: "office@bensonhomesolutions.com",
-      LEAD_NOTIFICATION_TO: "office@bensonhomesolutions.com",
+      EMAIL_TO: "office@bensonhomesolutions.com",
+      EMAIL_API_KEY: "resend-test-key",
     },
     async () => {
       const calls = [];
-      const mailer = createGmailMailer({
-        credentialsClient: {
-          async signJwt(request) {
-            calls.push({
-              type: "signJwt",
-              request,
-            });
-
-            return [{ signedJwt: "signed-jwt-token" }];
-          },
-        },
+      const mailer = createResendMailer({
         fetchImpl: async (input, init) => {
           const url = typeof input === "string" ? input : input.url;
           calls.push({
@@ -57,17 +23,8 @@ test("createGmailMailer signs a delegated JWT and sends a Gmail message", async 
             init,
           });
 
-          if (url === "https://oauth2.googleapis.com/token") {
-            return new Response(JSON.stringify({ access_token: "access-token" }), {
-              status: 200,
-              headers: {
-                "content-type": "application/json",
-              },
-            });
-          }
-
-          if (url === "https://gmail.googleapis.com/gmail/v1/users/me/messages/send") {
-            return new Response(JSON.stringify({ id: "gmail-message-123" }), {
+          if (url === "https://api.resend.com/emails") {
+            return new Response(JSON.stringify({ id: "email-123" }), {
               status: 200,
               headers: {
                 "content-type": "application/json",
@@ -98,33 +55,45 @@ test("createGmailMailer signs a delegated JWT and sends a Gmail message", async 
 
       assert.deepEqual(result, {
         delivered: true,
-        provider: "gmail",
-        messageId: "gmail-message-123",
+        provider: "resend",
+        messageId: "email-123",
       });
-      assert.equal(calls[0].type, "signJwt");
-      assert.equal(calls[0].request.name, "projects/-/serviceAccounts/backend-core-sa@civic-wall-494004-b3.iam.gserviceaccount.com");
-      assert.equal(typeof calls[0].request.payload, "string");
-      assert.equal(calls[1].url, "https://oauth2.googleapis.com/token");
-      assert.equal(calls[2].url, "https://gmail.googleapis.com/gmail/v1/users/me/messages/send");
-      assert.equal(calls[2].init.headers.authorization, "Bearer access-token");
-      assert.equal(JSON.parse(calls[2].init.body).raw.length > 0, true);
+      assert.equal(calls[0].url, "https://api.resend.com/emails");
+      assert.equal(calls[0].init.headers.authorization, "Bearer resend-test-key");
+      assert.equal(JSON.parse(calls[0].init.body).to[0], "office@bensonhomesolutions.com");
     },
   );
 });
 
-test("getEmailHealthStatus reports gmail as healthy when the workspace env is configured", async () => {
+test("getEmailHealthStatus reports resend as healthy when the env is configured", async () => {
   await withEnv(
     {
       EMAIL_FROM: "office@bensonhomesolutions.com",
-      GMAIL_SERVICE_ACCOUNT_EMAIL: "backend-core-sa@civic-wall-494004-b3.iam.gserviceaccount.com",
-      GMAIL_IMPERSONATED_USER: "office@bensonhomesolutions.com",
-      LEAD_NOTIFICATION_TO: "office@bensonhomesolutions.com",
+      EMAIL_TO: "office@bensonhomesolutions.com",
+      EMAIL_API_KEY: "resend-test-key",
     },
     async () => {
       const status = getEmailHealthStatus();
 
       assert.equal(status.status, "healthy");
-      assert.equal(status.provider, "gmail");
+      assert.equal(status.provider, "resend");
+    },
+  );
+});
+
+test("getSmsHealthStatus reports twilio as healthy when the env is configured", async () => {
+  await withEnv(
+    {
+      TWILIO_ACCOUNT_SID: "AC1234567890",
+      TWILIO_AUTH_TOKEN: "twilio-test-token",
+      TWILIO_FROM_NUMBER: "+15413215115",
+      SMS_TO: "+15414130480",
+    },
+    async () => {
+      const status = getSmsHealthStatus();
+
+      assert.equal(status.status, "healthy");
+      assert.equal(status.provider, "twilio");
     },
   );
 });

@@ -13,7 +13,7 @@ This service exposes the public content and intake endpoints used by the fronten
 - Built-in `http` server
 - In-memory public content fixtures
 - Durable lead and emergency intake storage through Firestore by default in production, with Postgres support when `DATABASE_URL` is configured
-- Gmail-based notification delivery when the workspace delegation env vars are present, with Resend fallback support for non-Workspace deployments
+- Resend email delivery plus Twilio SMS notifications when the delivery env vars are present
 
 ## Getting Started
 
@@ -99,10 +99,10 @@ The submission is stored durably through the active storage backend:
 - `DATABASE_URL` enables the Postgres-backed repository
 - non-production test/dev defaults use in-memory storage unless a backend is configured
 
-Notification delivery follows the active email backend:
+Notification delivery follows the active notification env vars:
 
-- Gmail domain-wide delegation when `GMAIL_SERVICE_ACCOUNT_EMAIL`, `GMAIL_IMPERSONATED_USER`, `EMAIL_FROM`, and `LEAD_NOTIFICATION_TO` are set
-- Resend fallback when `EMAIL_API_KEY`, `EMAIL_FROM`, and `EMAIL_TO` are set
+- Resend email when `EMAIL_API_KEY`, `EMAIL_FROM`, and `EMAIL_TO` are set
+- Twilio SMS when `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM_NUMBER`, and `SMS_TO` are set
 
 ### `POST /api/emergency-requests`
 
@@ -121,9 +121,10 @@ The submission follows the same delivery path as `POST /api/leads`.
 - `EMAIL_FROM`
 - `EMAIL_API_KEY`
 - `EMAIL_TO`
-- `LEAD_NOTIFICATION_TO`
-- `GMAIL_SERVICE_ACCOUNT_EMAIL`
-- `GMAIL_IMPERSONATED_USER`
+- `SMS_TO`
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_FROM_NUMBER`
 - `TURNSTILE_SECRET_KEY`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`

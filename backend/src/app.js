@@ -8,16 +8,43 @@ import { submitEmergencyRequest } from "./services/emergency-requests.js";
 import { getImages, getPlans, getServiceAreas, getServices } from "./services/public-content.js";
 import { getSubscriptionRecommendation } from "./services/subscription-recommendation.js";
 
-const allowedMethodsByPath = new Map([
-  ["/health", new Set(["GET"])],
-  ["/api/services", new Set(["GET"])],
-  ["/api/images", new Set(["GET"])],
-  ["/api/plans", new Set(["GET"])],
-  ["/api/service-areas", new Set(["GET"])],
-  ["/api/tools/subscription-recommendation", new Set(["GET"])],
-  ["/api/leads", new Set(["POST"])],
-  ["/api/emergency-requests", new Set(["POST"])],
+const routeHandlers = new Map([
+  ["GET /health", async (_, response, headers) => {
+    json(response, 200, await getHealthStatus(), headers);
+  }],
+  ["GET /api/services", async (_, response, headers) => {
+    json(response, 200, { services: getServices() }, headers);
+  }],
+  ["GET /api/images", async (_, response, headers) => {
+    json(response, 200, { images: getImages() }, headers);
+  }],
+  ["GET /api/plans", async (_, response, headers) => {
+    json(response, 200, { plans: getPlans() }, headers);
+  }],
+  ["GET /api/service-areas", async (_, response, headers) => {
+    json(response, 200, { areas: getServiceAreas() }, headers);
+  }],
+  ["GET /api/tools/subscription-recommendation", async (request, response, headers, url) => {
+    json(response, 200, getSubscriptionRecommendation(url.searchParams), headers);
+  }],
+  ["POST /api/leads", async (request, response, headers) => {
+    const result = await submitLeadRequest(await readJsonBody(request));
+    json(response, 201, result, headers);
+  }],
+  ["POST /api/emergency-requests", async (request, response, headers) => {
+    const result = await submitEmergencyRequest(await readJsonBody(request));
+    json(response, 201, result, headers);
+  }],
 ]);
+
+const allowedMethodsByPath = new Map();
+
+for (const routeKey of routeHandlers.keys()) {
+  const [method, pathname] = routeKey.split(" ");
+  const allowedMethods = allowedMethodsByPath.get(pathname) ?? new Set();
+  allowedMethods.add(method);
+  allowedMethodsByPath.set(pathname, allowedMethods);
+}
 
 async function routeRequest(request, response) {
   const url = new URL(request.url, "http://localhost");
@@ -29,47 +56,9 @@ async function routeRequest(request, response) {
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/health") {
-    json(response, 200, await getHealthStatus(), corsHeaders);
-    return;
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/services") {
-    json(response, 200, { services: getServices() }, corsHeaders);
-    return;
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/images") {
-    json(response, 200, { images: getImages() }, corsHeaders);
-    return;
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/plans") {
-    json(response, 200, { plans: getPlans() }, corsHeaders);
-    return;
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/service-areas") {
-    json(response, 200, { areas: getServiceAreas() }, corsHeaders);
-    return;
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/tools/subscription-recommendation") {
-    json(response, 200, getSubscriptionRecommendation(url.searchParams), corsHeaders);
-    return;
-  }
-
-  if (request.method === "POST" && url.pathname === "/api/leads") {
-    const body = await readJsonBody(request);
-    const result = await submitLeadRequest(body);
-    json(response, 201, result, corsHeaders);
-    return;
-  }
-
-  if (request.method === "POST" && url.pathname === "/api/emergency-requests") {
-    const body = await readJsonBody(request);
-    const result = await submitEmergencyRequest(body);
-    json(response, 201, result, corsHeaders);
+  const handler = routeHandlers.get(`${request.method} ${url.pathname}`);
+  if (handler) {
+    await handler(request, response, corsHeaders, url);
     return;
   }
 

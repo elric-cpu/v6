@@ -89,6 +89,20 @@ test("postgres store rejects delivery updates when no row is updated", async () 
       provider: "resend",
       messageId: "email-123",
       deliveredAt: "2026-05-30T00:00:00.000Z",
+      email: {
+        delivered: true,
+        reason: null,
+        provider: "resend",
+        messageId: "email-123",
+        deliveredAt: "2026-05-30T00:00:00.000Z",
+      },
+      sms: {
+        delivered: true,
+        reason: null,
+        provider: "twilio",
+        messageId: "sms-123",
+        deliveredAt: "2026-05-30T00:00:00.000Z",
+      },
     }),
     (error) => error instanceof ApiError && error.statusCode === 404 && error.code === "NOT_FOUND",
   );

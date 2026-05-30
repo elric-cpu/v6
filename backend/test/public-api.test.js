@@ -3,23 +3,11 @@ import assert from "node:assert/strict";
 
 import { createServer } from "../src/app.js";
 import { publicPlans, serviceAreas, services } from "../src/data/public-data.js";
-
-async function makeJsonRequest(server, path, options = {}) {
-  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-  const address = server.address();
-
-  try {
-    const response = await fetch(`http://127.0.0.1:${address.port}${path}`, options);
-    const json = await response.json();
-    return { response, json };
-  } finally {
-    await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
-  }
-}
+import { requestJson } from "../test-support/http.js";
 
 test("GET /health returns service health details", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/health");
+  const { response, json } = await requestJson(server, "/health");
 
   assert.equal(response.status, 200);
   assert.equal(json.status, "degraded");
@@ -28,6 +16,7 @@ test("GET /health returns service health details", async () => {
   assert.deepEqual(json.services, {
     database: "unhealthy",
     email: "unhealthy",
+    sms: "unhealthy",
     stripe: "unhealthy",
   });
 });
@@ -44,7 +33,7 @@ test("GET /health exposes safe runtime metadata without leaking secrets", async 
   const server = createServer();
 
   try {
-    const { response, json } = await makeJsonRequest(server, "/health");
+    const { response, json } = await requestJson(server, "/health");
 
     assert.equal(response.status, 200);
     assert.deepEqual(json.metadata, {
@@ -62,7 +51,7 @@ test("GET /health exposes safe runtime metadata without leaking secrets", async 
 
 test("GET /api/services returns active services sorted by display order", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/services");
+  const { response, json } = await requestJson(server, "/api/services");
 
   assert.equal(response.status, 200);
   assert.equal(Array.isArray(json.services), true);
@@ -96,7 +85,7 @@ test("GET /api/services returns active services sorted by display order", async 
 
 test("GET /api/images returns curated public image metadata only", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/images");
+  const { response, json } = await requestJson(server, "/api/images");
 
   assert.equal(response.status, 200);
   assert.equal(Array.isArray(json.images), true);
@@ -116,7 +105,7 @@ test("GET /api/images returns curated public image metadata only", async () => {
 
 test("GET /api/plans returns active plans sorted by audience and monthly price", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/plans");
+  const { response, json } = await requestJson(server, "/api/plans");
 
   assert.equal(response.status, 200);
   assert.equal(Array.isArray(json.plans), true);
@@ -135,7 +124,7 @@ test("GET /api/plans returns active plans sorted by audience and monthly price",
 
 test("GET /api/service-areas returns Harney County-only service areas sorted by priority then city", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/service-areas");
+  const { response, json } = await requestJson(server, "/api/service-areas");
 
   assert.equal(response.status, 200);
   assert.equal(Array.isArray(json.areas), true);
@@ -163,7 +152,7 @@ test("GET /api/service-areas returns Harney County-only service areas sorted by 
 
 test("GET /api/service-areas keeps remote Harney County communities route-dependent", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/service-areas");
+  const { response, json } = await requestJson(server, "/api/service-areas");
 
   assert.equal(response.status, 200);
   assert.deepEqual(
@@ -188,7 +177,7 @@ test("GET /api/service-areas keeps remote Harney County communities route-depend
 
 test("GET /api/service-areas omits old Sweet Home-area geography from public payloads", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(server, "/api/service-areas");
+  const { response, json } = await requestJson(server, "/api/service-areas");
 
   assert.equal(response.status, 200);
 
@@ -208,7 +197,7 @@ test("GET /api/service-areas omits old Sweet Home-area geography from public pay
 
 test("GET /api/tools/subscription-recommendation returns Harney County residential educational assumptions", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(
+  const { response, json } = await requestJson(
     server,
     "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=2200&propertyAge=12&homeValue=450000&region=harney-county",
   );
@@ -227,7 +216,7 @@ test("GET /api/tools/subscription-recommendation returns Harney County residenti
 
 test("GET /api/tools/subscription-recommendation rejects zero-valued required numeric inputs", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(
+  const { response, json } = await requestJson(
     server,
     "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=0&propertyAge=0&region=harney-county",
   );
@@ -239,7 +228,7 @@ test("GET /api/tools/subscription-recommendation rejects zero-valued required nu
 
 test("GET /api/tools/subscription-recommendation rejects missing required numeric inputs", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(
+  const { response, json } = await requestJson(
     server,
     "/api/tools/subscription-recommendation?propertyType=residential&region=harney-county",
   );
@@ -251,7 +240,7 @@ test("GET /api/tools/subscription-recommendation rejects missing required numeri
 
 test("GET /api/tools/subscription-recommendation rejects invalid property type with contract error shape", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(
+  const { response, json } = await requestJson(
     server,
     "/api/tools/subscription-recommendation?propertyType=boat&squareFootage=2200&propertyAge=12&region=harney-county",
   );
@@ -264,7 +253,7 @@ test("GET /api/tools/subscription-recommendation rejects invalid property type w
 
 test("GET /api/tools/subscription-recommendation rejects old Sweet Home region", async () => {
   const server = createServer();
-  const { response, json } = await makeJsonRequest(
+  const { response, json } = await requestJson(
     server,
     "/api/tools/subscription-recommendation?propertyType=residential&squareFootage=2200&propertyAge=12&region=sweet-home-25-mile",
   );
@@ -289,9 +278,9 @@ test("public content endpoints do not leak internal-only fields from source data
     const planServer = createServer();
     const areaServer = createServer();
 
-    const { json: serviceJson } = await makeJsonRequest(serviceServer, "/api/services");
-    const { json: planJson } = await makeJsonRequest(planServer, "/api/plans");
-    const { json: areaJson } = await makeJsonRequest(areaServer, "/api/service-areas");
+    const { json: serviceJson } = await requestJson(serviceServer, "/api/services");
+    const { json: planJson } = await requestJson(planServer, "/api/plans");
+    const { json: areaJson } = await requestJson(areaServer, "/api/service-areas");
 
     assert.equal("cost" in serviceJson.services[0], false);
     assert.equal("margin" in planJson.plans[0], false);

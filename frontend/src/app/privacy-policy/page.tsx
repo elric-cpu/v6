@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
           <p className="text-xl text-benson-slate">
             This page explains how Benson Home Solutions handles information
             submitted through the website, including the contact form, route
-            review details, and standard analytics.
+            review details, text follow-up, and standard analytics.
           </p>
         </div>
       </section>
@@ -34,7 +34,8 @@ export default function PrivacyPolicyPage() {
               When you send a message through the contact form, we may collect
               your name, phone number, email address, property location details,
               service type, message content, and route context such as timing or
-              access notes.
+              access notes. Your phone number may also be used for call or text
+              follow-up about the request.
             </p>
             <p className="mt-4">
               The website also uses standard analytics tools to understand page
@@ -50,6 +51,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc list-inside space-y-2">
               <li>To review and respond to service requests.</li>
               <li>To route requests by service area and timing.</li>
+              <li>To follow up by phone, text, or email when needed.</li>
               <li>To document public-facing service information and site health.</li>
               <li>To reduce spam and abuse on the contact form.</li>
             </ul>

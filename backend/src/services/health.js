@@ -1,23 +1,22 @@
 import { getEmailHealthStatus } from "../lib/resend-mailer.js";
 import { getSubmissionStoreHealth } from "../lib/submission-store.js";
+import { getSmsHealthStatus } from "../lib/twilio-sms.js";
 
 export async function getHealthStatus() {
   const [databaseHealth, emailHealth] = await Promise.all([
     getSubmissionStoreHealth(),
-    Promise.resolve(getEmailHealthStatus()),
+    getEmailHealthStatus(),
   ]);
 
   const services = {
     database: databaseHealth.status,
     email: emailHealth.status,
+    sms: getSmsHealthStatus().status,
     stripe: process.env.STRIPE_SECRET_KEY ? "healthy" : "unhealthy",
   };
 
-  const healthyCount = Object.values(services).filter((value) => value === "healthy").length;
-  const status = healthyCount === 3 ? "healthy" : healthyCount === 0 ? "degraded" : "degraded";
-
   return {
-    status,
+    status: Object.values(services).every((value) => value === "healthy") ? "healthy" : "degraded",
     timestamp: new Date().toISOString(),
     version: process.env.npm_package_version ?? "0.1.0",
     metadata: {
