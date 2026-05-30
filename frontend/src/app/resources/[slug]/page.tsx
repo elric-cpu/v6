@@ -5,19 +5,20 @@ import { resourceBySlug, resources } from "@/data/resources";
 import { buildPageMetadata } from "@/lib/metadata";
 
 interface ResourceDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export function generateMetadata({ params }: ResourceDetailPageProps) {
-  const resource = resourceBySlug[params.slug];
+export async function generateMetadata({ params }: ResourceDetailPageProps) {
+  const { slug } = await params;
+  const resource = resourceBySlug[slug];
 
   if (!resource) {
-    return buildPageMetadata("Resource Not Found", "The requested resource page is not available.");
+    return buildPageMetadata("Resource Not Found", "The requested resource page is not available.", `/resources/${slug}`);
   }
 
-  return buildPageMetadata(resource.title, resource.description);
+  return buildPageMetadata(resource.metaTitle ?? resource.title, resource.description, `/resources/${slug}`);
 }
 
 export function generateStaticParams() {
@@ -26,8 +27,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ResourceDetailPage({ params }: ResourceDetailPageProps) {
-  const resource = resourceBySlug[params.slug];
+export default async function ResourceDetailPage({ params }: ResourceDetailPageProps) {
+  const { slug } = await params;
+  const resource = resourceBySlug[slug];
 
   if (!resource) {
     return (
@@ -94,6 +96,34 @@ export default function ResourceDetailPage({ params }: ResourceDetailPageProps) 
             >
               {company.phoneDisplay}
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-benson-offwhite">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-benson-charcoal mb-6">
+            Related pages
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Link href="/areas" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Service Areas</h3>
+              <p className="mt-3 text-benson-slate">
+                Confirm whether the request fits Harney County routing and monthly South County planning.
+              </p>
+            </Link>
+            <Link href="/services" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Services</h3>
+              <p className="mt-3 text-benson-slate">
+                Review the service categories before you send a request so the scope lines up with the right work type.
+              </p>
+            </Link>
+            <Link href="/contact" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Contact</h3>
+              <p className="mt-3 text-benson-slate">
+                Send photos, dimensions, location details, access notes, priority, and timing constraints when you&apos;re ready.
+              </p>
+            </Link>
           </div>
         </div>
       </section>

@@ -7,8 +7,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { siteImages } from "@/data/siteImages";
 
 export const metadata = buildPageMetadata(
-  "Window Screen Repair & Replacement In Harney County, OR",
+  "Window Screen Repair",
   "A focused Harney County landing page for screen repair and replacement requests within the broader window and door replacement service category.",
+  "/window-screen-repair-harney-county-or",
 );
 
 const screenRepairFAQs = [
@@ -108,13 +109,16 @@ export default function WindowScreenRepairHarneyCountyPage() {
             </div>
             <div className="space-y-4">
               <div className="overflow-hidden rounded-lg border border-benson-pale bg-white">
-                <div className="relative aspect-[4/3]">
+                <div className="aspect-[4/3] overflow-hidden">
                   <Image
                     src={screenImage.src}
                     alt={screenImage.alt}
-                    fill
+                    width={screenImage.width ?? 1200}
+                    height={screenImage.height ?? 1600}
                     sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover"
+                    priority
+                    quality={65}
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="border-t border-benson-pale px-4 py-3">
@@ -210,6 +214,41 @@ export default function WindowScreenRepairHarneyCountyPage() {
                 <li>Roller and track repair</li>
                 <li>Frame fixes</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Fit Notes */}
+      <section className="py-16 bg-benson-offwhite">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-benson-charcoal mb-8 text-center">
+            What Helps With a Screen Quote
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Frame condition
+              </h3>
+              <p className="text-benson-slate">
+                Whether the frame is straight, bent, loose, or missing helps determine if repair is practical or if replacement makes more sense.
+              </p>
+            </div>
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Mesh and use
+              </h3>
+              <p className="text-benson-slate">
+                Standard, pet-resistant, and sun-control options all change the final recommendation, so it helps to share the use case up front.
+              </p>
+            </div>
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Timing and access
+              </h3>
+              <p className="text-benson-slate">
+                Photos, dimensions, location, and access notes make it easier to fit the work into the right travel window.
+              </p>
             </div>
           </div>
         </div>

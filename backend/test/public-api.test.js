@@ -103,6 +103,8 @@ test("GET /api/images returns curated public image metadata only", async () => {
   assert.equal(json.images.length >= 6, true);
   assert.equal(json.images.every((image) => typeof image.id === "string"), true);
   assert.equal(json.images.every((image) => image.src.startsWith("/site-images/")), true);
+  assert.equal(json.images.every((image) => typeof image.width === "number"), true);
+  assert.equal(json.images.every((image) => typeof image.height === "number"), true);
   assert.equal(json.images.every((image) => "sourceFileName" in image === false), true);
   assert.equal(
     json.images.some(

@@ -1,7 +1,6 @@
-import { randomUUID } from "node:crypto";
-
 import { ApiError } from "../lib/errors.js";
-import { sanitizeObject } from "../lib/sanitize.js";
+import { getSubmissionSnapshots } from "../lib/submission-store.js";
+import { createSubmissionWorkflow } from "./intake-workflow.js";
 
 const validServiceTypes = new Set([
   "inspection-repairs",
@@ -22,10 +21,6 @@ const zipCodePattern = /^\d{5}(?:-\d{4})?$/;
 const maxMessageLength = 2000;
 const maxCityLength = 120;
 const maxAddressLength = 240;
-
-function isPlainObject(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function validateEmergencyRequest(payload) {
   const missingFields = [];
@@ -74,46 +69,27 @@ function validateEmergencyRequest(payload) {
   }
 }
 
-async function notifyEmergencyRequest(emergency) {
-  if (!process.env.EMAIL_API_KEY || !process.env.EMAIL_FROM) {
-    return { delivered: false, reason: "email_not_configured" };
-  }
-
-  return { delivered: true, emergencyId: emergency.id };
-}
-
-export async function submitEmergencyRequest(rawPayload) {
-  if (!isPlainObject(rawPayload)) {
-    throw new ApiError(400, "VALIDATION_ERROR", "Emergency request payload must be a JSON object.");
-  }
-
-  const payload = sanitizeObject(rawPayload);
-  validateEmergencyRequest(payload);
-
-  const emergency = {
-    id: randomUUID(),
-    ...payload,
-    createdAt: new Date().toISOString(),
-  };
-
-  // In-memory store; TODO: move to Postgres
-  emergencyStore.push(emergency);
-  const delivery = await notifyEmergencyRequest(emergency);
-
+function buildEmergencyEmail(submission) {
   return {
-    success: true,
-    leadId: emergency.id,
-    message: "Emergency request received. Benson Home Solutions will review the active condition, access notes, location, and route timing.",
-    createdAt: emergency.createdAt,
-    delivery: {
-      delivered: delivery.delivered,
-      ...(delivery.reason ? { reason: delivery.reason } : {}),
-    },
+    subject: `Emergency request: ${submission.name} - ${submission.serviceType}`,
+    title: "New emergency request",
   };
 }
 
-const emergencyStore = [];
+export function createEmergencySubmissionService(overrides = {}) {
+  return createSubmissionWorkflow({
+    submissionKind: "emergency",
+    successMessage: "Emergency request received. Benson Home Solutions will review the active condition, access notes, location, and route timing.",
+    validatePayload: validateEmergencyRequest,
+    buildEmail: buildEmergencyEmail,
+    verifyToken: overrides.verifyToken,
+    getStore: overrides.getStore,
+    sendEmail: overrides.sendEmail,
+  });
+}
+
+export const submitEmergencyRequest = createEmergencySubmissionService();
 
 export function getEmergencyStoreSnapshot() {
-  return emergencyStore.slice();
+  return getSubmissionSnapshots("emergency");
 }

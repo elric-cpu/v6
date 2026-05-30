@@ -5,6 +5,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata(
   "How We Work",
   "Learn the practical Benson Home Solutions workflow for Harney County route review: send photos, dimensions, location, access, priority, timing, and document the result.",
+  "/how-we-work",
 );
 
 export default function HowWeWorkPage() {
@@ -19,8 +20,8 @@ export default function HowWeWorkPage() {
           <p className="text-xl text-benson-slate max-w-3xl">
             Clear scopes, clean documentation, completed work. Send photos,
             dimensions, the address or location, access notes, priority level,
-            and timing constraints so the work can be reviewed for the right
-            Harney County route.
+            and timing constraints so the request can be reviewed for the right
+            Harney County schedule.
           </p>
         </div>
       </section>
@@ -147,6 +148,41 @@ export default function HowWeWorkPage() {
                   everything that was done.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Review Tips */}
+      <section className="py-16 bg-benson-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-benson-charcoal mb-8 text-center">
+            Quick Review Tips
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Show the issue
+              </h3>
+              <p className="text-benson-slate">
+                A clear photo with enough context usually does more than a long explanation.
+              </p>
+            </div>
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Add the practical details
+              </h3>
+              <p className="text-benson-slate">
+                Dimensions, access notes, and timing help separate urgent work from a scheduled visit.
+              </p>
+            </div>
+            <div className="bg-white border border-benson-pale rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-benson-charcoal mb-4">
+                Point to the next step
+              </h3>
+              <p className="text-benson-slate">
+                If you already know the likely service type, mention it so the request starts in the right place.
+              </p>
             </div>
           </div>
         </div>

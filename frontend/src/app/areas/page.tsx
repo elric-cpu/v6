@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata = buildPageMetadata(
   "Service Areas",
   "Review Benson Home Solutions Harney County routing, including Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and planned monthly South County routes.",
+  "/areas",
 );
 
 export default async function AreasPage() {
@@ -64,6 +65,33 @@ export default async function AreasPage() {
               ))}
               <li>Monthly South County routes are planned by grouped scope, weather, access, materials, and timing constraints.</li>
             </ul>
+            <p className="mt-4 text-benson-slate">
+              If your location is remote or route-dependent, send the exact
+              address or location, photos, and a short note about whether the
+              issue is active now. That gives the intake review enough context
+              to decide whether it belongs on a current route or a future
+              monthly trip.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <Link href="/services" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Match the service first</h3>
+              <p className="mt-3 text-benson-slate">
+                Review the service categories before you request a route review so the intake starts with the right scope.
+              </p>
+            </Link>
+            <Link href="/contact" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Send route details</h3>
+              <p className="mt-3 text-benson-slate">
+                Photos, dimensions, location, access notes, priority level, and timing constraints make the route review clearer.
+              </p>
+            </Link>
+            <Link href="/privacy-policy" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Review site policies</h3>
+              <p className="mt-3 text-benson-slate">
+                Learn how contact submissions and site data are handled before you send a request.
+              </p>
+            </Link>
           </div>
         </div>
       </section>

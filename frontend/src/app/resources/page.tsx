@@ -7,6 +7,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata(
   "Resources",
   "Browse practical Benson Home Solutions resources covering service-area routing, request preparation, and maintenance-plan decision support.",
+  "/resources",
 );
 
 export default function ResourcesPage() {
@@ -39,11 +40,45 @@ export default function ResourcesPage() {
                   href={`/resources/${resource.slug}`}
                   className="text-benson-maroon transition-colors hover:text-benson-maroon-dark"
                 >
-                  Read the resource →
+                  Read {resource.title.toLowerCase()} →
                 </Link>
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="py-16 bg-benson-cream">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-benson-charcoal mb-6">
+            Use these resources with the rest of the site
+          </h2>
+          <p className="mb-6 text-benson-slate">
+            The resource list works best when it is used as a pre-contact
+            checklist. Read the article that matches your situation, then send
+            the practical details the intake form needs so the request can be
+            reviewed against Harney County routing and support timing.
+          </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Link href="/areas" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Review service areas</h3>
+              <p className="mt-3 text-benson-slate">
+                Confirm whether the request fits Harney County routing and monthly South County scheduling.
+              </p>
+            </Link>
+            <Link href="/tools/subscription-recommendation" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Compare plan fit</h3>
+              <p className="mt-3 text-benson-slate">
+                Use the planning tool to compare property age, size, and support level before you request service.
+              </p>
+            </Link>
+            <Link href="/contact" className="rounded-2xl border border-benson-pale bg-white p-6 shadow-sm hover:border-benson-maroon transition-colors">
+              <h3 className="text-xl font-semibold text-benson-charcoal">Send the request</h3>
+              <p className="mt-3 text-benson-slate">
+                Send photos, dimensions, location details, access notes, priority level, and timing constraints.
+              </p>
+            </Link>
+          </div>
         </div>
       </section>
 

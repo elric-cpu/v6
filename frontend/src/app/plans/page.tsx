@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 export const metadata = buildPageMetadata(
   "Maintenance Plans",
   "Review public maintenance plan tiers and use the educational recommendation tool to compare support levels for Harney County residential and facility properties.",
+  "/plans",
 );
 
 export default async function PlansPage() {
@@ -53,6 +54,14 @@ export default async function PlansPage() {
       {/* Plans Grid */}
       <section className="py-16 bg-benson-offwhite">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 max-w-3xl">
+            <h2 className="text-3xl font-bold text-benson-charcoal mb-3">
+              Plan Options
+            </h2>
+            <p className="text-benson-slate">
+              Review the public tiers first, then compare support level, property context, and route fit before you decide whether to request a plan conversation.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {plans.map((plan) => (
               <MaintenancePlanCard key={plan.id} plan={plan} />

@@ -30,12 +30,11 @@ export default function Header() {
             <div className="flex h-10 w-14 shrink-0 items-center justify-center rounded-lg border border-benson-pale bg-benson-offwhite px-1.5 py-1 shadow-sm sm:w-16">
               <Image
                 src="/benson-enterprises-logo.svg"
-                alt=""
+                alt={`${company.brandName} logo`}
                 width={64}
                 height={44}
                 className="h-full w-full object-contain"
                 priority
-                aria-hidden="true"
               />
             </div>
             <div className="min-w-0">

@@ -17,24 +17,21 @@ export default function GoogleAnalytics() {
       return undefined;
     }
 
-    // Load Google Analytics script
     const script1 = document.createElement('script');
     script1.async = true;
     script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script1);
-
-    const script2 = document.createElement('script');
-    script2.innerHTML = `
+    script1.onload = () => {
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${GA_MEASUREMENT_ID}');
-    `;
-    document.head.appendChild(script2);
+      window.gtag = (...args: unknown[]) => {
+        window.dataLayer.push(args as never);
+      };
+      window.gtag('js', new Date());
+      window.gtag('config', GA_MEASUREMENT_ID);
+    };
+    document.head.appendChild(script1);
 
     return () => {
       document.head.removeChild(script1);
-      document.head.removeChild(script2);
     };
   }, []);
 

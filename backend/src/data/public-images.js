@@ -2,6 +2,8 @@ export const publicImages = [
   {
     id: "window-replacement-exterior",
     src: "/site-images/window-replacement-exterior.jpg",
+    width: 1200,
+    height: 1600,
     alt: "Exterior view of a home with newly installed windows and clean trim work.",
     caption: "Window replacement work with weather-ready exterior detailing.",
     serviceCategory: "window-door-replacements",
@@ -11,6 +13,8 @@ export const publicImages = [
   {
     id: "maintenance-porch",
     src: "/site-images/maintenance-porch.jpg",
+    width: 1600,
+    height: 1200,
     alt: "Covered residential porch and deck area maintained and ready for seasonal use.",
     caption: "Routine maintenance work that keeps exterior living spaces in good condition.",
     serviceCategory: "maintenance-plans",
@@ -20,6 +24,8 @@ export const publicImages = [
   {
     id: "commercial-utility-space",
     src: "/site-images/commercial-utility-space.jpg",
+    width: 1600,
+    height: 1200,
     alt: "Interior utility and service space kept clean, functional, and ready for maintenance work.",
     caption: "Practical facility maintenance for working interior spaces.",
     serviceCategory: "commercial-maintenance",
@@ -29,6 +35,8 @@ export const publicImages = [
   {
     id: "emergency-flood-response",
     src: "/site-images/emergency-flood-response.jpg",
+    width: 648,
+    height: 365,
     alt: "Crew responding to active water intrusion and flood cleanup conditions.",
     caption: "Emergency-response work for water intrusion and moisture events.",
     serviceCategory: "emergency-response",
@@ -38,6 +46,8 @@ export const publicImages = [
   {
     id: "inspection-home-exterior",
     src: "/site-images/inspection-home-exterior.jpg",
+    width: 900,
+    height: 1600,
     alt: "Residential exterior used for repair review and inspection follow-up work.",
     caption: "Inspection repair projects start with clear site review and documentation.",
     serviceCategory: "inspection-repairs",
@@ -47,6 +57,8 @@ export const publicImages = [
   {
     id: "energy-window-upgrade",
     src: "/site-images/energy-window-upgrade.jpg",
+    width: 1600,
+    height: 900,
     alt: "Exterior window and door upgrade that improves weather protection and efficiency.",
     caption: "Window and door upgrades can tighten the building envelope against Oregon weather.",
     serviceCategory: "energy-weatherization",
@@ -56,6 +68,8 @@ export const publicImages = [
   {
     id: "property-exterior-finish",
     src: "/site-images/property-exterior-finish.jpg",
+    width: 1600,
+    height: 900,
     alt: "Finished residential exterior showing a property secured and restored to serviceable condition.",
     caption: "Property preservation work focused on exterior condition and readiness.",
     serviceCategory: "property-preservation",
@@ -65,6 +79,8 @@ export const publicImages = [
   {
     id: "porch-rebuild-detail",
     src: "/site-images/porch-rebuild-detail.jpg",
+    width: 1200,
+    height: 1600,
     alt: "Deck or porch rebuild in progress with visible structural and finish work.",
     caption: "Residential remodeling work with clear progress on exterior rebuild details.",
     serviceCategory: "residential-remodeling",

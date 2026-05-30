@@ -1,6 +1,7 @@
 export interface ResourceEntry {
   slug: string;
   title: string;
+  metaTitle?: string;
   description: string;
   intro: string;
   sections: Array<{
@@ -16,6 +17,7 @@ export const resources: ResourceEntry[] = [
   {
     slug: "send-photos-address-and-scope",
     title: "What To Send Before Requesting Repair Work",
+    metaTitle: "What To Send Before Repair",
     description:
       "A practical checklist for sending photos, dimensions, location, access, priority, and timing details Benson Home Solutions needs for Harney County route review.",
     intro:
@@ -58,6 +60,7 @@ export const resources: ResourceEntry[] = [
   {
     slug: "harney-county-routes-and-south-county-planning",
     title: "Harney County Routes and South County Planning",
+    metaTitle: "Harney County Routing",
     description:
       "Understand Benson Home Solutions Harney County routing, including Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and monthly South County routes.",
     intro:
@@ -99,6 +102,7 @@ export const resources: ResourceEntry[] = [
   {
     slug: "maintenance-plans-vs-one-off-repairs",
     title: "Maintenance Plans vs. One-Off Repair Requests",
+    metaTitle: "Maintenance Plans vs Repairs",
     description:
       "A practical guide to when scheduled maintenance fits better than one-off repair requests for Benson Home Solutions customers.",
     intro:

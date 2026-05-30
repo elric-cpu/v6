@@ -1,23 +1,23 @@
 # Benson Home Solutions - Frontend
 
-Next.js 14 frontend for Benson Home Solutions website.
+Next.js 16 frontend for Benson Home Solutions website.
 
 ## Overview
 
-Benson Home Solutions provides practical repair, restoration, maintenance, screen/window/door work, and documentation-first service for Harney County properties. This frontend is built with Next.js 14, TypeScript, and Tailwind CSS, featuring route-aware messaging for Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.
+Benson Home Solutions provides practical repair, restoration, maintenance, screen/window/door work, and documentation-first service for Harney County properties. This frontend is built with Next.js 16, TypeScript, and Tailwind CSS, featuring route-aware messaging for Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Deployment**: Vercel (recommended)
+- **Deployment**: Google Cloud Run
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ (Node.js 24 LTS recommended)
+- Node.js 20.9+ (Node.js 24 LTS recommended)
 - npm or yarn
 
 ### Installation
@@ -46,6 +46,8 @@ npm run build
 ```bash
 npm run lint
 ```
+
+This runs the ESLint CLI through the flat config in `eslint.config.mjs`.
 
 ## Project Structure
 
@@ -117,7 +119,7 @@ benson-pale:        #E5E5E5
 - Lawen area (97720)
 - Remote South County communities
 
-Monthly South County routes are a core service model. Route fit depends on photos, dimensions, address or location, access notes, priority level, weather, materials, and timing constraints.
+Harney County is the only public service geography. Route fit depends on photos, dimensions, address or location, access notes, priority level, weather, materials, and timing constraints.
 
 **Localized risks**: Freeze risk and burst pipes, high-desert wind damage, winterization needs, remote property maintenance, weather-damaged exterior openings.
 
@@ -187,11 +189,10 @@ The website copy should be:
 
 ## Deployment
 
-### Vercel (Recommended)
+### Google Cloud Run
 
 ```bash
-npm install -g vercel
-vercel
+docker build -t benson-website-v6 .
 ```
 
 ### Environment Variables
@@ -200,7 +201,52 @@ Required environment variables for production:
 
 ```env
 NEXT_PUBLIC_API_URL=https://api.bensonhomesolutions.com
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-turnstile-site-key
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-RLQ31P5HD0
+NEXT_PUBLIC_GSC_VERIFICATION=BZhBkLGmJPNnDGbiCFGp9Z-FnZTt5XhAuNPIKtdjv2o
 ```
+
+### IndexNow
+
+- Hosted key file: `https://bensonhomesolutions.com/c31e7f3b1dda4c72beb68ec70efaf085.txt`
+- Submit public URLs after deploy:
+
+```bash
+cd frontend
+npm run indexnow:submit
+```
+
+### Deploy and Submit
+
+Run the full frontend deploy plus IndexNow and Search Console submission in one command:
+
+```bash
+cd frontend
+npm run deploy:indexnow
+```
+
+For content changes, use the publishing hook command:
+
+```bash
+cd frontend
+npm run publish:site
+```
+
+That command deploys the frontend, submits the live URLs to IndexNow, and submits the live sitemap to Google Search Console through the authenticated API.
+
+Google Search Console discovery comes from the live sitemap plus the authenticated Search Console API submission. Bing discovery should come from the live sitemap, `robots.txt`, the homepage verification meta, and Bing Webmaster Tools sitemap submission. Google and Bing no longer support the old anonymous sitemap ping endpoints, so the publish hook does not call them.
+
+### GitHub Action
+
+The repository also has a GitHub Action at [`.github/workflows/publish-site.yml`](../.github/workflows/publish-site.yml) that runs `npm run publish:site` on pushes to `main` when files under `frontend/src/app/**`, `frontend/src/data/**`, or `frontend/src/components/**` change.
+
+Required GitHub secrets:
+
+- `GCP_WORKLOAD_IDENTITY_PROVIDER`
+- `GCP_SERVICE_ACCOUNT_EMAIL`
+- `GCP_PROJECT_ID`
+
+The production frontend currently runs as `benson-website-v6` in Google Cloud Run.
 
 ## Contributing
 

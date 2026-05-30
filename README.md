@@ -16,6 +16,14 @@ Monorepo for the Benson Home Solutions website and supporting API.
 - Public copy should stay documentation-first and avoid unsupported claims
 - Real contact and license facts belong in code and docs, not in marketing guesses
 
+## Production Target
+
+- Frontend service: `benson-website-v6`
+- API service: `benson-api-v6`
+- Platform: Google Cloud Run
+- Region: `us-west1`
+- Custom domain: `bensonhomesolutions.com`
+
 ## Key Facts
 
 - Brand: Benson Home Solutions
@@ -75,3 +83,4 @@ npm start
 - Run frontend checks from `frontend/`
 - Run backend tests from `backend/`
 - Smoke the public routes and API endpoints after docs changes
+- After deployment, verify `bensonhomesolutions.com` no longer serves the old Mid-Willamette Valley pages

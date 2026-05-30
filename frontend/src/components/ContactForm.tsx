@@ -3,12 +3,14 @@
 import { FormEvent, useState } from "react";
 import { api, ApiError } from "@/lib/api";
 import type { LeadRequest, ServiceCard } from "@/types";
+import TurnstileWidget from "@/components/TurnstileWidget";
 
 interface ContactFormProps {
   services: ServiceCard[];
 }
 
 export default function ContactForm({ services }: ContactFormProps) {
+  const turnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
   const [formData, setFormData] = useState<LeadRequest>({
     name: "",
     phone: "",
@@ -21,6 +23,7 @@ export default function ContactForm({ services }: ContactFormProps) {
     urgency: "standard",
     sourcePage: "/contact",
   });
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -45,6 +48,7 @@ export default function ContactForm({ services }: ContactFormProps) {
         address: formData.address || undefined,
         city: formData.city || undefined,
         zipCode: formData.zipCode || undefined,
+        turnstileToken: turnstileToken || undefined,
       });
 
       setSuccessMessage(response.message);
@@ -59,6 +63,7 @@ export default function ContactForm({ services }: ContactFormProps) {
         message: "",
         urgency: "standard",
       }));
+      setTurnstileToken(null);
     } catch (submitError) {
       if (submitError instanceof ApiError) {
         setError(submitError.message);
@@ -69,6 +74,8 @@ export default function ContactForm({ services }: ContactFormProps) {
       setSubmitting(false);
     }
   }
+
+  const canSubmit = !turnstileEnabled || Boolean(turnstileToken);
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -218,9 +225,23 @@ export default function ContactForm({ services }: ContactFormProps) {
           className="w-full rounded-lg border border-benson-pale px-4 py-2 transition-colors duration-200 ease-out focus:border-benson-maroon focus:outline-none focus:ring-2 focus:ring-benson-maroon/20"
         />
       </div>
+      <div className="rounded-xl border border-benson-pale bg-benson-cream p-4">
+        <TurnstileWidget onTokenChange={setTurnstileToken} />
+        {turnstileEnabled ? (
+          <p className="mt-2 text-xs text-benson-slate">
+            Complete the security check before submitting. This helps reduce spam
+            and protects the contact inbox.
+          </p>
+        ) : null}
+      </div>
+      {!canSubmit ? (
+        <p className="text-sm text-benson-wine">
+          Please complete the security check before sending your request.
+        </p>
+      ) : null}
       <button
         type="submit"
-        disabled={submitting}
+        disabled={submitting || !canSubmit}
         className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-benson-maroon px-4 py-3 font-medium text-benson-offwhite shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-benson-maroon-dark hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-benson-maroon focus-visible:ring-offset-2 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-benson-maroon disabled:hover:shadow-sm disabled:active:translate-y-0"
       >
         {submitting ? "Sending..." : "Send Message"}

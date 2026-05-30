@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import CTAButton from "@/components/CTAButton";
 import { company } from "@/data/company";
@@ -7,38 +8,39 @@ import { getAreaById } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/metadata";
 
 interface AreaPageProps {
-  params: {
+  params: Promise<{
     area: string;
-  };
+  }>;
 }
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: AreaPageProps) {
+  const { area: areaSlug } = await params;
   const { areas } = await api.getServiceAreas();
-  const area = getAreaById(areas, params.area);
+  const area = getAreaById(areas, areaSlug);
+  const isHarneyCountyArea = area?.silo === "harney-county";
+  const description = area
+    ? `${area.city}, Oregon service area in Harney County. ZIP ${area.zipCodes.join(", ")}. ${area.regionLabel}. ${area.priority === "primary" ? "Primary route anchor with route-aware scheduling." : "Route-dependent scheduling based on access, weather, materials, and timing."}`
+    : "Harney County route details for Benson Home Solutions planning, remote intake, and monthly South County scheduling.";
 
   return buildPageMetadata(
-    area ? `${area.city} Service Area` : "Service Area",
-    "Harney County route details for Benson Home Solutions planning, remote intake, and monthly South County scheduling.",
+    isHarneyCountyArea ? `${area.city} Service Area` : "Service Area",
+    description,
+    `/areas/${areaSlug}`,
   );
 }
 
 export default async function AreaPage({ params }: AreaPageProps) {
+  const { area: areaSlug } = await params;
   const [areaData, serviceData] = await Promise.all([
     api.getServiceAreas(),
     api.getServices(),
   ]);
-  const area = getAreaById(areaData.areas, params.area);
+  const area = getAreaById(areaData.areas, areaSlug);
 
   if (!area || area.silo !== "harney-county") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-benson-cream px-4">
-        <div className="max-w-xl text-center">
-          <p className="text-benson-maroon text-lg">Service area not found.</p>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   const services = serviceData.services;
@@ -108,13 +110,16 @@ export default async function AreaPage({ params }: AreaPageProps) {
               </h2>
               {featuredAreaImage ? (
                 <div className="overflow-hidden rounded-lg border border-benson-pale bg-white mb-6">
-                  <div className="relative aspect-[4/3]">
+                  <div className="aspect-[4/3] overflow-hidden">
                     <Image
                       src={featuredAreaImage.src}
                       alt={featuredAreaImage.alt}
-                      fill
+                      width={featuredAreaImage.width ?? 1200}
+                      height={featuredAreaImage.height ?? 1600}
                       sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
+                      priority
+                      quality={65}
+                      className="h-full w-full object-cover"
                     />
                   </div>
                   <div className="border-t border-benson-pale px-4 py-3">
@@ -128,6 +133,29 @@ export default async function AreaPage({ params }: AreaPageProps) {
                 ))}
               </ul>
             </div>
+          </div>
+          <div className="mt-10 rounded-3xl border border-benson-pale bg-white p-6 shadow-sm">
+            <h3 className="text-2xl font-semibold text-benson-charcoal mb-4">
+              What helps the request move forward
+            </h3>
+            <p className="text-benson-slate">
+              Route review works best when the first message includes clear
+              photos, approximate dimensions, the exact address or location,
+              access notes, and whether the issue is active now. That gives us
+              enough context to decide whether the work belongs on a current
+              route, a monthly South County run, or a separate planned visit.
+            </p>
+            <p className="mt-4 text-benson-slate">
+              When you already know the likely service type, mention it in the
+              message. That helps sort the request against inspection repairs,
+              moisture work, openings, maintenance, or preservation before
+              anyone has to ask for a second round of details.
+            </p>
+            <p className="mt-4 text-benson-slate">
+              The more complete the first message is, the easier it is to avoid
+              unnecessary back-and-forth and route the work to the right kind of
+              visit.
+            </p>
           </div>
         </div>
       </section>

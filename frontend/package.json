@@ -6,23 +6,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "node .next/standalone/server.js",
-    "lint": "next lint",
-    "test": "node --import tsx --test"
+    "lint": "eslint .",
+    "test": "node --import tsx --test",
+    "indexnow:submit": "tsx scripts/indexnow-submit.ts",
+    "deploy:indexnow": "tsx scripts/deploy-and-indexnow.ts",
+    "publish:site": "tsx scripts/deploy-and-indexnow.ts"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.35"
+    "google-auth-library": "^10.6.2",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "postcss": "8.5.15",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.35",
-    "tsx": "^4.20.6"
+    "tsx": "^4.20.6",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "8.5.15"
   }
 }

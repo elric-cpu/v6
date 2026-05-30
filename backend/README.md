@@ -11,7 +11,9 @@ This service exposes the public content and intake endpoints used by the fronten
 - Node.js 18+
 - JavaScript ES modules
 - Built-in `http` server
-- In-memory storage for the current public content and lead intake flows
+- In-memory public content fixtures
+- Durable lead and emergency intake storage through Firestore by default in production, with Postgres support when `DATABASE_URL` is configured
+- Gmail-based notification delivery when the workspace delegation env vars are present, with Resend fallback support for non-Workspace deployments
 
 ## Getting Started
 
@@ -91,17 +93,38 @@ The response returns the recommended plan, calculation assumptions, and a discla
 
 Submits a standard lead request.
 
+The submission is stored durably through the active storage backend:
+
+- `LEAD_STORAGE_BACKEND=firestore` uses the configured Firestore collections
+- `DATABASE_URL` enables the Postgres-backed repository
+- non-production test/dev defaults use in-memory storage unless a backend is configured
+
+Notification delivery follows the active email backend:
+
+- Gmail domain-wide delegation when `GMAIL_SERVICE_ACCOUNT_EMAIL`, `GMAIL_IMPERSONATED_USER`, `EMAIL_FROM`, and `LEAD_NOTIFICATION_TO` are set
+- Resend fallback when `EMAIL_API_KEY`, `EMAIL_FROM`, and `EMAIL_TO` are set
+
 ### `POST /api/emergency-requests`
 
 Submits a priority condition request.
+
+The submission follows the same delivery path as `POST /api/leads`.
 
 ## Environment Variables
 
 - `PORT`
 - `FRONTEND_ORIGIN`
+- `LEAD_STORAGE_BACKEND`
+- `LEAD_REQUESTS_COLLECTION`
+- `EMERGENCY_REQUESTS_COLLECTION`
 - `DATABASE_URL`
 - `EMAIL_FROM`
 - `EMAIL_API_KEY`
+- `EMAIL_TO`
+- `LEAD_NOTIFICATION_TO`
+- `GMAIL_SERVICE_ACCOUNT_EMAIL`
+- `GMAIL_IMPERSONATED_USER`
+- `TURNSTILE_SECRET_KEY`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
 

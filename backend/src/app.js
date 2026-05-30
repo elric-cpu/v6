@@ -30,7 +30,7 @@ async function routeRequest(request, response) {
   }
 
   if (request.method === "GET" && url.pathname === "/health") {
-    json(response, 200, getHealthStatus(), corsHeaders);
+    json(response, 200, await getHealthStatus(), corsHeaders);
     return;
   }
 

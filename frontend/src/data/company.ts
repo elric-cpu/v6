@@ -2,6 +2,7 @@ export const company = {
   brandName: "Benson Home Solutions",
   legalName: "Benson Enterprises, LLC",
   ccbNumber: "258533",
+  siteUrl: "https://bensonhomesolutions.com",
   phoneDisplay: "541-321-5115",
   phoneHref: "tel:5413215115",
   emergencyPhoneDisplay: "541-413-0480",

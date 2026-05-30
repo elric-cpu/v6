@@ -1,7 +1,6 @@
-import { randomUUID } from "node:crypto";
-
 import { ApiError } from "../lib/errors.js";
-import { sanitizeObject } from "../lib/sanitize.js";
+import { getSubmissionSnapshots } from "../lib/submission-store.js";
+import { createSubmissionWorkflow } from "./intake-workflow.js";
 
 const validServiceTypes = new Set([
   "inspection-repairs",
@@ -17,17 +16,13 @@ const validServiceTypes = new Set([
 ]);
 
 const validUrgencies = new Set(["standard", "soon", "emergency"]);
-const leadStore = [];
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern = /^[0-9+()\-\s]{7,20}$/;
 const zipCodePattern = /^\d{5}(?:-\d{4})?$/;
 const maxMessageLength = 2000;
 const maxCityLength = 120;
 const maxAddressLength = 240;
-
-function isPlainObject(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
+const turnstileVerifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 function validateLeadRequest(payload) {
   const missingFields = [];
@@ -77,43 +72,66 @@ function validateLeadRequest(payload) {
   }
 }
 
-async function notifyLead(lead) {
-  if (!process.env.EMAIL_API_KEY || !process.env.EMAIL_FROM) {
-    return { delivered: false, reason: "email_not_configured" };
+async function verifyTurnstileToken(token) {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secretKey) {
+    return;
   }
 
-  return { delivered: true, leadId: lead.id };
+  if (!token) {
+    throw new ApiError(400, "VALIDATION_ERROR", "Security check is required before sending this request.");
+  }
+
+  let response;
+
+  try {
+    response = await fetch(turnstileVerifyUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: token,
+      }),
+    });
+  } catch {
+    throw new ApiError(503, "CAPTCHA_UNAVAILABLE", "Security check could not be verified right now.");
+  }
+
+  if (!response.ok) {
+    throw new ApiError(503, "CAPTCHA_UNAVAILABLE", "Security check could not be verified right now.");
+  }
+
+  const result = await response.json().catch(() => null);
+
+  if (!result || result.success !== true) {
+    throw new ApiError(400, "CAPTCHA_ERROR", "Security check failed. Please refresh and try again.");
+  }
 }
 
-export async function submitLeadRequest(rawPayload) {
-  if (!isPlainObject(rawPayload)) {
-    throw new ApiError(400, "VALIDATION_ERROR", "Lead request payload must be a JSON object.");
-  }
-
-  const payload = sanitizeObject(rawPayload);
-  validateLeadRequest(payload);
-
-  const lead = {
-    id: randomUUID(),
-    ...payload,
-    createdAt: new Date().toISOString(),
-  };
-
-  leadStore.push(lead);
-  const delivery = await notifyLead(lead);
-
+function buildLeadEmail(submission) {
   return {
-    success: true,
-    leadId: lead.id,
-    message: "Lead request received. Benson Home Solutions will review and follow up.",
-    createdAt: lead.createdAt,
-    delivery: {
-      delivered: delivery.delivered,
-      ...(delivery.reason ? { reason: delivery.reason } : {}),
-    },
+    subject: `Lead request: ${submission.name} - ${submission.serviceType}`,
+    title: "New lead request",
   };
 }
+
+export function createLeadSubmissionService(overrides = {}) {
+  return createSubmissionWorkflow({
+    submissionKind: "lead",
+    successMessage: "Lead request received. Benson Home Solutions will review and follow up.",
+    validatePayload: validateLeadRequest,
+    buildEmail: buildLeadEmail,
+    verifyToken: overrides.verifyToken ?? verifyTurnstileToken,
+    getStore: overrides.getStore,
+    sendEmail: overrides.sendEmail,
+  });
+}
+
+export const submitLeadRequest = createLeadSubmissionService();
 
 export function getLeadStoreSnapshot() {
-  return leadStore.slice();
+  return getSubmissionSnapshots("lead");
 }

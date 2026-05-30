@@ -134,6 +134,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/about"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/how-we-work"
                   className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
@@ -154,6 +162,14 @@ export default function Footer() {
                   className="text-benson-pale hover:text-benson-cream transition-colors"
                 >
                   Resources
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-benson-pale hover:text-benson-cream transition-colors"
+                >
+                  Privacy Policy
                 </Link>
               </li>
               <li>

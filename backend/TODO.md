@@ -16,7 +16,7 @@ Ship the Benson backend in product order, not generic hardening order:
 
 ## Current Focus
 - `Lead Intake Surface`
-- Immediate next slice: lead response metadata baseline for `POST /api/leads`
+- Immediate next slice: add a safe retry/admin view for stored leads and emergency requests, including delivery status lookup and storage-provider diagnostics
 
 ## Product-Surface Roadmap
 
@@ -48,8 +48,8 @@ Status:
 - Emergency request endpoint added with TDD: dedicated route that enforces `urgency="emergency"` and reuses lead validation baseline. Returns same public-safe response shape. Covered by 12 tests.
 
 Remaining work:
-- [ ] Add persistence abstraction so lead storage can move from memory to Postgres
-- [ ] Add notification delivery integration without leaking provider details in the response
+- [x] Add persistence abstraction so lead storage can move from memory to Postgres or Firestore
+- [x] Add notification delivery integration without leaking provider details in the response
 - [ ] Decide whether optional location fields need stricter normalization or region-specific validation beyond current format/length checks
 
 ### 3. Decision-Support Tools Surface
@@ -82,8 +82,8 @@ Status:
 - unsupported methods on known routes return `405 METHOD_NOT_ALLOWED`
 
 Remaining work:
-- [ ] Document backend env vars in a backend-specific contract section
-- [ ] Add persistence-ready health substatus once database integration exists
+- [x] Document backend env vars in a backend-specific contract section
+- [x] Add persistence-ready health substatus once database integration exists
 - [ ] Add lightweight request logging/error diagnostics if needed
 - [ ] Add startup/config validation for required production env vars
 
@@ -95,6 +95,7 @@ Remaining work:
 - [x] Subscription recommendation validation and assumptions baseline hardened
 - [x] Lead validation improved for email, payload shape, phone, and message length
 - [x] Lead response metadata now includes `createdAt` and public-safe delivery status
+- [x] Lead and emergency submissions now persist delivery state after email attempts
 - [x] Optional lead location fields now enforce ZIP format and city/address length limits
 - [x] CORS, invalid JSON handling, and 405 behavior covered by tests
 
@@ -104,7 +105,7 @@ Remaining work:
 ## Risks / Verify Before Publishing
 - `VERIFY BEFORE PUBLISHING`: some Harney County entries still have incomplete `zipCodes` values
 - `VERIFY BEFORE PUBLISHING`: public route `href` values should be checked against the frontend route contract
-- `VERIFY BEFORE PUBLISHING`: lead storage is still in-memory and not durable
+- `VERIFY BEFORE PUBLISHING`: if Firestore or Gmail permissions are missing in production, delivery will degrade to stored-only submissions with a failed delivery status
 
 ## Next Slice Prompt
-`Add an emergency intake surface with TDD. Write failing tests for POST /api/emergency-requests that reuses the lead-validation baseline but requires urgency to be emergency and returns the same public-safe response metadata shape as POST /api/leads. Start in a new backend/test/emergency-requests.test.js or extend lead tests, verify red, then implement the minimum route and service changes to turn the suite green.`
+`Add a retry/admin surface for stored lead and emergency requests. Write failing tests for listing recent submissions with delivery metadata and exposing a safe storage/provider health summary. Then implement the minimum repository and service changes needed to support operational retry handling without exposing internal-only fields.`

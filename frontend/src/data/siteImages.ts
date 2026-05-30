@@ -5,6 +5,8 @@ export const siteImages: Record<string, SiteImage> = {
   inspectionRepairs: {
     id: "inspection-home-exterior",
     src: "/site-images/inspection-home-exterior.jpg",
+    width: 900,
+    height: 1600,
     alt: "Residential exterior used for repair review and inspection follow-up work.",
     caption: "Inspection repair work starts with clear site review and documented follow-through.",
     serviceCategory: "inspection-repairs",
@@ -13,6 +15,8 @@ export const siteImages: Record<string, SiteImage> = {
   waterDamageRepair: {
     id: "IMG_0031",
     src: "/site-images/IMG_0031.jpg",
+    width: 1199,
+    height: 1600,
     alt: "Water damage repair work showing affected interior and restoration progress.",
     caption: "Water intrusion response with proper drying, assessment, and structural repair.",
     serviceCategory: "water-mold-moisture",
@@ -21,6 +25,8 @@ export const siteImages: Record<string, SiteImage> = {
   windowDoorReplacements: {
     id: "window-replacement-exterior",
     src: "/site-images/window-replacement-exterior.jpg",
+    width: 1200,
+    height: 1600,
     alt: "Exterior view of a home with newly installed windows and clean trim work.",
     caption: "Window and screen-related exterior work with clean, weather-ready detailing.",
     serviceCategory: "window-door-replacements",
@@ -29,6 +35,8 @@ export const siteImages: Record<string, SiteImage> = {
   maintenancePlans: {
     id: "maintenance-porch",
     src: "/site-images/maintenance-porch.jpg",
+    width: 1600,
+    height: 1200,
     alt: "Routine maintenance work on residential porch and exterior elements.",
     caption: "Documented maintenance planning for recurring Harney County property needs.",
     serviceCategory: "maintenance-plans",
@@ -37,6 +45,8 @@ export const siteImages: Record<string, SiteImage> = {
   emergencyResponse: {
     id: "emergency-flood-response",
     src: "/site-images/emergency-flood-response.jpg",
+    width: 648,
+    height: 365,
     alt: "Crew responding to active water intrusion and flood cleanup conditions.",
     caption: "Harney-area work often starts with practical response planning and site conditions.",
     serviceCategory: "emergency-response",
@@ -45,6 +55,8 @@ export const siteImages: Record<string, SiteImage> = {
   propertyPreservation: {
     id: "property-exterior-finish",
     src: "/site-images/property-exterior-finish.jpg",
+    width: 1600,
+    height: 900,
     alt: "Finished residential exterior showing a property secured and restored to serviceable condition.",
     caption: "Exterior condition and readiness remain central across regional service calls.",
     serviceCategory: "property-preservation",
@@ -53,6 +65,8 @@ export const siteImages: Record<string, SiteImage> = {
   residentialRemodeling: {
     id: "porch-rebuild-detail",
     src: "/site-images/porch-rebuild-detail.jpg",
+    width: 1200,
+    height: 1600,
     alt: "Residential remodel and porch rebuild showing quality craftsmanship and structural details.",
     caption: "Thoughtful remodeling that respects your home's character while improving function.",
     serviceCategory: "residential-remodeling",
@@ -61,6 +75,8 @@ export const siteImages: Record<string, SiteImage> = {
   commercialMaintenance: {
     id: "commercial-utility-space",
     src: "/site-images/commercial-utility-space.jpg",
+    width: 1600,
+    height: 1200,
     alt: "Commercial property maintenance in utility area with clean, organized equipment storage.",
     caption: "Commercial properties kept operational with scheduled maintenance and clear documentation.",
     serviceCategory: "commercial-maintenance",
@@ -69,6 +85,8 @@ export const siteImages: Record<string, SiteImage> = {
   churchFacility: {
     id: "IMG_0039",
     src: "/site-images/IMG_0039.jpg",
+    width: 1199,
+    height: 1600,
     alt: "Church facility maintenance showing steeple work and exterior building care.",
     caption: "Church and non-profit facilities maintained with respect for mission and community.",
     serviceCategory: "church-nonprofit-maintenance",
@@ -78,6 +96,8 @@ export const siteImages: Record<string, SiteImage> = {
   harneyCountyRouteHero: {
     id: "IMG_0026",
     src: "/site-images/IMG_0026.jpg",
+    width: 1199,
+    height: 1600,
     alt: "Residential exterior used as a general Harney County route-planning image.",
     caption: "Harney County repair work starts with photos, access notes, and route-aware scheduling.",
     serviceCategory: "inspection-repairs",
@@ -86,6 +106,8 @@ export const siteImages: Record<string, SiteImage> = {
   harneyCountyAreaHero: {
     id: "IMG_0032",
     src: "/site-images/IMG_0032.jpg",
+    width: 1199,
+    height: 1600,
     alt: "Harney County Oregon remote property work - high-desert conditions and weatherization.",
     caption: "Harney County service area covering Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities.",
     serviceCategory: "property-preservation",

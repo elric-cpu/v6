@@ -7,33 +7,36 @@ import { company } from "@/data/company";
 import { getServiceContentBySlug } from "@/data/servicePageContent";
 import { api } from "@/lib/api";
 import { getServiceBySlug } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
 interface ServiceDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export function generateMetadata({ params }: ServiceDetailPageProps): Metadata {
-  const content = getServiceContentBySlug(params.slug);
+export async function generateMetadata({ params }: ServiceDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const content = getServiceContentBySlug(slug);
 
   if (!content) {
-    return {
-      title: "Service Not Found",
-      description: "Requested service page was not found.",
-    };
+    return buildPageMetadata("Service Not Found", "Requested service page was not found.", `/services/${slug}`);
   }
 
-  return {
-    title: content.title,
-    description: content.description,
-  };
+  const metaTitle =
+    content.title === "Church / Non-Profit Facility Maintenance"
+      ? "Church Maintenance"
+      : content.title;
+  const metaDescription = `${content.description} Send photos, dimensions, address or location, access notes, priority level, and timing constraints.`;
+
+  return buildPageMetadata(metaTitle, metaDescription, `/services/${slug}`);
 }
 
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
-  const content = getServiceContentBySlug(params.slug);
+  const { slug } = await params;
+  const content = getServiceContentBySlug(slug);
 
   if (!content) {
     return (
@@ -50,7 +53,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
     );
   }
 
-  return renderServicePage(content, params.slug);
+  return renderServicePage(content, slug);
 }
 
 async function renderServicePage(content: NonNullable<ReturnType<typeof getServiceContentBySlug>>, slug: string) {
@@ -129,13 +132,15 @@ async function renderServicePage(content: NonNullable<ReturnType<typeof getServi
             </div>
             {service.image ? (
               <div className="overflow-hidden rounded-3xl border border-benson-pale bg-white shadow-sm">
-                <div className="relative aspect-[4/3]">
+                <div className="aspect-[4/3] overflow-hidden">
                   <Image
                     src={service.image.src}
                     alt={service.image.alt}
-                    fill
+                    width={service.image.width ?? 1200}
+                    height={service.image.height ?? 1600}
                     sizes="(min-width: 1024px) 420px, 100vw"
-                    className="object-cover"
+                    quality={65}
+                    className="h-full w-full object-cover"
                     priority
                   />
                 </div>

@@ -1,7 +1,15 @@
-export function getHealthStatus() {
+import { getEmailHealthStatus } from "../lib/resend-mailer.js";
+import { getSubmissionStoreHealth } from "../lib/submission-store.js";
+
+export async function getHealthStatus() {
+  const [databaseHealth, emailHealth] = await Promise.all([
+    getSubmissionStoreHealth(),
+    Promise.resolve(getEmailHealthStatus()),
+  ]);
+
   const services = {
-    database: process.env.DATABASE_URL ? "healthy" : "unhealthy",
-    email: process.env.EMAIL_API_KEY && process.env.EMAIL_FROM ? "healthy" : "unhealthy",
+    database: databaseHealth.status,
+    email: emailHealth.status,
     stripe: process.env.STRIPE_SECRET_KEY ? "healthy" : "unhealthy",
   };
 

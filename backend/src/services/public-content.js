@@ -29,6 +29,8 @@ function toPublicImage(image) {
   return {
     id: image.id,
     src: image.src,
+    ...(image.width ? { width: image.width } : {}),
+    ...(image.height ? { height: image.height } : {}),
     alt: image.alt,
     ...(image.caption ? { caption: image.caption } : {}),
     ...(image.serviceCategory ? { serviceCategory: image.serviceCategory } : {}),

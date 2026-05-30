@@ -66,14 +66,16 @@ export default async function Home() {
             </div>
             {heroImage && (
               <div className="relative overflow-hidden rounded-lg border border-benson-pale bg-benson-offwhite shadow-sm">
-                <div className="relative aspect-[4/3]">
+                <div className="aspect-[4/3] overflow-hidden">
                   <Image
                     src={heroImage.src}
                     alt={heroImage.alt}
-                    fill
+                    width={heroImage.width ?? 1200}
+                    height={heroImage.height ?? 1600}
                     priority
+                    quality={60}
                     sizes="(min-width: 1024px) 40vw, 100vw"
-                    className="object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="border-t border-benson-pale bg-benson-offwhite/95 px-4 py-4">
@@ -242,8 +244,8 @@ export default async function Home() {
               planned, route-aware scheduling.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {harneyAreas.slice(0, 8).map((area) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            {harneyAreas.map((area) => (
               <Link
                 key={area.id}
                 href={`/areas/${area.id}`}
@@ -302,6 +304,63 @@ export default async function Home() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="rounded-3xl border border-benson-pale bg-benson-cream p-6 sm:p-8">
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-benson-maroon">
+                  Helpful pages
+                </p>
+                <h2 className="mt-3 text-3xl font-bold text-benson-charcoal">
+                  Deeper pages for planning, routing, and scope prep
+                </h2>
+                <p className="mt-3 text-benson-slate">
+                  These pages give you a clearer first pass before you send a request. Use them to check service fit, review request prep, and understand the public route model.
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <Link href="/services/residential-remodeling" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+                <h3 className="text-xl font-semibold text-benson-charcoal">Residential Remodeling</h3>
+                <p className="mt-2 text-benson-slate">
+                  Review the kind of smaller residential scope that can be handled alongside other practical repair work.
+                </p>
+              </Link>
+              <Link href="/services/church-nonprofit-maintenance" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+                <h3 className="text-xl font-semibold text-benson-charcoal">Church and Non-Profit Maintenance</h3>
+                <p className="mt-2 text-benson-slate">
+                  See how facility upkeep is framed for congregations and community organizations.
+                </p>
+              </Link>
+              <Link href="/resources/send-photos-address-and-scope" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+                <h3 className="text-xl font-semibold text-benson-charcoal">Request Prep Checklist</h3>
+                <p className="mt-2 text-benson-slate">
+                  Send the right photos, measurements, and location details the first time.
+                </p>
+              </Link>
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Link href="/resources/harney-county-routes-and-south-county-planning" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+              <h3 className="text-lg font-semibold text-benson-charcoal">Harney County Route Planning</h3>
+              <p className="mt-2 text-benson-slate">
+                Understand the public service area and how remote requests are reviewed.
+              </p>
+            </Link>
+            <Link href="/resources/maintenance-plans-vs-one-off-repairs" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+              <h3 className="text-lg font-semibold text-benson-charcoal">Plans vs. One-Off Repairs</h3>
+              <p className="mt-2 text-benson-slate">
+                Compare recurring support with a single repair scope before you decide what to request.
+              </p>
+            </Link>
+            <Link href="/window-screen-repair-harney-county-or" className="rounded-2xl border border-benson-pale bg-white p-5 shadow-sm transition-colors hover:border-benson-maroon">
+              <h3 className="text-lg font-semibold text-benson-charcoal">Window Screen Repair</h3>
+              <p className="mt-2 text-benson-slate">
+                Review the screen-specific page when mesh, frames, or replacement options matter most.
+              </p>
+            </Link>
+          </div>
+        </div>
         </div>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">

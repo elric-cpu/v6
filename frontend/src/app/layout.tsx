@@ -20,17 +20,42 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(company.siteUrl),
   title: {
-    default: `${company.brandName} | Practical Repair, Restoration & Maintenance`,
+    default: `${company.brandName} | Harney County Repair`,
     template: `%s | ${company.brandName}`,
   },
-  description: `${brandTagline} Serving Harney County and planned monthly South County routes. Oregon CCB #${company.ccbNumber}.`,
+  description: `${brandTagline} Harney County public routing and documented repair work. Oregon CCB #${company.ccbNumber}.`,
   keywords:
     "Harney County repair, Burns Oregon contractor, Hines Oregon maintenance, South County routes, window screen repair, CCB 258533",
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    title: `${company.brandName} | Harney County Repair`,
+    description: `${brandTagline} Harney County public routing and documented repair work. Oregon CCB #${company.ccbNumber}.`,
+    url: "/",
+    siteName: company.brandName,
+    images: [
+      {
+        url: "/site-images/window-replacement-exterior.jpg",
+        width: 1536,
+        height: 2048,
+        alt: `${company.brandName} project photo`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${company.brandName} | Harney County Repair`,
+    description: `${brandTagline} Harney County public routing and documented repair work. Oregon CCB #${company.ccbNumber}.`,
+    images: ["/site-images/window-replacement-exterior.jpg"],
   },
   ...buildVerificationMetadata(),
 };

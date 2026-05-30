@@ -84,6 +84,7 @@ export interface LeadRequest {
   message: string;
   urgency: "standard" | "soon" | "emergency";
   sourcePage?: string;
+  turnstileToken?: string;
 }
 
 // Subscription Calculator

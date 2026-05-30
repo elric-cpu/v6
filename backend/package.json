@@ -6,5 +6,10 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^8.0.0",
+    "@google-cloud/iam-credentials": "^4.2.0",
+    "pg": "^8.21.0"
   }
 }

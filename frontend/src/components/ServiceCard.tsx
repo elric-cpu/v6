@@ -10,13 +10,15 @@ export default function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div className="overflow-hidden rounded-lg border border-benson-pale bg-benson-offwhite transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-benson-burgundy hover:shadow-md">
       {service.image && (
-        <div className="aspect-[4/3] bg-benson-cream relative">
+        <div className="aspect-[4/3] overflow-hidden bg-benson-cream">
           <Image
             src={service.image.src}
             alt={service.image.alt}
-            fill
+            width={service.image.width ?? 1200}
+            height={service.image.height ?? 1600}
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover"
+            quality={60}
+            className="h-full w-full object-cover"
           />
         </div>
       )}
