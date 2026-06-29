@@ -154,7 +154,7 @@ npm run smoke:migration
 
 ## Goal 6: Clean Publish Tree
 
-Status: `pending`
+Status: `verified`
 
 Purpose:
 - Isolate the intended migration diff into a clean branch or temporary clean checkout before any Cloud Run deploy.
