@@ -176,7 +176,7 @@ npx -y -p node@22 -c 'cd site && npm run build'
 
 ## Goal 7: Revision Deploy Without Traffic
 
-Status: `pending`
+Status: `verified`
 
 Purpose:
 - Deploy new Cloud Run revisions for the Astro site and Hono backend without shifting public traffic.
@@ -201,7 +201,7 @@ curl -sS --max-time 20 BACKEND_REVISION_URL/health
 
 ## Goal 8: DNS, Traffic Shift, And Indexing
 
-Status: `pending`
+Status: `active`
 
 Purpose:
 - Repair API DNS if still broken, shift traffic only after revision checks pass, then submit Search Console and IndexNow.

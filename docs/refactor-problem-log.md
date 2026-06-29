@@ -11,7 +11,8 @@ This file records problems encountered while completing the Astro/Hono refactor,
    - Cause: Astro forms posted to same-origin `/api/leads` and `/api/emergency-requests`, but the static site server only served files and did not proxy API routes.
    - Mitigation: added a same-origin `/api/*` proxy in `site/server.mjs` with `API_ORIGIN` support, defaulting to the raw API Cloud Run service URL.
    - Verification: local proxy smoke through `http://127.0.0.1:4329/api/leads` returned success and persisted lead `6e3a0b4c-d28c-47fe-b736-b126c116cb74`.
-   - Next action: redeploy the site service with the proxy fix and verify `https://bensonhomesolutions.com/api/leads`.
+   - Updated verification: tagged revision `benson-website-v6-00041-tat` proxied `/api/leads` successfully, traffic was shifted to it, and live public `https://bensonhomesolutions.com/api/leads` persisted lead `f81bffaa-f1fa-4757-81c2-2ed9fe177530`.
+   - Next action: keep the proxy until `api.bensonhomesolutions.com` is healthy and the frontend can intentionally use the canonical API host if desired.
 
 2. Production homepage was down on the public domain before the Astro traffic shift.
    - Evidence: `curl -I -L --max-time 20 https://bensonhomesolutions.com/` and `https://www.bensonhomesolutions.com/` returned HTTP 500.
@@ -22,8 +23,10 @@ This file records problems encountered while completing the Astro/Hono refactor,
 3. `api.bensonhomesolutions.com` is not healthy.
    - Evidence: Cloud Run domain mapping status is `False` with message: `Waiting for certificate provisioning. You must configure your DNS records for certificate issuance to begin. Resource readiness deadline exceeded.`
    - Evidence: `curl -sS --max-time 20 https://api.bensonhomesolutions.com/health` failed with `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`.
+   - Mitigation attempt: deleted and recreated the Cloud Run domain mapping on 2026-06-29. The recreated mapping is routable and still requires `api CNAME ghs.googlehosted.com`, which public DNS already returns.
+   - Current state after recreation: certificate status is `Unknown` / `CertificatePending`; Cloud Run reports it will retry certificate polling after the next interval, and HTTPS still fails.
    - Impact: public site/API integration through the canonical API hostname is unreliable or unavailable.
-   - Next action: inspect DNS records for `api.bensonhomesolutions.com`, repair the Google-managed certificate/domain mapping path, then re-probe HTTPS health.
+   - Next action: re-probe certificate status after Google-managed certificate polling; if it remains stuck, inspect authoritative DNS/CAA and consider moving API behind a load balancer certificate or using the same-origin site proxy permanently.
 
 ## High
 
@@ -61,9 +64,10 @@ This file records problems encountered while completing the Astro/Hono refactor,
    - Next action: keep the workspace-scoped Dockerfile and verify future API pushes remain stable.
 
 8. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
-   - Evidence: format, hooks, tests, and Astro build passed from a clean pushed tree.
-   - Impact: release isolation is good, but no new no-traffic Cloud Run revision has been deployed yet from the committed refactor.
-   - Next action: complete image push, deploy no-traffic revisions, and probe raw revision URLs.
+   - Evidence: format, hooks, tests, Astro build, image push, no-traffic revision deploys, and raw revision probes passed.
+   - Mitigation: Goal 7 is now complete; website traffic is on `benson-website-v6-00041-tat` and API traffic is on `benson-api-v6-00017-nok`.
+   - Remaining impact: Goal 8 is still active because the canonical API domain certificate remains unhealthy and indexing/monitoring work remains.
+   - Next action: repair API domain mapping/certificate, then run indexing and monitoring follow-through.
 
 ## Low
 
