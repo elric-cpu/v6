@@ -20,17 +20,18 @@ This file records problems encountered while completing the Astro/Hono refactor,
    - Mitigation: deployed and probed Astro revision `benson-website-v6-00039-wiy`, then shifted `benson-website-v6` traffic to it.
    - Verification: apex, `www`, `/contact`, `/services/window-door-replacement`, `/robots.txt`, `/sitemap.xml`, `/llms.txt`, and `/llms-full.txt` all returned HTTP 200 after the traffic shift.
 
-3. `api.bensonhomesolutions.com` is not healthy.
+3. `api.bensonhomesolutions.com` certificate was stuck after the initial mapping.
    - Evidence: Cloud Run domain mapping status is `False` with message: `Waiting for certificate provisioning. You must configure your DNS records for certificate issuance to begin. Resource readiness deadline exceeded.`
    - Evidence: `curl -sS --max-time 20 https://api.bensonhomesolutions.com/health` failed with `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`.
    - Mitigation attempt: deleted and recreated the Cloud Run domain mapping on 2026-06-29. The recreated mapping is routable and still requires `api CNAME ghs.googlehosted.com`, which public DNS already returns.
    - Current state after recreation: certificate status is `Unknown` / `CertificatePending`; Cloud Run reports it will retry certificate polling after the next interval, and HTTPS still fails.
-   - Impact: public site/API integration through the canonical API hostname is unreliable or unavailable.
-   - Next action: re-probe certificate status after Google-managed certificate polling; if it remains stuck, inspect authoritative DNS/CAA and consider moving API behind a load balancer certificate or using the same-origin site proxy permanently.
+   - Final state: later re-probe returned Cloud Run domain mapping `Ready=True`, and `https://api.bensonhomesolutions.com/health` returned healthy Hono API JSON.
+   - Mitigation: added a canonical API uptime check for `api.bensonhomesolutions.com/health`.
+   - Next action: keep the same-origin site proxy in place as a resilience layer, but the canonical API domain is now usable.
 
 4. No Cloud Monitoring notification channels are configured.
    - Evidence: `gcloud beta monitoring channels list` returned no channels.
-   - Mitigation: created uptime checks for `/`, `/contact`, `/sitemap.xml`, `/llms.txt`, and raw API `/health`.
+   - Mitigation: created uptime checks for `/`, `/contact`, `/sitemap.xml`, `/llms.txt`, raw API `/health`, and canonical API `/health`.
    - Impact: uptime checks exist, but alert policies cannot notify a verified destination until an email/SMS/Pub/Sub channel is configured.
    - Next action: create and verify at least one notification channel, then attach alert policies for site/API outages and provider-health degradation.
 
@@ -82,9 +83,9 @@ This file records problems encountered while completing the Astro/Hono refactor,
 11. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
    - Evidence: format, hooks, tests, Astro build, image push, no-traffic revision deploys, and raw revision probes passed.
    - Mitigation: Goal 7 is now complete; website traffic is on `benson-website-v6-00041-tat` and API traffic is on `benson-api-v6-00017-nok`.
-   - Updated state: IndexNow returned 200, Search Console sitemap submission returned 204 for `sc-domain:bensonhomesolutions.com`, and uptime checks were created.
-   - Remaining impact: Goal 8 is still active because the canonical API domain certificate remains unhealthy and notification channels/alert policies are not configured.
-   - Next action: repair API domain certificate and configure notification channels/alert policies.
+   - Updated state: IndexNow returned 200, Search Console sitemap submission returned 204 for `sc-domain:bensonhomesolutions.com`, canonical API health returned 200, and uptime checks were created.
+   - Final state: Goal 8 is verified.
+   - Next action: configure notification channels/alert policies and production notifications.
 
 ## Low
 

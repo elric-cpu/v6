@@ -201,7 +201,7 @@ curl -sS --max-time 20 BACKEND_REVISION_URL/health
 
 ## Goal 8: DNS, Traffic Shift, And Indexing
 
-Status: `active`
+Status: `verified`
 
 Purpose:
 - Repair API DNS if still broken, shift traffic only after revision checks pass, then submit Search Console and IndexNow.
