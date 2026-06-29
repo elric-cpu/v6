@@ -38,8 +38,10 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 4. Existing Cloud Build triggered by the pushed refactor commit failed.
    - Evidence: `gcloud builds list --limit=3` showed build `0eab69a4-db18-4504-8808-8f3c30d5392c` as `FAILURE` for branch `main`.
+   - Root cause: the trigger for `benson-website-v6` runs `docker build ... -f Dockerfile .` from the repository root, but the refactor initially only had `site/Dockerfile`.
+   - Mitigation: moved the Astro website container definition to root `Dockerfile`, updated `package:site`, and updated migration smoke checks to expect the root Dockerfile.
    - Impact: automated deploy/build pipeline cannot be trusted until logs are reviewed and the trigger is repaired or disabled.
-   - Next action: inspect Cloud Build logs, identify whether the trigger is legacy Next.js, missing Dockerfile context, Node-version mismatch, or configuration drift.
+   - Next action: push the root Dockerfile fix and verify the next Cloud Build trigger succeeds.
 
 5. Deployment image pushes did not complete visibly.
    - Evidence: local Docker builds for the site and API images succeeded, but Artifact Registry did not show the expected `223fc32` image tags after the push sessions were interrupted.

@@ -37,7 +37,7 @@
     "verify": "npm run format:check && npm run hooks:smoke && npm run lint && npm run test && npm run build",
     "smoke:migration": "node scripts/smoke-migration.mjs",
     "publish:site": "cd frontend && npm run publish:site",
-    "package:site": "docker build -f site/Dockerfile -t benson-home-solutions-site:production .",
+    "package:site": "docker build -f Dockerfile -t benson-home-solutions-site:production .",
     "package:backend:hono": "docker build -f backend/Dockerfile -t benson-home-solutions-backend-hono:production .",
     "package:migration": "npm run package:backend:hono && npm run package:site",
     "package:frontend": "docker build -t benson-home-solutions-frontend:production frontend",

@@ -16,7 +16,7 @@ const requiredSiteFiles = [
 ];
 
 const requiredSources = [
-  "site/Dockerfile",
+  "Dockerfile",
   "site/server.mjs",
   "backend/Dockerfile",
   "backend/src-hono/app.ts",
