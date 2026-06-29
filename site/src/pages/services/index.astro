@@ -1,0 +1,15 @@
+---
+import { company, getStaticServices } from "@benson/shared";
+import ServiceGrid from "@/components/ServiceGrid.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const services = getStaticServices();
+---
+
+<BaseLayout title={`Services | ${company.brandName}`} description="Inspection repairs, moisture work, window and door replacement, maintenance plans, emergency intake, weatherization, preservation, remodeling, and facility maintenance in Harney County.">
+  <section class="band">
+    <h1>Services</h1>
+    <p class="lede">Practical repair and maintenance scopes for Harney County homes, rentals, commercial spaces, churches, and nonprofit facilities.</p>
+    <ServiceGrid services={services} />
+  </section>
+</BaseLayout>

@@ -77,14 +77,16 @@ function toPublicServiceArea(area) {
 export function getServices() {
   return services
     .filter((service) => service.active)
-    .toSorted((left, right) => (left.displayOrder ?? Number.MAX_SAFE_INTEGER) - (right.displayOrder ?? Number.MAX_SAFE_INTEGER))
+    .slice()
+    .sort((left, right) => (left.displayOrder ?? Number.MAX_SAFE_INTEGER) - (right.displayOrder ?? Number.MAX_SAFE_INTEGER))
     .map(toPublicService);
 }
 
 export function getPlans() {
   return publicPlans
     .filter((plan) => plan.active)
-    .toSorted((left, right) => {
+    .slice()
+    .sort((left, right) => {
       if (left.audience !== right.audience) {
         return left.audience.localeCompare(right.audience);
       }
@@ -96,7 +98,8 @@ export function getPlans() {
 
 export function getServiceAreas() {
   return serviceAreas
-    .toSorted((left, right) => {
+    .slice()
+    .sort((left, right) => {
       const priorityDifference = priorityRank[left.priority] - priorityRank[right.priority];
 
       if (priorityDifference !== 0) {

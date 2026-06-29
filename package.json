@@ -1,0 +1,57 @@
+{
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "site",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev:site": "node scripts/run-site-command.mjs dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run start",
+    "dev:backend:hono": "cd backend && npm run start:hono",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build:site": "node scripts/run-site-command.mjs build",
+    "build:shared": "cd packages/shared && npm run typecheck",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build": "npm run build:shared && npm run build:site && npm run build:backend",
+    "start:frontend": "cd frontend && npm run start",
+    "start:backend": "cd backend && npm run start",
+    "start:backend:hono": "cd backend && npm run start:hono",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "test:site": "node scripts/run-site-command.mjs test",
+    "test:shared": "cd packages/shared && npm run test",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test": "npm run test:shared && npm run test:site && npm run test:backend",
+    "lint:site": "node scripts/run-site-command.mjs lint",
+    "lint:shared": "cd packages/shared && npm run typecheck",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "lint": "npm run lint:shared && npm run lint:site && npm run lint:backend",
+    "format": "node scripts/format-check.mjs --write",
+    "format:check": "node scripts/format-check.mjs",
+    "hooks:smoke": "node scripts/hook-smoke.mjs",
+    "verify": "npm run format:check && npm run hooks:smoke && npm run lint && npm run test && npm run build",
+    "smoke:migration": "node scripts/smoke-migration.mjs",
+    "publish:site": "cd frontend && npm run publish:site",
+    "package:site": "docker build -f site/Dockerfile -t benson-home-solutions-site:production .",
+    "package:backend:hono": "docker build -f backend/Dockerfile -t benson-home-solutions-backend-hono:production .",
+    "package:migration": "npm run package:backend:hono && npm run package:site",
+    "package:frontend": "docker build -t benson-home-solutions-frontend:production frontend",
+    "package:backend": "docker build -t benson-home-solutions-backend:production backend",
+    "package:production": "npm run package:backend && npm run package:frontend",
+    "compose:production": "docker compose -f docker-compose.production.yml up --build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.7.4"
+  },
+  "overrides": {
+    "@playwright/test": "1.55.1",
+    "playwright": "1.55.1",
+    "playwright-core": "1.55.1"
+  }
+}

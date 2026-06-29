@@ -18,6 +18,7 @@ frontend/out/
 frontend/build/
 backend/build/
 backend/dist/
+site/.astro/
 
 # Test and type artifacts
 *.tsbuildinfo
@@ -40,6 +41,7 @@ backend/.env*
 .vercel/
 .remember/
 .claude/
+.serena/
 .git-frontend-backup/
 tmp/
 

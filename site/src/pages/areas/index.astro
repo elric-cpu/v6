@@ -1,0 +1,23 @@
+---
+import { company, getStaticServiceAreas } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const areas = getStaticServiceAreas();
+---
+
+<BaseLayout title={`Service Areas | ${company.brandName}`} description="Harney County service-area pages for Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, and Lawen.">
+  <section class="band">
+    <h1>Harney County Service Areas</h1>
+    <p class="lede">Burns and Hines are primary anchors. Remote Harney County communities are route-dependent and logistics-dependent.</p>
+    <div class="grid">
+      {areas.map((area) => (
+        <article class="card">
+          <h2>{area.city}</h2>
+          <p>{area.regionLabel} | ZIP {area.zipCodes.join(", ")}</p>
+          <p>Priority: {area.priority}</p>
+          <a class="button button--secondary" href={`/areas/${area.id}`}>View Area</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

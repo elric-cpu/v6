@@ -1,0 +1,15 @@
+---
+import { company } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={`How We Work | ${company.brandName}`} description="The Benson Home Solutions intake, scope, scheduling, and documentation process.">
+  <section class="band">
+    <h1>How We Work</h1>
+    <div class="grid">
+      {["Send photos", "Review and scope", "Schedule and complete", "Document the work"].map((step) => (
+        <article class="card"><h2>{step}</h2><p>Clear information up front helps match the request to route timing, weather, access, materials, and priority.</p></article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

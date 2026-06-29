@@ -1,115 +1,92 @@
 # AGENTS.md
 
-Project: Benson Home Solutions Website  
-Purpose: Instructions for Codex, GPT, and other coding agents working in this repository.
+Project: Benson Home Solutions website, API, and lead intake platform.
 
----
+This repo supports a Harney County, Oregon full-service GC that should publicly niche toward window and door replacement, weather protection, inspection repairs, and route-aware property maintenance.
 
-## 1. Core Rule
+## Core Direction
 
-Use contract-first development.
+- Best target stack for this project is Astro + TypeScript for the public website and Hono + TypeScript for API/admin/forms on Google Cloud Run.
+- Do not preserve an existing language or framework just because it is present. Choose the stack that best fits Google Cloud Run, Google Workspace, local SEO, fast static pages, reliable lead intake, and simple operations.
+- Public pages must render core content without depending on a live backend request.
+- Backend/API work must remain contract-first. Shared TypeScript contracts and public data should live in `packages/shared` unless there is a documented reason to split them.
+- Do not deploy, publish, commit, or mass-format from a dirty tree unless every dirty file is explicitly part of the intended release set.
 
-Codex or the frontend agent defines the UI and TypeScript data contracts first. Backend agents must implement the API to match those contracts exactly.
+## Current Hosting Facts
 
-Do not rename fields, change response shapes, or invent backend requirements unless there is a clear mismatch. If there is a mismatch, document it before changing code.
+Last verified from local review on 2026-06-29:
 
----
+- Google Cloud project: `civic-wall-494004-b3`
+- Region: `us-west1`
+- Public domain: `bensonhomesolutions.com`
+- Current public apex/www mapping targets Cloud Run service `benson-website-v6`
+- `benson-website-v6` currently serves the legacy Next.js app and has returned HTTP 500 on `/`
+- `benson-website-production-astro` exists on Cloud Run and returned HTTP 200 on its raw run.app URL
+- `benson-api-v6` exists on Cloud Run and raw `/health` returned HTTP 200 with degraded provider health
+- `api.bensonhomesolutions.com` is mapped to `benson-api-v6` but the mapping was unhealthy
 
-## 2. Repository First
+Before claiming any live status, re-run current probes. These facts may drift.
 
-Before editing, inspect the existing repo.
+## Module Map
 
-```bash
-cd ~/Projects/benson-home-solutions
-pwd
-find . -maxdepth 3 -type f | sed 's#^\./##' | sort | head -200
-find ~/Projects/benson-website-v5/images -maxdepth 2 -type f | sort
-```
+- `packages/shared`: public business facts, TypeScript contracts, route constants, service/area/plan/resource data, and educational calculator assumptions.
+- `site`: Astro static public site target. This is the preferred public website direction.
+- `backend/src-hono`: Hono API/admin target for Cloud Run.
+- `frontend`: legacy Next.js app. Keep only until Astro route parity and production cutover are verified.
+- `backend/src`: legacy Node API. Keep only until Hono parity and production cutover are verified.
+- `docs`: architecture, migration, hosting, and operational handoff docs. Read relevant docs before platform, deployment, or integration work.
+- `scripts`: repo-local verification, hooks, smoke, publish, and migration helpers.
 
-Existing working repo structure wins unless the user explicitly requests migration.
-
-Do not replace the project architecture without a written migration plan.
-
----
-
-## 3. Business Context
-
-You are working on the Benson Home Solutions website.
-
-Business facts:
+## Business Facts
 
 - Brand: Benson Home Solutions
-- Company/legal context: Benson Enterprises, LLC where appropriate
+- Legal entity: Benson Enterprises, LLC where appropriate
 - Oregon CCB: #258533
 - Phone: 541-321-5115
 - Emergency phone where appropriate: 541-413-0480
 - Email: office@bensonhomesolutions.com
 - Canonical external image source: `~/Projects/benson-website-v5/images`
-
-Do not invent:
-- Reviews
-- Ratings
-- Awards
-- Certifications
-- Insurance partnerships
-- Response-time guarantees
-- Staff count
-- Years in business
-- Project outcomes
-- Customer names
-- Utility savings
-- Revenue numbers
-
-Use `VERIFY BEFORE PUBLISHING` for anything useful but unverified.
-
----
-
-## 4. Service Areas
-
-Use Harney County as the public service geography.
+- Public geography: Harney County, Oregon
 
 Harney County ZIP-code targets:
 
-- 97710 — Fields
-- 97720 — Burns / Lawen area
-- 97721 — Princeton
-- 97722 — Diamond
-- 97732 — Crane
-- 97736 — Frenchglen
-- 97738 — Hines
-- 97758 — Riley
-- 97904 — Drewsey
+- 97710 Fields
+- 97720 Burns / Lawen area
+- 97721 Princeton
+- 97722 Diamond
+- 97732 Crane
+- 97736 Frenchglen
+- 97738 Hines
+- 97758 Riley
+- 97904 Drewsey
 
-Remote Harney County work is planned, routed, and logistics-dependent unless emergency-response availability is explicitly confirmed.
+Remote Harney County work is planned, routed, and logistics-dependent unless emergency availability is explicitly confirmed.
 
-Do not imply same-day response across remote communities unless approved.
+## Positioning Rules
 
-Do not reintroduce Sweet Home, Lebanon, Albany, or a Willamette Valley-wide public service-area model unless the user explicitly requests a migration plan.
+- Lead with full-service GC credibility while making window and door replacement a first-class conversion path.
+- Treat windows, doors, weather protection, exterior openings, inspection repair, and moisture control as the SEO wedge.
+- Keep full-service support visible for inspection repairs, water/mold/moisture, maintenance plans, emergency response, energy/weatherization, property preservation, residential remodeling, commercial maintenance, and church/non-profit facilities.
+- Do not imply same-day response across remote communities unless explicitly approved.
+- Do not reintroduce Sweet Home, Lebanon, Albany, Linn County, or Willamette Valley positioning without an approved migration plan.
 
----
+Do not invent:
 
-## 5. Core Services
+- Reviews, ratings, awards, certifications, insurance partnerships, response-time guarantees, staff count, years in business, project outcomes, customer names, utility savings, or revenue numbers.
+- Use `VERIFY BEFORE PUBLISHING` for useful but unverified business claims.
 
-Support these service groups:
+## Website Requirements
 
-- Inspection Repairs
-- Water, Mold & Moisture
-- Window & Door Replacements
-- Maintenance Plans
-- Emergency Response
-- Energy & Weatherization
-- Property Preservation
-- Residential Remodeling where appropriate
-- Commercial Maintenance
-- Church / Non-Profit Facility Maintenance
+- Public site should be static-first, fast, crawlable, and resilient.
+- Core routes to preserve include `/`, `/services`, `/services/[slug]`, `/areas`, `/areas/[area]`, `/resources`, `/resources/[slug]`, `/plans`, `/contact`, `/how-we-work`, `/tools/subscription-recommendation`, `/window-screen-repair-harney-county-or`, `/robots.txt`, `/sitemap.xml`, `/llms.txt`, and `/llms-full.txt`.
+- Add or prioritize window/door-specific routes when improving the site, including Harney County and Burns/Hines landing pages.
+- Use real images from `~/Projects/benson-website-v5/images`; do not use fake stock photos or mislabel images as Benson projects when unclear.
+- Use responsive images, useful alt text, lazy loading, and compressed production assets.
+- Keep public content separate from raw leads, admin notes, job costing, internal pricing, provider secrets, accounting state, and AI/AR roadmap data.
 
-Window and door replacement is a dedicated service category, not just a minor add-on.
+## Brand And UI
 
----
-
-## 6. Brand and UI Tokens
-
-Use the Benson brand color system:
+Use the Benson brand color system unless an approved redesign plan changes it:
 
 ```txt
 benson-maroon:      #722F37
@@ -123,319 +100,57 @@ benson-slate:       #4A4A4A
 benson-pale:        #E5E5E5
 ```
 
-Do not introduce conflicting brand colors unless the repo already uses them and a migration plan exists.
+Design should feel like a practical local contractor site: clear service paths, visible phone/contact actions, strong local trust facts, real work imagery, and no generic SaaS-style decoration.
 
----
+## API And Integrations
 
-## 7. Image Handling
-
-Canonical external image source:
-
-```bash
-~/Projects/benson-website-v5/images
-```
-
-Real images must come from:
-
-```bash
-~/Projects/benson-website-v5/images
-```
-
-Before using images, create or update image metadata.
-
-Do not:
-- Use fake stock photos
-- Invent captions
-- Mislabel images as completed Benson projects if unclear
-- Load full-size originals directly in production pages
-
-Use responsive images, lazy loading, useful alt text, and appropriate compression.
-
----
-
-## 8. Backend Responsibilities
-
-Backend agents should handle:
-
-- API routes
-- Validation
-- Error handling
-- Database schemas
-- Authentication where needed
-- CORS
-- Environment variables
-- Health checks
-- Server-side data contracts
-- Stripe integration if enabled
-- Sanity/Postgres integration if present
-- Calculator logic where backend-owned
-
-Frontend-owned data contracts must remain the source of truth unless explicitly changed.
-
----
-
-## 9. Required Backend Baseline
-
-If creating or updating backend services, include:
+Required backend baseline:
 
 - `/health`
-- CORS for frontend dev port, likely `5173`
-- Predictable JSON errors
-- Input validation
-- Stable IDs
-- Clear route organization
-- Environment variable documentation
+- Predictable JSON errors: `{ error: { code, message, details? } }`
+- Server-side validation for forms and calculators
+- Stable IDs for persisted submissions
+- CORS configured for the deployed site and local dev
 - No exposed secrets
-- No public exposure of internal pricing data unless explicitly approved
+- No public exposure of internal pricing or job-costing data unless explicitly approved
 
-Example error shape:
+Current and intended connections:
 
-```ts
-export interface ApiError {
-  error: {
-    code: string;
-    message: string;
-    details?: Record<string, unknown>;
-  };
-}
-```
+- Google Cloud Run for website and API services
+- Google-managed custom domain mappings for apex, www, and API
+- Firestore for lead/emergency storage
+- Secret Manager for runtime secrets
+- Google Analytics and GTM for conversion analytics
+- Search Console and IndexNow for indexing workflows
+- Google Workspace Gmail API for lead intake, draft-first client replies, and business email workflows
+- Resend may be used for transactional delivery when explicitly configured
+- Twilio may be used for urgent SMS alerts
+- QuickBooks, DocuSign, and Stripe should remain disabled or placeholder-only until productized and tested
 
----
+Lead-cash and webhook mutation routes must require authentication or a configured shared secret. Never expose unauthenticated state mutation endpoints.
 
-## 10. Public vs. Internal Data
+## Recommended Architecture
 
-Keep public website content separate from internal operations data.
+- Public website: Astro static output on Cloud Run, optionally fronted by Cloud CDN after stability.
+- API/admin/forms: Hono on Cloud Run, Node 22 preferred for new work unless package constraints require Node 20.
+- Data: Firestore Native in `us-west1`.
+- Email: Google Workspace Gmail API for mailbox-native workflows; Resend only where a transactional sender is intentionally chosen.
+- Admin auth: approved Google identity plus signed httpOnly session cookies.
+- Background/recovery work: deterministic scripts, Cloud Run jobs, Cloud Scheduler, or webhooks; avoid opaque autonomous workflow machinery for core lead intake.
 
-### Public candidate data
+## Subscription Tool
 
-- Service cards
-- Service areas
-- Public image metadata
-- Public subscription plan descriptions
-- FAQs
-- Contact form submissions
-- Blog/resource content
-- Schema metadata
+The subscription recommendation tool is educational.
 
-### Internal or restricted data
-
-- Detailed Q1 2026 construction rates
-- Job costing logic
-- Margin assumptions
-- Estimate logs
-- Admin notes
-- Raw lead data
-- Uploaded customer files
-- Internal pricing assumptions
-- AI/AR roadmap logic not yet launched
-
-Do not expose internal pricing tables by default.
-
----
-
-## 11. Suggested API Modules
-
-Implement only what the frontend contract requires.
-
-Potential modules:
-
-```txt
-/api/services
-/api/service-areas
-/api/images
-/api/plans
-/api/leads
-/api/emergency-requests
-/api/tools/subscription-recommendation
-/api/church-assessments
-/api/commercial-property-health-score
-/api/seo
-/api/resources
-```
-
----
-
-## 12. TypeScript Types
-
-Use these as baseline types unless Claude provides more specific contracts.
-
-```ts
-export type ServiceType =
-  | "inspection-repairs"
-  | "water-mold-moisture"
-  | "window-door-replacements"
-  | "maintenance-plans"
-  | "emergency-response"
-  | "energy-weatherization"
-  | "property-preservation"
-  | "residential-remodeling"
-  | "commercial-maintenance"
-  | "church-nonprofit-maintenance";
-
-export type ServiceSilo = "harney-county";
-
-export interface SiteImage {
-  id: string;
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  caption?: string;
-  serviceCategory?: ServiceType;
-  imageStage?: "before" | "during" | "after" | "general" | "needs-review";
-}
-
-export interface ServiceCard {
-  id: string;
-  title: string;
-  summary: string;
-  href: string;
-  ctaLabel: string;
-  serviceType: ServiceType;
-  image?: SiteImage;
-  tags?: string[];
-  displayOrder?: number;
-  active: boolean;
-}
-
-export interface ServiceAreaLink {
-  label: string;
-  href: string;
-  serviceType: ServiceType;
-}
-
-export interface ServiceArea {
-  id: string;
-  city: string;
-  zipCodes: string[];
-  silo: ServiceSilo;
-  priority: "primary" | "secondary" | "route-dependent";
-  regionLabel: string;
-  localizedRisks: string[];
-  services: ServiceAreaLink[];
-}
-
-export interface MaintenancePlan {
-  id: string;
-  name: string;
-  priceMonthly: number;
-  squareFootageRange?: string;
-  description: string;
-  features: string[];
-  popular?: boolean;
-  audience: "residential" | "commercial" | "churches-nonprofits";
-  ctaLabel: string;
-  active: boolean;
-}
-
-export interface LeadRequest {
-  id?: string;
-  name: string;
-  phone: string;
-  email?: string;
-  address?: string;
-  city?: string;
-  zipCode?: string;
-  serviceType: ServiceType;
-  message: string;
-  urgency: "standard" | "soon" | "emergency";
-  sourcePage?: string;
-}
-```
-
----
-
-## 13. Subscription Calculator Logic
-
-If implementing the subscription recommendation engine, treat it as educational.
-
-Inputs:
-
-- Property type
-- Square footage
-- Property age
-- Region
-- Risk factors
-- Desired support level
-
-Age-based assumptions:
-
-```txt
-Under 5 years: 1%
-6–15 years: 2%
-16–30 years: 3%
-31+ years: 4%
-```
-
-Formula:
-
-```txt
-Annual Savings = (Home Value × Age-Based Rate) - (Monthly Subscription × 12)
-```
-
-Rules:
-
+- Validate every input.
 - Do not present results as guaranteed savings.
-- Include disclaimers.
-- Validate all inputs.
+- Return assumptions and disclaimers.
 - Keep calculation logic testable.
-- Return assumptions in API response.
+- Do not expose internal pricing tables or job-costing logic.
 
----
+## Verification
 
-## 14. Security and Privacy
-
-Do not expose secrets.
-
-Use environment variables for:
-
-- Database URL
-- JWT secrets
-- Stripe keys
-- Sanity tokens
-- API keys
-- Email service credentials
-- Google Places API
-- 1build API
-
-Never commit `.env` files.
-
-Forms and lead capture must validate inputs server-side.
-
----
-
-## 15. Performance and Accessibility
-
-Target:
-
-- LCP < 2.5s
-- FID < 100ms
-- CLS < 0.1
-- WCAG 2.1 AA
-
-Backend work should not cause excessive frontend payloads. Keep API responses focused.
-
----
-
-## 16. Testing and Verification
-
-Before final handoff, provide:
-
-- Commands run
-- Files changed
-- Build/test result
-- Known issues
-- Verification gaps
-- Next recommended step
-- If you deploy or push production changes, ping the live production URL and report the HTTP status before calling the release complete.
-
-Do not claim tests passed unless they were actually run.
-
----
-
-## 17. Final Response Format
-
-When completing a coding task, respond with:
+Before final handoff, report:
 
 1. Summary
 2. Files changed
@@ -444,4 +159,27 @@ When completing a coding task, respond with:
 5. Risks or `VERIFY BEFORE PUBLISHING` items
 6. Next handoff instructions if needed
 
-Be direct. Avoid filler.
+Do not claim checks passed unless they were run.
+
+For platform or deploy work, verify:
+
+```bash
+npm run format:check
+npm run hooks:smoke
+npm run test
+npm run build
+curl -I -L --max-time 20 https://bensonhomesolutions.com/
+curl -I -L --max-time 20 https://bensonhomesolutions.com/robots.txt
+curl -I -L --max-time 20 https://bensonhomesolutions.com/sitemap.xml
+curl -I -L --max-time 20 https://bensonhomesolutions.com/llms.txt
+curl -sS --max-time 20 https://api.bensonhomesolutions.com/health
+```
+
+If deploying or shifting traffic, also probe raw Cloud Run revision URLs before and after traffic movement and record rollback commands.
+
+## Key Docs
+
+- `docs/website-platform-operating-model.md`: current hosting, connected services, target architecture, and connection roadmap.
+- `docs/target-architecture.md`: migration architecture and deployment boundary.
+- `docs/astro-hono-migration-tasklist.md`: goal-by-goal migration gates.
+- `docs/migration-handoff.md`: handoff and completion criteria; update it when implementation state changes.

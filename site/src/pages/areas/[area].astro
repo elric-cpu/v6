@@ -1,0 +1,32 @@
+---
+import { company, getStaticServiceAreas } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return getStaticServiceAreas().map((area) => ({
+    params: { area: area.id },
+    props: { serviceArea: area },
+  }));
+}
+
+const { serviceArea } = Astro.props;
+---
+
+<BaseLayout title={`${serviceArea.city} Service Area | ${company.brandName}`} description={`${company.brandName} route-aware repair and maintenance service information for ${serviceArea.city}, Oregon.`}>
+  <section class="band">
+    <h1>{serviceArea.city} Service Area</h1>
+    <p class="lede">{serviceArea.regionLabel} work is reviewed around route fit, access, weather, materials, and timing constraints.</p>
+    <div class="grid">
+      <article class="card">
+        <h2>ZIP Codes</h2>
+        <p>{serviceArea.zipCodes.join(", ")}</p>
+      </article>
+      <article class="card">
+        <h2>Local Risks</h2>
+        <ul>
+          {serviceArea.localizedRisks.map((risk) => <li>{risk}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

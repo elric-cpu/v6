@@ -1,0 +1,21 @@
+---
+import type { ServiceCard } from "@benson/shared";
+
+interface Props {
+  services: ServiceCard[];
+}
+
+const { services } = Astro.props;
+---
+
+<div class="grid">
+  {
+    services.map((service) => (
+      <article class="card">
+        <h3>{service.title}</h3>
+        <p>{service.summary}</p>
+        <a class="button button--secondary" href={service.href}>{service.ctaLabel}</a>
+      </article>
+    ))
+  }
+</div>

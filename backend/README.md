@@ -110,6 +110,12 @@ Submits a priority condition request.
 
 The submission follows the same delivery path as `POST /api/leads`.
 
+### `POST /api/lead-cash/webhooks`
+
+Advances an existing lead-cash workflow from a provider callback.
+
+Requests must include `x-lead-cash-webhook-secret` matching `LEAD_CASH_WEBHOOK_SECRET`. The route fails closed when the secret is not configured.
+
 ## Environment Variables
 
 - `PORT`
@@ -126,6 +132,7 @@ The submission follows the same delivery path as `POST /api/leads`.
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_FROM_NUMBER`
 - `TURNSTILE_SECRET_KEY`
+- `LEAD_CASH_WEBHOOK_SECRET`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
 

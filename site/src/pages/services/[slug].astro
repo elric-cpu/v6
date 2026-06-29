@@ -1,0 +1,39 @@
+---
+import { company, getStaticServices } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return getStaticServices()
+    .filter((service) => service.href.startsWith("/services/"))
+    .map((service) => ({
+      params: { slug: service.href.replace("/services/", "") },
+      props: { service },
+    }));
+}
+
+const { service } = Astro.props;
+---
+
+<BaseLayout title={`${service.title} | ${company.brandName}`} description={service.summary}>
+  <section class="band">
+    <h1>{service.title}</h1>
+    <p class="lede">{service.summary}</p>
+    {service.image && (
+      <figure class="media">
+        <img src={service.image.src} alt={service.image.alt} width={service.image.width} height={service.image.height} loading="lazy" />
+        <figcaption>{service.image.caption}</figcaption>
+      </figure>
+    )}
+    <div class="grid">
+      <article class="card">
+        <h2>What To Send</h2>
+        <p>Send photos, dimensions or counts where useful, the property address or location, access notes, priority level, and timing constraints.</p>
+      </article>
+      <article class="card">
+        <h2>Route Review</h2>
+        <p>Remote Harney County work is planned around access, materials, weather, and route fit. Same-day response is not implied for remote communities.</p>
+      </article>
+    </div>
+    <p><a class="button" href="/contact">{service.ctaLabel}</a></p>
+  </section>
+</BaseLayout>

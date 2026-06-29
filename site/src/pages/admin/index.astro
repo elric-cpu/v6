@@ -1,0 +1,31 @@
+---
+import { company } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={`Admin | ${company.brandName}`} description="Benson Home Solutions operations dashboard entry point.">
+  <section class="band">
+    <h1>Operations</h1>
+    <p class="lede">Admin workflows require approved Google identity before live data or mutating actions are available.</p>
+    <div class="grid">
+      {
+        [
+          "Overview",
+          "Leads",
+          "Emergency Requests",
+          "Lead-Cash",
+          "Integrations",
+          "Site Content",
+          "Deployments",
+          "Settings",
+          "Audit Log",
+        ].map((section) => (
+          <article class="card">
+            <h2>{section}</h2>
+            <p>Connects to authenticated Hono admin APIs after Google session verification.</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

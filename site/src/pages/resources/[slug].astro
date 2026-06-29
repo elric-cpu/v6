@@ -1,0 +1,32 @@
+---
+import { company, resources } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return resources.map((resource) => ({
+    params: { slug: resource.slug },
+    props: { resource },
+  }));
+}
+
+const { resource } = Astro.props;
+---
+
+<BaseLayout title={`${resource.title} | ${company.brandName}`} description={resource.description}>
+  <section class="band">
+    <h1>{resource.title}</h1>
+    <p class="lede">{resource.intro}</p>
+    {resource.sections.map((section) => (
+      <article>
+        <h2>{section.title}</h2>
+        {section.body.map((paragraph) => <p>{paragraph}</p>)}
+        {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+      </article>
+    ))}
+    <aside class="card">
+      <h2>{resource.ctaTitle}</h2>
+      <p>{resource.ctaText}</p>
+      <a class="button" href="/contact">Contact Benson Home Solutions</a>
+    </aside>
+  </section>
+</BaseLayout>

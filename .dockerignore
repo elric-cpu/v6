@@ -1,0 +1,13 @@
+.git
+.next
+dist
+node_modules
+backend/node_modules
+frontend/node_modules
+packages/shared/node_modules
+site/.astro
+site/dist
+site/node_modules
+.env
+.env.*
+npm-debug.log*

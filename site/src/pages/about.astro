@@ -1,0 +1,12 @@
+---
+import { company } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={`About | ${company.brandName}`} description="About Benson Home Solutions and Benson Enterprises, LLC.">
+  <section class="band">
+    <h1>About {company.brandName}</h1>
+    <p class="lede">{company.legalName} provides route-aware repair and maintenance support for Harney County properties.</p>
+    <p>Oregon CCB {company.oregonCcb}</p>
+  </section>
+</BaseLayout>

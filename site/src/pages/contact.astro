@@ -1,0 +1,14 @@
+---
+import { company } from "@benson/shared";
+import IntakeForms from "@/components/IntakeForms.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+---
+
+<BaseLayout title={`Contact | ${company.brandName}`} description="Contact Benson Home Solutions for Harney County repair and maintenance route review.">
+  <section class="band">
+    <h1>Contact</h1>
+    <p class="lede">Send photos, dimensions, the address or location, access notes, priority level, and timing constraints.</p>
+    <IntakeForms />
+  </section>
+</BaseLayout>

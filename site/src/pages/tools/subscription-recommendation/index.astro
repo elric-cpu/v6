@@ -1,0 +1,13 @@
+---
+import { company } from "@benson/shared";
+import SubscriptionCalculator from "@/components/SubscriptionCalculator.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title={`Subscription Recommendation | ${company.brandName}`} description="Educational maintenance plan recommendation tool for Harney County properties.">
+  <section class="band">
+    <h1>Subscription Recommendation</h1>
+    <p class="lede">This tool is educational. It is not a guaranteed savings claim, final price, or route promise.</p>
+    <SubscriptionCalculator />
+  </section>
+</BaseLayout>

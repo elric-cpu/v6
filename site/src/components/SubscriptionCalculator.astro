@@ -1,0 +1,79 @@
+---
+import { getDefaultRecommendedPlan } from "@benson/shared";
+
+const defaultPlan = getDefaultRecommendedPlan();
+---
+
+<form class="card calculator" data-calculator>
+  <label>Property age <input name="propertyAge" type="number" min="0" value="16" /></label>
+  <label>Estimated property value <input name="homeValue" type="number" min="0" value="250000" /></label>
+  <label>Monthly plan <input name="monthlySubscription" type="number" min="0" value={defaultPlan?.priceMonthly ?? 149} /></label>
+  <button class="button" type="submit">Estimate</button>
+  <output class="calculator-result" data-calculator-result>
+    Enter property details to compare educational assumptions.
+  </output>
+</form>
+
+<script>
+  import { calculateEducationalAnnualSavings } from "@benson/shared";
+
+  const currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-calculator]")) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const result = form.querySelector<HTMLOutputElement>("[data-calculator-result]");
+      const formData = new FormData(form);
+      const propertyAge = Number(formData.get("propertyAge"));
+      const homeValue = Number(formData.get("homeValue"));
+      const monthlySubscription = Number(formData.get("monthlySubscription"));
+
+      if (!result || !Number.isFinite(propertyAge) || !Number.isFinite(homeValue) || !Number.isFinite(monthlySubscription)) {
+        return;
+      }
+
+      const estimate = calculateEducationalAnnualSavings({ propertyAge, homeValue, monthlySubscription });
+      result.value = [
+        `Educational annual comparison: ${currency.format(estimate.annualSavings)}.`,
+        `Assumed annual maintenance: ${currency.format(estimate.assumptions.annualMaintenanceCost)}.`,
+        `Annual subscription cost: ${currency.format(estimate.assumptions.annualSubscriptionCost)}.`,
+        estimate.assumptions.disclaimer,
+      ].join(" ");
+    });
+  }
+</script>
+
+<style>
+  .calculator {
+    display: grid;
+    gap: 14px;
+    max-width: 620px;
+  }
+
+  .calculator label {
+    display: grid;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .calculator input {
+    min-height: 42px;
+    border: 1px solid var(--pale);
+    border-radius: 6px;
+    padding: 9px 10px;
+    font: inherit;
+  }
+
+  .calculator-result {
+    display: block;
+    min-height: 72px;
+    border-left: 4px solid var(--maroon);
+    padding-left: 14px;
+    color: var(--slate);
+    font-weight: 700;
+  }
+</style>

@@ -4,12 +4,27 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "node --check src/server.js && node --check src/app.js && tsc -p tsconfig.hono.json --noEmit",
+    "build:hono": "tsc -p tsconfig.hono.json --noEmit",
+    "lint": "node --check src/server.js && node --check src/app.js && tsc -p tsconfig.hono.json --noEmit",
     "start": "node src/server.js",
-    "test": "node --test"
+    "start:hono": "tsx src-hono/server.ts",
+    "test": "node --test --test-concurrency=1 --test-reporter=spec && node --import tsx --test test-hono/*.test.ts"
   },
   "dependencies": {
+    "@benson/shared": "file:../packages/shared",
     "@google-cloud/firestore": "^8.0.0",
+    "@hono/node-server": "^1.19.7",
+    "hono": "^4.10.7",
     "@google-cloud/iam-credentials": "^4.2.0",
     "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }

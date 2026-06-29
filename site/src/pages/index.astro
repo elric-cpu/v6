@@ -1,0 +1,55 @@
+---
+import { company, getStaticPlans, getStaticServiceAreas, getStaticServices } from "@benson/shared";
+import ServiceGrid from "@/components/ServiceGrid.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const services = getStaticServices();
+const plans = getStaticPlans();
+const areas = getStaticServiceAreas();
+const heroImage = services.find((service) => service.id === "window-door-replacements")?.image;
+---
+
+<BaseLayout title={`${company.brandName} Repair & Maintenance`} description="Harney County repair, maintenance, inspection repair, window and door, moisture, and property preservation services.">
+  <section class="hero">
+    <div>
+      <h1>Benson Home Solutions Repair & Maintenance</h1>
+      <p class="lede">Clear scopes and documented work for Harney County properties, with remote requests planned around photos, access notes, route timing, and weather constraints.</p>
+      <p>
+        <a class="button" href="/services">See What We Do</a>
+        <a class="button button--secondary" href="/plans">View Plans</a>
+      </p>
+    </div>
+    {heroImage && (
+      <figure class="media">
+        <img src={heroImage.src} alt={heroImage.alt} width={heroImage.width} height={heroImage.height} loading="eager" />
+        <figcaption>{heroImage.caption}</figcaption>
+      </figure>
+    )}
+  </section>
+  <div class="band band--cream">
+    <section>
+      <h2>Core Services</h2>
+      <ServiceGrid services={services.slice(0, 4)} />
+    </section>
+  </div>
+  <section class="band">
+    <h2>Maintenance Plans</h2>
+    <div class="grid">
+      {plans.map((plan) => (
+        <article class="card">
+          <h3>{plan.name}</h3>
+          <p><strong>${plan.priceMonthly}/month</strong> {plan.squareFootageRange}</p>
+          <p>{plan.description}</p>
+          <a class="button button--secondary" href="/plans">{plan.ctaLabel}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <div class="band band--cream">
+    <section>
+      <h2>Harney County Routes</h2>
+      <p class="lede">Serving Burns, Hines, Crane, Drewsey, Frenchglen, Fields, Diamond, Princeton, Riley, Lawen, and remote South County communities through route-aware scheduling.</p>
+      <p>{areas.map((area) => area.city).join(", ")}</p>
+    </section>
+  </div>
+</BaseLayout>

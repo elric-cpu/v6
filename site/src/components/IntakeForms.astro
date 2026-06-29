@@ -1,0 +1,125 @@
+---
+import { getStaticServices } from "@benson/shared";
+
+const services = getStaticServices();
+---
+
+<div class="intake-grid">
+  <form class="card intake-form" data-intake-form data-endpoint="/api/leads">
+    <h2>Request Service Review</h2>
+    <label>Name <input name="name" required /></label>
+    <label>Phone <input name="phone" required /></label>
+    <label>Email <input name="email" type="email" /></label>
+    <label>Service
+      <select name="serviceType" required>
+        {services.map((service) => <option value={service.serviceType}>{service.title}</option>)}
+      </select>
+    </label>
+    <label>Message <textarea name="message" required></textarea></label>
+    <input name="urgency" type="hidden" value="standard" />
+    <input name="sourcePage" type="hidden" value="/contact" />
+    <button class="button" type="submit">Send Request</button>
+    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+  </form>
+
+  <form class="card intake-form" data-intake-form data-endpoint="/api/emergency-requests">
+    <h2>Emergency Intake</h2>
+    <label>Name <input name="name" required /></label>
+    <label>Phone <input name="phone" required /></label>
+    <label>Email <input name="email" type="email" /></label>
+    <label>Service
+      <select name="serviceType" required>
+        <option value="emergency-response">Emergency Response</option>
+        <option value="water-mold-moisture">Water, Mold & Moisture</option>
+        <option value="property-preservation">Property Preservation</option>
+      </select>
+    </label>
+    <label>Message <textarea name="message" required></textarea></label>
+    <input name="urgency" type="hidden" value="emergency" />
+    <input name="sourcePage" type="hidden" value="/contact#emergency" />
+    <button class="button" type="submit">Send Emergency Request</button>
+    <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script>
+  function formPayload(form: HTMLFormElement) {
+    const formData = new FormData(form);
+    return Object.fromEntries(Array.from(formData.entries()).filter(([, value]) => String(value).trim().length > 0));
+  }
+
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-intake-form]")) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const status = form.querySelector<HTMLElement>("[data-form-status]");
+      const endpoint = form.dataset.endpoint;
+
+      if (!endpoint || !status) {
+        return;
+      }
+
+      status.textContent = "Sending...";
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(formPayload(form)),
+        });
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          status.textContent = body?.error?.message ?? "The request could not be sent.";
+          return;
+        }
+
+        form.reset();
+        status.textContent = "Request received. Benson Home Solutions will review the details.";
+      } catch {
+        status.textContent = "The request could not reach the API. Call 541-321-5115 if this is urgent.";
+      }
+    });
+  }
+</script>
+
+<style>
+  .intake-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .intake-form {
+    display: grid;
+    gap: 14px;
+  }
+
+  .intake-form label {
+    display: grid;
+    gap: 6px;
+    color: var(--charcoal);
+    font-weight: 700;
+  }
+
+  .intake-form input,
+  .intake-form select,
+  .intake-form textarea {
+    min-height: 42px;
+    border: 1px solid var(--pale);
+    border-radius: 6px;
+    padding: 9px 10px;
+    font: inherit;
+  }
+
+  .intake-form textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .form-status {
+    min-height: 24px;
+    color: var(--slate);
+    font-weight: 700;
+  }
+</style>

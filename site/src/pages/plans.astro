@@ -1,0 +1,25 @@
+---
+import { company, getStaticPlans } from "@benson/shared";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const plans = getStaticPlans();
+---
+
+<BaseLayout title={`Maintenance Plans | ${company.brandName}`} description="Educational maintenance plan options for Harney County residential properties.">
+  <section class="band">
+    <h1>Maintenance Plans</h1>
+    <p class="lede">Plan descriptions are public-facing and educational. Final fit depends on property condition, route fit, access, and requested support level.</p>
+    <div class="grid">
+      {plans.map((plan) => (
+        <article class="card">
+          <h2>{plan.name}</h2>
+          <p><strong>${plan.priceMonthly}/month</strong> {plan.squareFootageRange}</p>
+          <p>{plan.description}</p>
+          <ul>
+            {plan.features.map((feature) => <li>{feature}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
