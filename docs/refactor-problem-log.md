@@ -28,63 +28,72 @@ This file records problems encountered while completing the Astro/Hono refactor,
    - Impact: public site/API integration through the canonical API hostname is unreliable or unavailable.
    - Next action: re-probe certificate status after Google-managed certificate polling; if it remains stuck, inspect authoritative DNS/CAA and consider moving API behind a load balancer certificate or using the same-origin site proxy permanently.
 
+4. No Cloud Monitoring notification channels are configured.
+   - Evidence: `gcloud beta monitoring channels list` returned no channels.
+   - Mitigation: created uptime checks for `/`, `/contact`, `/sitemap.xml`, `/llms.txt`, and raw API `/health`.
+   - Impact: uptime checks exist, but alert policies cannot notify a verified destination until an email/SMS/Pub/Sub channel is configured.
+   - Next action: create and verify at least one notification channel, then attach alert policies for site/API outages and provider-health degradation.
+
 ## High
 
-3. Raw deployed API is degraded.
+5. Production email/SMS notifications are intentionally disabled.
    - Evidence: `https://benson-api-v6-ecdo5oua2a-uw.a.run.app/health` returned `status: degraded`.
    - Reported unhealthy providers: `email`, `sms`, and `stripe`.
-   - Impact: lead storage may work, but production notifications and payment-adjacent provider health are not production-clean.
+   - Updated state: Hono API traffic now reports `database: healthy` and `email`, `sms`, `stripe`, `docusign`, and `quickbooks` as `disabled` instead of unhealthy.
+   - Impact: live leads persist to Firestore, but owner notifications do not send yet.
    - Next action: choose the production email path, preferably Gmail API for Workspace-native workflows, align environment variables and health checks, and intentionally disable or configure SMS/Stripe.
 
-4. Existing Cloud Build triggered by the pushed refactor commit failed.
+6. Existing Cloud Build triggered by the pushed refactor commit failed.
    - Evidence: `gcloud builds list --limit=3` showed build `0eab69a4-db18-4504-8808-8f3c30d5392c` as `FAILURE` for branch `main`.
    - Root cause: the trigger for `benson-website-v6` runs `docker build ... -f Dockerfile .` from the repository root, but the refactor initially only had `site/Dockerfile`.
    - Mitigation: moved the Astro website container definition to root `Dockerfile`, updated `package:site`, and updated migration smoke checks to expect the root Dockerfile.
    - Impact: automated deploy/build pipeline cannot be trusted until logs are reviewed and the trigger is repaired or disabled.
-   - Next action: push the root Dockerfile fix and verify the next Cloud Build trigger succeeds.
+   - Verification: build `be50ce06-473d-4dc5-b1fc-74915c33741b` for commit `71248fc` succeeded, pushed the root-Dockerfile site image, and deployed `benson-website-v6`.
 
-5. Deployment image pushes did not complete visibly.
+7. Deployment image pushes did not complete visibly.
    - Evidence: local Docker builds for the site and API images succeeded, but Artifact Registry did not show the expected `223fc32` image tags after the push sessions were interrupted.
    - Updated evidence: the site image tag `6bc85a3` pushed successfully, but the API image push for `us-west1-docker.pkg.dev/civic-wall-494004-b3/benson-api/benson-api-v6:6bc85a3` remained active with no output for more than six minutes and the tag was still absent from Artifact Registry, so the stalled push was stopped.
    - Mitigation: narrowed `backend/Dockerfile` to install only the backend and shared workspaces; the rebuilt API image dropped from 1.37GB to 278MB.
    - Impact: Goal 7 no-traffic revision deployment is blocked until images are confirmed in Artifact Registry.
-   - Next action: push the reduced API image and verify the tag with Artifact Registry before deploying the API revision.
+   - Verification: reduced API image tag `3af62e2` pushed successfully and deployed to revision `benson-api-v6-00017-nok`.
 
 ## Medium
 
-6. Astro site initially lacked GA/GTM and conversion event tracking.
+8. Astro site initially lacked GA/GTM and conversion event tracking.
    - Evidence: the Astro layout had no GA4/GTM scripts, and form submission code did not emit conversion events.
    - Build issue encountered: first analytics pass failed Astro type checking because `window.trackBensonEvent` was not typed.
    - Mitigation: added GA4 `G-RLQ31P5HD0`, GTM `GTM-TTZ2Z92K`, phone/contact/window-door click tracking, quote/emergency form start/success/error events, and a typed local tracking helper.
    - Verification: `npm run format:check` and Node 22 Astro build passed with 0 errors, 0 warnings, and 0 hints.
+   - Live verification: production HTML includes GA4 `G-RLQ31P5HD0`, GTM `GTM-TTZ2Z92K`, and `trackBensonEvent`.
 
-7. Local default Node version is too old for Astro.
+9. Local default Node version is too old for Astro.
    - Evidence: `node --version` returned `v18.19.1`.
    - Astro 7 requires Node 22.12 or newer.
    - Impact: plain `npm run build:site` or local scripts can fail unless they use the Node 22 wrapper.
    - Current mitigation: `scripts/run-site-command.mjs` and explicit `npx -y -p node@22` checks work.
    - Next action: upgrade the default project Node runtime or keep all site scripts pinned through the wrapper.
 
-8. API Docker image build is slow and over-broad.
+10. API Docker image build is slow and over-broad.
    - Evidence: `docker build -f backend/Dockerfile ...` spent about four minutes in root `npm ci` and installed 881 packages.
    - Mitigation: the workspace-scoped install now adds 142 packages and produced a 278MB image.
    - Impact: slower release cycle and more room for transient npm/network failures.
    - Next action: keep the workspace-scoped Dockerfile and verify future API pushes remain stable.
 
-9. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
+11. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
    - Evidence: format, hooks, tests, Astro build, image push, no-traffic revision deploys, and raw revision probes passed.
    - Mitigation: Goal 7 is now complete; website traffic is on `benson-website-v6-00041-tat` and API traffic is on `benson-api-v6-00017-nok`.
-   - Remaining impact: Goal 8 is still active because the canonical API domain certificate remains unhealthy and indexing/monitoring work remains.
-   - Next action: repair API domain mapping/certificate, then run indexing and monitoring follow-through.
+   - Updated state: IndexNow returned 200, Search Console sitemap submission returned 204 for `sc-domain:bensonhomesolutions.com`, and uptime checks were created.
+   - Remaining impact: Goal 8 is still active because the canonical API domain certificate remains unhealthy and notification channels/alert policies are not configured.
+   - Next action: repair API domain certificate and configure notification channels/alert policies.
 
 ## Low
 
-10. The repo still carries legacy Next.js and legacy Node surfaces during migration.
+12. The repo still carries legacy Next.js and legacy Node surfaces during migration.
    - Evidence: `frontend` and `backend/src` remain present by design until production cutover is verified.
    - Impact: larger repo and possible confusion about active production paths.
    - Next action: remove legacy surfaces only after Astro/Hono production parity, traffic shift, and rollback window are complete.
 
-11. The latest status documentation has to be kept synchronized with deployment progress.
+13. The latest status documentation has to be kept synchronized with deployment progress.
     - Evidence: Goal statuses were manually advanced as gates passed.
     - Impact: stale docs could mislead future deploy sessions.
     - Next action: update `docs/astro-hono-migration-tasklist.md` after each completed gate and commit those updates with the corresponding operational changes.
