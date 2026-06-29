@@ -6,13 +6,20 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 ## Critical
 
-1. Production homepage is still down on the public domain.
+1. Public Astro forms initially failed through same-origin `/api/*`.
+   - Evidence: after shifting the public site to Astro, `POST https://bensonhomesolutions.com/api/leads` returned HTTP 404.
+   - Cause: Astro forms posted to same-origin `/api/leads` and `/api/emergency-requests`, but the static site server only served files and did not proxy API routes.
+   - Mitigation: added a same-origin `/api/*` proxy in `site/server.mjs` with `API_ORIGIN` support, defaulting to the raw API Cloud Run service URL.
+   - Verification: local proxy smoke through `http://127.0.0.1:4329/api/leads` returned success and persisted lead `6e3a0b4c-d28c-47fe-b736-b126c116cb74`.
+   - Next action: redeploy the site service with the proxy fix and verify `https://bensonhomesolutions.com/api/leads`.
+
+2. Production homepage was down on the public domain before the Astro traffic shift.
    - Evidence: `curl -I -L --max-time 20 https://bensonhomesolutions.com/` and `https://www.bensonhomesolutions.com/` returned HTTP 500.
    - Current mapping: apex and `www` are still mapped to Cloud Run service `benson-website-v6`.
-   - Impact: public users can hit a failed homepage even though static SEO files return 200.
-   - Next action: deploy/probe a healthy Astro revision, then shift traffic only after raw revision checks pass.
+   - Mitigation: deployed and probed Astro revision `benson-website-v6-00039-wiy`, then shifted `benson-website-v6` traffic to it.
+   - Verification: apex, `www`, `/contact`, `/services/window-door-replacement`, `/robots.txt`, `/sitemap.xml`, `/llms.txt`, and `/llms-full.txt` all returned HTTP 200 after the traffic shift.
 
-2. `api.bensonhomesolutions.com` is not healthy.
+3. `api.bensonhomesolutions.com` is not healthy.
    - Evidence: Cloud Run domain mapping status is `False` with message: `Waiting for certificate provisioning. You must configure your DNS records for certificate issuance to begin. Resource readiness deadline exceeded.`
    - Evidence: `curl -sS --max-time 20 https://api.bensonhomesolutions.com/health` failed with `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`.
    - Impact: public site/API integration through the canonical API hostname is unreliable or unavailable.
