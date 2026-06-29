@@ -33,6 +33,7 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 5. Deployment image pushes did not complete visibly.
    - Evidence: local Docker builds for the site and API images succeeded, but Artifact Registry did not show the expected `223fc32` image tags after the push sessions were interrupted.
+   - Updated evidence: the site image tag `6bc85a3` pushed successfully, but the API image push for `us-west1-docker.pkg.dev/civic-wall-494004-b3/benson-api/benson-api-v6:6bc85a3` remained active with no output for more than six minutes and the tag was still absent from Artifact Registry, so the stalled push was stopped.
    - Impact: Goal 7 no-traffic revision deployment is blocked until images are confirmed in Artifact Registry.
    - Next action: re-run `docker push` for both images and verify the tags with Artifact Registry before deploying Cloud Run revisions.
 
