@@ -7,6 +7,8 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const gaMeasurementId = "G-RLQ31P5HD0";
+const gtmId = "GTM-TTZ2Z92K";
 ---
 
 <!doctype html>
@@ -17,6 +19,49 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" href="/favicon.svg" />
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+    <script is:inline define:vars={{ gaMeasurementId, gtmId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", gaMeasurementId);
+
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0];
+        var j = d.createElement(s);
+        var dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", gtmId);
+
+      window.trackBensonEvent = function (eventName, params) {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, params || {});
+        }
+        window.dataLayer.push({ event: eventName, ...(params || {}) });
+      };
+
+      document.addEventListener("click", function (event) {
+        var link = event.target.closest && event.target.closest("a[href]");
+        if (!link || !window.trackBensonEvent) {
+          return;
+        }
+
+        var href = link.getAttribute("href") || "";
+        if (href.startsWith("tel:")) {
+          window.trackBensonEvent("phone_click", { link_url: href });
+        } else if (href === "/contact") {
+          window.trackBensonEvent("quote_review_request_start", { link_url: href });
+        } else if (href.includes("window") || link.textContent.toLowerCase().includes("window")) {
+          window.trackBensonEvent("window_door_cta_click", { link_url: href });
+        }
+      });
+    </script>
     <style is:global>
       :root {
         color-scheme: light;
@@ -187,6 +232,13 @@ const { title, description } = Astro.props;
     </style>
   </head>
   <body>
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <header class="site-header">
       <div class="site-header__inner">
         <a class="brand" href="/">{company.brandName}</a>
@@ -205,7 +257,9 @@ const { title, description } = Astro.props;
     <footer class="site-footer">
       <div class="site-footer__inner">
         <strong>{company.legalName}</strong>
-        <span>Oregon CCB {company.oregonCcb} | {company.phone} | {company.email}</span>
+        <span>
+          Oregon CCB {company.oregonCcb} | <a href={`tel:${company.phone.replaceAll("-", "")}`}>{company.phone}</a> | {company.email}
+        </span>
       </div>
     </footer>
   </body>

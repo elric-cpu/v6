@@ -50,20 +50,26 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 ## Medium
 
-6. Local default Node version is too old for Astro.
+6. Astro site initially lacked GA/GTM and conversion event tracking.
+   - Evidence: the Astro layout had no GA4/GTM scripts, and form submission code did not emit conversion events.
+   - Build issue encountered: first analytics pass failed Astro type checking because `window.trackBensonEvent` was not typed.
+   - Mitigation: added GA4 `G-RLQ31P5HD0`, GTM `GTM-TTZ2Z92K`, phone/contact/window-door click tracking, quote/emergency form start/success/error events, and a typed local tracking helper.
+   - Verification: `npm run format:check` and Node 22 Astro build passed with 0 errors, 0 warnings, and 0 hints.
+
+7. Local default Node version is too old for Astro.
    - Evidence: `node --version` returned `v18.19.1`.
    - Astro 7 requires Node 22.12 or newer.
    - Impact: plain `npm run build:site` or local scripts can fail unless they use the Node 22 wrapper.
    - Current mitigation: `scripts/run-site-command.mjs` and explicit `npx -y -p node@22` checks work.
    - Next action: upgrade the default project Node runtime or keep all site scripts pinned through the wrapper.
 
-7. API Docker image build is slow and over-broad.
+8. API Docker image build is slow and over-broad.
    - Evidence: `docker build -f backend/Dockerfile ...` spent about four minutes in root `npm ci` and installed 881 packages.
    - Mitigation: the workspace-scoped install now adds 142 packages and produced a 278MB image.
    - Impact: slower release cycle and more room for transient npm/network failures.
    - Next action: keep the workspace-scoped Dockerfile and verify future API pushes remain stable.
 
-8. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
+9. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
    - Evidence: format, hooks, tests, Astro build, image push, no-traffic revision deploys, and raw revision probes passed.
    - Mitigation: Goal 7 is now complete; website traffic is on `benson-website-v6-00041-tat` and API traffic is on `benson-api-v6-00017-nok`.
    - Remaining impact: Goal 8 is still active because the canonical API domain certificate remains unhealthy and indexing/monitoring work remains.
@@ -71,12 +77,12 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 ## Low
 
-9. The repo still carries legacy Next.js and legacy Node surfaces during migration.
+10. The repo still carries legacy Next.js and legacy Node surfaces during migration.
    - Evidence: `frontend` and `backend/src` remain present by design until production cutover is verified.
    - Impact: larger repo and possible confusion about active production paths.
    - Next action: remove legacy surfaces only after Astro/Hono production parity, traffic shift, and rollback window are complete.
 
-10. The latest status documentation has to be kept synchronized with deployment progress.
+11. The latest status documentation has to be kept synchronized with deployment progress.
     - Evidence: Goal statuses were manually advanced as gates passed.
     - Impact: stale docs could mislead future deploy sessions.
     - Next action: update `docs/astro-hono-migration-tasklist.md` after each completed gate and commit those updates with the corresponding operational changes.

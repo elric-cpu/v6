@@ -48,6 +48,13 @@ const services = getStaticServices();
     return Object.fromEntries(Array.from(formData.entries()).filter(([, value]) => String(value).trim().length > 0));
   }
 
+  function trackEvent(eventName: string, params: Record<string, string | number>) {
+    const trackedWindow = window as Window & {
+      trackBensonEvent?: (eventName: string, params?: Record<string, string | number>) => void;
+    };
+    trackedWindow.trackBensonEvent?.(eventName, params);
+  }
+
   for (const form of document.querySelectorAll<HTMLFormElement>("[data-intake-form]")) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -62,6 +69,14 @@ const services = getStaticServices();
       status.textContent = "Sending...";
 
       try {
+        const eventPrefix = endpoint.includes("emergency") ? "emergency" : "contact";
+        trackEvent(`${eventPrefix}_form_submit_start`, { endpoint });
+        if (eventPrefix === "emergency") {
+          trackEvent("emergency_cta_click", { endpoint });
+        } else {
+          trackEvent("quote_review_request_start", { endpoint });
+        }
+
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -70,13 +85,17 @@ const services = getStaticServices();
         const body = await response.json().catch(() => null);
 
         if (!response.ok) {
+          trackEvent(`${eventPrefix}_form_error`, { endpoint, status: response.status });
           status.textContent = body?.error?.message ?? "The request could not be sent.";
           return;
         }
 
         form.reset();
+        trackEvent(`${eventPrefix}_form_submit_success`, { endpoint });
+        trackEvent("quote_review_request_success", { endpoint });
         status.textContent = "Request received. Benson Home Solutions will review the details.";
       } catch {
+        trackEvent("contact_form_error", { endpoint, reason: "network" });
         status.textContent = "The request could not reach the API. Call 541-321-5115 if this is urgent.";
       }
     });
