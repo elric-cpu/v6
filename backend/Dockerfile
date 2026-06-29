@@ -10,10 +10,8 @@ ENV NPM_CONFIG_AUDIT=false \
   NPM_CONFIG_UPDATE_NOTIFIER=false
 COPY package.json package-lock.json ./
 COPY backend/package.json backend/package.json
-COPY frontend/package.json frontend/package.json
 COPY packages/shared/package.json packages/shared/package.json
-COPY site/package.json site/package.json
-RUN npm ci
+RUN npm ci --workspace backend --workspace packages/shared --include-workspace-root=false
 
 FROM deps AS runner
 

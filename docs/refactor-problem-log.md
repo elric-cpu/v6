@@ -34,8 +34,9 @@ This file records problems encountered while completing the Astro/Hono refactor,
 5. Deployment image pushes did not complete visibly.
    - Evidence: local Docker builds for the site and API images succeeded, but Artifact Registry did not show the expected `223fc32` image tags after the push sessions were interrupted.
    - Updated evidence: the site image tag `6bc85a3` pushed successfully, but the API image push for `us-west1-docker.pkg.dev/civic-wall-494004-b3/benson-api/benson-api-v6:6bc85a3` remained active with no output for more than six minutes and the tag was still absent from Artifact Registry, so the stalled push was stopped.
+   - Mitigation: narrowed `backend/Dockerfile` to install only the backend and shared workspaces; the rebuilt API image dropped from 1.37GB to 278MB.
    - Impact: Goal 7 no-traffic revision deployment is blocked until images are confirmed in Artifact Registry.
-   - Next action: re-run `docker push` for both images and verify the tags with Artifact Registry before deploying Cloud Run revisions.
+   - Next action: push the reduced API image and verify the tag with Artifact Registry before deploying the API revision.
 
 ## Medium
 
@@ -48,8 +49,9 @@ This file records problems encountered while completing the Astro/Hono refactor,
 
 7. API Docker image build is slow and over-broad.
    - Evidence: `docker build -f backend/Dockerfile ...` spent about four minutes in root `npm ci` and installed 881 packages.
+   - Mitigation: the workspace-scoped install now adds 142 packages and produced a 278MB image.
    - Impact: slower release cycle and more room for transient npm/network failures.
-   - Next action: narrow backend production dependencies or use workspace-focused install/build stages.
+   - Next action: keep the workspace-scoped Dockerfile and verify future API pushes remain stable.
 
 8. Goal 6 is verified locally, but Goal 7 remains blocked on confirmed images.
    - Evidence: format, hooks, tests, and Astro build passed from a clean pushed tree.
