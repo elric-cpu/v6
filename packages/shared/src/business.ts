@@ -1,7 +1,7 @@
 export const company = {
   brandName: "Benson Home Solutions",
   legalName: "Benson Enterprises, LLC",
-  phone: "541-321-5115",
+  phone: "458-723-0818",
   emergencyPhone: "541-413-0480",
   email: "office@bensonhomesolutions.com",
   oregonCcb: "#258533",

@@ -9,7 +9,7 @@ function makeSubmission(overrides = {}) {
     id: "lead-123",
     submissionKind: "lead",
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     address: "123 Main St",
     city: "Burns",

@@ -47,7 +47,7 @@ test("POST /api/leads accepts a valid lead and returns a stable lead id", async 
         const server = createServer();
         const { response, json } = await postJson(server, "/api/leads", {
           name: "Test User",
-          phone: "541-321-5115",
+          phone: "458-723-0818",
           email: "office@bensonhomesolutions.com",
           city: "Burns",
           zipCode: "97720",
@@ -100,7 +100,7 @@ test("POST /api/leads verifies a Turnstile token when the secret is configured",
       const server = createServer();
       const { response, json } = await postJson(server, "/api/leads", {
         name: "Test User",
-        phone: "541-321-5115",
+        phone: "458-723-0818",
         email: "office@bensonhomesolutions.com",
         city: "Burns",
         zipCode: "97720",
@@ -128,7 +128,7 @@ test("POST /api/leads rejects requests without a Turnstile token when the secret
     const server = createServer();
     const { response, json } = await postJson(server, "/api/leads", {
       name: "Test User",
-      phone: "541-321-5115",
+      phone: "458-723-0818",
       email: "office@bensonhomesolutions.com",
       city: "Burns",
       zipCode: "97720",
@@ -164,7 +164,7 @@ test("POST /api/leads rejects invalid email addresses with the standard ApiError
   const server = createServer();
   const { response, json } = await postJson(server, "/api/leads", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "not-an-email",
     city: "Burns",
     zipCode: "97720",
@@ -202,7 +202,7 @@ test("POST /api/leads rejects overlong messages with the standard ApiError contr
   const server = createServer();
   const { response, json } = await postJson(server, "/api/leads", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     city: "Burns",
     zipCode: "97720",
@@ -221,7 +221,7 @@ test("POST /api/leads rejects clearly invalid zip codes with the standard ApiErr
   const server = createServer();
   const { response, json } = await postJson(server, "/api/leads", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     address: "123 Main St",
     city: "Burns",
@@ -241,7 +241,7 @@ test("POST /api/leads rejects overlong city values with the standard ApiError co
   const server = createServer();
   const { response, json } = await postJson(server, "/api/leads", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     city: "S".repeat(121),
     zipCode: "97720",
@@ -260,7 +260,7 @@ test("POST /api/leads rejects overlong address values with the standard ApiError
   const server = createServer();
   const { response, json } = await postJson(server, "/api/leads", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     address: "1".repeat(241),
     city: "Burns",
@@ -281,7 +281,7 @@ test("submitLeadRequest stores normalized string fields after sanitization", asy
 
   await submitLeadRequest({
     name: "  Test   User  ",
-    phone: " 541-321-5115 ",
+    phone: " (458) 723-0818 ",
     email: " office@bensonhomesolutions.com ",
     city: " Burns ",
     zipCode: " 97720 ",
@@ -296,7 +296,7 @@ test("submitLeadRequest stores normalized string fields after sanitization", asy
 
   assert.equal(snapshot.length, beforeCount + 1);
   assert.equal(storedLead.name, "Test User");
-  assert.equal(storedLead.phone, "541-321-5115");
+  assert.equal(storedLead.phone, "(458) 723-0818");
   assert.equal(storedLead.email, "office@bensonhomesolutions.com");
   assert.equal(storedLead.city, "Burns");
   assert.equal(storedLead.zipCode, "97720");

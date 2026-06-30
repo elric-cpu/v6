@@ -103,7 +103,7 @@ Use:
 - Business/legal context: Benson Enterprises, LLC where needed
 - Owner voice: Elric Benson
 - Oregon CCB: #258533
-- Phone: 541-321-5115
+- Phone: (458) 723-0818
 - Emergency phone where appropriate: 541-413-0480
 - Email: office@bensonhomesolutions.com
 - Image source: see `AGENTS.md` canonical external image source

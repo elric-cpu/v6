@@ -17,7 +17,7 @@ export const screenRepairFAQs = [
   {
     question: "How do I get a quote?",
     answer:
-      `Call 541-321-5115 or use the contact form. Send screen dimensions, photos of damaged screens, the property address or location, access notes, priority level, and timing constraints.`,
+      `Call (458) 723-0818 or use the contact form. Send screen dimensions, photos of damaged screens, the property address or location, access notes, priority level, and timing constraints.`,
   },
   {
     question: "Do you repair screen doors?",

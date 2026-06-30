@@ -29,7 +29,7 @@ Monorepo for the Benson Home Solutions website and supporting API.
 - Brand: Benson Home Solutions
 - Legal entity: Benson Enterprises, LLC
 - Oregon CCB: #258533
-- Phone: 541-321-5115
+- Phone: (458) 723-0818
 - Emergency phone: 541-413-0480
 - Email: office@bensonhomesolutions.com
 

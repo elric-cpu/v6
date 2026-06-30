@@ -21,7 +21,7 @@ test("POST /api/emergency-requests accepts a valid emergency request and returns
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "office@bensonhomesolutions.com",
     address: "123 Main St",
     city: "Burns",
@@ -64,7 +64,7 @@ test("POST /api/emergency-requests stores the submission and sends email when co
         const server = createServer();
         const { response, json } = await postJson(server, "/api/emergency-requests", {
           name: "Test User",
-          phone: "541-321-5115",
+          phone: "458-723-0818",
           email: "office@bensonhomesolutions.com",
           address: "123 Main St",
           city: "Burns",
@@ -94,7 +94,7 @@ test("POST /api/emergency-requests rejects non-emergency urgency", async () => {
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     serviceType: "inspection-repairs",
     message: "Need help soon.",
     urgency: "standard",
@@ -109,7 +109,7 @@ test("POST /api/emergency-requests rejects urgency 'soon'", async () => {
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     serviceType: "inspection-repairs",
     message: "Need help soon.",
     urgency: "soon",
@@ -124,7 +124,7 @@ test("POST /api/emergency-requests reuses lead validation for email", async () =
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     email: "not-an-email",
     serviceType: "inspection-repairs",
     message: "Need help.",
@@ -155,7 +155,7 @@ test("POST /api/emergency-requests reuses lead validation for message length", a
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     serviceType: "inspection-repairs",
     message: "x".repeat(2001),
     urgency: "emergency",
@@ -170,7 +170,7 @@ test("POST /api/emergency-requests reuses lead validation for serviceType", asyn
   const server = createServer();
   const { response, json } = await postJson(server, "/api/emergency-requests", {
     name: "Test User",
-    phone: "541-321-5115",
+    phone: "458-723-0818",
     serviceType: "invalid-service",
     message: "Need help.",
     urgency: "emergency",
