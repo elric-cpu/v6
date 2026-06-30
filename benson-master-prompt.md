@@ -60,7 +60,7 @@ Use the following business facts consistently:
 - Brand: Benson Home Solutions
 - Legal/company context: Benson Enterprises, LLC where appropriate
 - Oregon CCB: #258533
-- Primary phone: 541-321-5115
+- Primary phone: (458) 723-0818
 - Emergency phone where appropriate: 541-413-0480
 - Email: office@bensonhomesolutions.com
 - Website: bensonhomesolutions.com

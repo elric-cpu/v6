@@ -40,7 +40,7 @@ test("createResendMailer sends a Resend message", async () => {
         submission: {
           id: "lead-123",
           name: "Test User",
-          phone: "541-321-5115",
+          phone: "458-723-0818",
           email: "customer@example.com",
           serviceType: "inspection-repairs",
           urgency: "soon",

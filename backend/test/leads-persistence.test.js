@@ -38,7 +38,7 @@ test("POST /api/leads stores a submission durably and sends a Resend email when 
         const server = createServer();
         const { response, json } = await postJson(server, "/api/leads", {
           name: "Test User",
-          phone: "541-321-5115",
+          phone: "458-723-0818",
           email: "office@bensonhomesolutions.com",
           city: "Burns",
           zipCode: "97720",
@@ -90,7 +90,7 @@ test("POST /api/leads keeps the stored submission when email delivery fails", as
         const server = createServer();
         const { response, json } = await postJson(server, "/api/leads", {
           name: "Test User",
-          phone: "541-321-5115",
+          phone: "458-723-0818",
           email: "office@bensonhomesolutions.com",
           city: "Burns",
           zipCode: "97720",
@@ -123,7 +123,7 @@ test("POST /api/leads returns 503 when durable storage is unavailable", async ()
       const server = createServer();
       const { response, json } = await postJson(server, "/api/leads", {
         name: "Test User",
-        phone: "541-321-5115",
+        phone: "458-723-0818",
         serviceType: "inspection-repairs",
         message: "Need help closing out two inspection items before sale.",
         urgency: "soon",
@@ -143,7 +143,7 @@ test("POST /api/leads includes access-control-allow-origin for allowed origins",
     const server = createServer();
     const { response } = await postJson(server, "/api/leads", {
       name: "Test User",
-      phone: "541-321-5115",
+      phone: "458-723-0818",
       serviceType: "inspection-repairs",
       message: "Need help closing out two inspection items before sale.",
       urgency: "soon",
@@ -169,7 +169,7 @@ test("POST /api/leads includes access-control-allow-origin when request origin i
       },
       body: JSON.stringify({
         name: "Test User",
-        phone: "541-321-5115",
+        phone: "458-723-0818",
         serviceType: "inspection-repairs",
         message: "Need help closing out two inspection items before sale.",
         urgency: "soon",
@@ -196,7 +196,7 @@ test("POST /api/leads omits access-control-allow-origin when request origin is d
       },
       body: JSON.stringify({
         name: "Test User",
-        phone: "541-321-5115",
+        phone: "458-723-0818",
         serviceType: "inspection-repairs",
         message: "Need help closing out two inspection items before sale.",
         urgency: "soon",

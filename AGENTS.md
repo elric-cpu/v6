@@ -42,7 +42,7 @@ Before claiming any live status, re-run current probes. These facts may drift.
 - Brand: Benson Home Solutions
 - Legal entity: Benson Enterprises, LLC where appropriate
 - Oregon CCB: #258533
-- Phone: 541-321-5115
+- Phone: (458) 723-0818
 - Emergency phone where appropriate: 541-413-0480
 - Email: office@bensonhomesolutions.com
 - Canonical external image source: `~/Projects/benson-website-v5/images`
